@@ -13,7 +13,13 @@ class CommittiesUsers extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('committies_users', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('committie_id')->references('id')->on('committies');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class CommittiesUsers extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('committies_users');
     }
 }

@@ -13,7 +13,14 @@ class Donors extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('donors', function(Blueprint $table){
+            $table->id();
+            $table->varchar('phone');
+            $table->integer('national_id');
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class Donors extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('donors');
     }
 }

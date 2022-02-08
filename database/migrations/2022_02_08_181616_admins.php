@@ -13,7 +13,12 @@ class Admins extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('admins', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class Admins extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('admins');
     }
 }

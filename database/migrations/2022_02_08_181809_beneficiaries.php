@@ -13,7 +13,17 @@ class Beneficiaries extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('beneficiaries', function(Blueprint $table){
+            $table->id();
+            $table->string('name');
+            $table->varchar('phone');
+            $table->integer('national_id');
+            $table->integer('family_member');
+            $table->integer('income');
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +33,6 @@ class Beneficiaries extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('beneficiaries');
     }
 }

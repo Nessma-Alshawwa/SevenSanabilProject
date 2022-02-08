@@ -13,7 +13,15 @@ class Committies extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('committies', function(Blueprint $table){
+            $table->id();
+            $table->string('name');
+            $table->text('location');
+            $table->text('manager');
+            $table->text('description');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ class Committies extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('committies');
     }
 }
