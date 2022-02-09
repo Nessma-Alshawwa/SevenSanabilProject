@@ -17,7 +17,7 @@ class Beneficiaries extends Migration
             $table->id();
             $table->string('name');
             $table->varchar('phone');
-            $table->integer('national_id');
+            $table->integer('national_id')->unique();
             $table->integer('family_member');
             $table->integer('income');
             $table->foreignId('user_id')->references('id')->on('users');

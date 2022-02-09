@@ -12,6 +12,20 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function Admin(){ // 1 - 1 relationship
+        return $this->hasOne(Admin::class);
+    }
+
+    public function Donor(){ // 1 - 1 relationship
+        return $this->hasOne(Donor::class);
+    }
+
+    public function CommitteesUser(){ // 1 - 1 relationship
+        return $this->hasOne(CommitteesUser::class);
+    }
+
+
+
     /**
      * The attributes that are mass assignable.
      *
