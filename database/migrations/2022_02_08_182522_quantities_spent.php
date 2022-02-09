@@ -13,7 +13,14 @@ class QuantitiesSpent extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('quantities_spent', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('donation_request_id')->references('id')->on('donation_requests');
+            $table->foreignId('benefit_request_id')->references('id')->on('benefit_requests');
+            $table->integer('amount_spent');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +30,7 @@ class QuantitiesSpent extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('quantities_spent');
     }
+
 }

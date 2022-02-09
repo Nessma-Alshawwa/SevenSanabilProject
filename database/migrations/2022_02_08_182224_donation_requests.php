@@ -13,7 +13,18 @@ class DonationRequests extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('donation_requests', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('status');
+            $table->text('image');
+            $table->text('description');
+            $table->integer('quantity');
+            $table->integer('available_quantity');
+            $table->foreign('donor_id')->references('id')->on('donors');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +34,7 @@ class DonationRequests extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('donation_requests');
     }
+
 }

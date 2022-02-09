@@ -13,7 +13,14 @@ class DonationCategories extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('donation_categories', function(Blueprint $table){
+            $table->id();
+            $table->string('name');
+            $table->foreignId('donation_request_id')->references('id')->on('donation_requests');
+            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +30,7 @@ class DonationCategories extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('donation_categories');
     }
+
 }

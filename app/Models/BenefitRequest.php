@@ -13,4 +13,10 @@ class BenefitRequest extends Model
     public function Beneficiaries(){ // 1 - M relationship (Many)
         return $this->belongsTo(Beneficiary::class, 'beneficiary_id');
     }
+    public function QuntitiesSpent(){ // 1 - M relationship (One)
+        return $this->hasMany(QuntitiesSpent::class);
+    }
+    public function BenefitCategory(){ // 1 - M relationship (One)
+        return $this->hasMany(BenefitCategory::class);
+    }
 }

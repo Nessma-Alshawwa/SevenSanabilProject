@@ -9,4 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public function BenefitCategory(){ // 1 - M relationship (One)
+        return $this->hasMany(BenefitCategory::class);
+    }
+    public function DonationCategory(){ // 1 - M relationship (One)
+        return $this->hasMany(DonationCategory::class);
+    }
+
 }

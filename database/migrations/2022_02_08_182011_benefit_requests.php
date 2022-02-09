@@ -13,7 +13,19 @@ class BenefitRequests extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('benefit_requests', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('status');
+            $table->text('image');
+            $table->text('description');
+            $table->integer('quantity');
+            $table->integer('required_quantity');
+            $table->integer('remaining_quantity');
+            $table->integer('amount_spent');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +35,7 @@ class BenefitRequests extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('benefit_requests');
     }
+
 }

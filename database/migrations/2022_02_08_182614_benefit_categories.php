@@ -13,7 +13,14 @@ class BenefitCategories extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('benefit_categories', function(Blueprint $table){
+            $table->id();
+            $table->string('name');
+            $table->foreignId('benefit_request_id')->references('id')->on('benefit_requests');
+            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +30,7 @@ class BenefitCategories extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('benefit_categories');
     }
+
 }
