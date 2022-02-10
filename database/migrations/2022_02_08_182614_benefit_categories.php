@@ -15,7 +15,6 @@ class BenefitCategories extends Migration
     {
         Schema::create('benefit_categories', function(Blueprint $table){
             $table->id();
-            $table->string('name');
             $table->foreignId('benefit_request_id')->references('id')->on('benefit_requests');
             $table->foreignId('category_id')->references('id')->on('categories');
             $table->timestamps();
