@@ -15,7 +15,6 @@ class DonationCategories extends Migration
     {
         Schema::create('donation_categories', function(Blueprint $table){
             $table->id();
-            $table->string('name');
             $table->foreignId('donation_request_id')->references('id')->on('donation_requests');
             $table->foreignId('category_id')->references('id')->on('categories');
             $table->timestamps();
