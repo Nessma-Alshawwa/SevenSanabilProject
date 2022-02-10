@@ -23,7 +23,7 @@
     <aside class="main-sidebar elevation-4" style="background-color: #28a745;">
       <!-- Brand Logo -->
       <a href="" class="brand-link">
-        <img src="./img/LOGO.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+        <img src="{{ asset('dist/img/LOGO.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
         <span class="text-white">سبع سنابل</span>
         <div class="dropdown-divider"></div>
       </a>
@@ -33,7 +33,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="#" class="text-white">أدمن</a>
@@ -43,35 +43,35 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column">
           <li class="nav-item">
-            <a href="./dashboard.html" class="nav-link text-white" id="active">
+            <a href="{{ URL('dashboard/index') }}" class="nav-link text-white" id="active">
               <i class="nav-icon ion-android-home"></i>
               <p>
                 لوحة القيادة
               </p>
             </a>
             <li class="nav-item pt-4">
-              <a href="doners.html" class="nav-link text-white">
+              <a href="{{ URL('dashboard/doners') }}" class="nav-link text-white">
                 <i class="nav-icon ion ion-ios-people"></i>
                 <p>
                   المتبرعين
                 </p>
               </a>
               <li class="nav-item pt-4">
-                <a href="beneficiaries.html" class="nav-link text-white">
+                <a href="{{ URL('dashboard/beneficiaries') }}" class="nav-link text-white">
                   <i class="nav-icon ion ion-ios-people"></i>
                   <p>
                     المستفيدين
                   </p>
                 </a>
                 <li class="nav-item pt-4">
-                  <a href="donations.html" class="nav-link text-white">
+                  <a href="{{ URL('dashboard/donations') }}" class="nav-link text-white">
                     <i class="nav-icon ion ion-android-cart"></i>
                     <p>
                       التبرعات
                     </p>
                   </a>
                   <li class="nav-item pt-4">
-                    <a href="zkat.html" class="nav-link text-white">
+                    <a href="{{ URL('dashboard/zkat') }}" class="nav-link text-white">
                       <i class="nav-icon ion ion-android-document"></i>
                       <p>
                         اللجان
@@ -95,7 +95,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="dashboard.html" class="nav-link" style="color: #19692b;">الرئيسية</a>
+        <a href="{{ URL('dashboard/index') }}" class="nav-link" style="color: #19692b;">الرئيسية</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link" style="color: #19692b;">تواصل</a>
@@ -126,7 +126,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   مستخدم
@@ -142,7 +142,7 @@
           <a href="#" class="dropdown-item">
   <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="{{ asset('dist/img/user8-128x128.jpg') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   مستخدم
