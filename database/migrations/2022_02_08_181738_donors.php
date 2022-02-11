@@ -15,7 +15,7 @@ class Donors extends Migration
     {
         Schema::create('donors', function(Blueprint $table){
             $table->id();
-            $table->varchar('phone');
+            $table->integer('phone');
             $table->integer('national_id')->unique();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();

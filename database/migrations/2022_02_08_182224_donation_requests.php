@@ -21,7 +21,7 @@ class DonationRequests extends Migration
             $table->text('description');
             $table->integer('quantity');
             $table->integer('available_quantity');
-            $table->foreign('donor_id')->references('id')->on('donors');
+            $table->foreignId('donor_id')->references('id')->on('donors');
             $table->timestamps();
             $table->softDeletes();
         });

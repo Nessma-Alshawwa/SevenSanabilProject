@@ -16,3 +16,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard.index');
+});
+
+Route::get('/dashboard/donors', function () {
+    return view('dashboard.donors');
+});
+
+Route::get('/dashboard/beneficiaries', function () {
+    return view('dashboard.beneficiaries');
+});
+
+Route::get('/dashboard/donations', function () {
+    return view('dashboard.donations');
+});
+
+Route::get('/dashboard/committees', function () {
+    return view('dashboard.committees');
+});

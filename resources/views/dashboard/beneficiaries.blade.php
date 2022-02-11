@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.main')
+@extends('dashboard.layout.main')
 @section('MainContent')
 <!-- ---------------------------------------------------------------------------------------------------- -->
 <!-- First body section -->

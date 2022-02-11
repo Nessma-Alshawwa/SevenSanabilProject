@@ -23,6 +23,7 @@ class BenefitRequests extends Migration
             $table->integer('required_quantity');
             $table->integer('remaining_quantity');
             $table->integer('amount_spent');
+            $table->foreignId('beneficiary_id')->references('id')->on('beneficiaries');
             $table->timestamps();
             $table->softDeletes();
         });

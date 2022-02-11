@@ -16,7 +16,7 @@ class Beneficiaries extends Migration
         Schema::create('beneficiaries', function(Blueprint $table){
             $table->id();
             $table->string('name');
-            $table->varchar('phone');
+            $table->integer('phone');
             $table->integer('national_id')->unique();
             $table->integer('family_member');
             $table->integer('income');

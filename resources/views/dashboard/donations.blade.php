@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.main')
+@extends('dashboard.layout.main')
 @section('MainContent')
 
 <!-- body -->
@@ -48,7 +48,7 @@
                   <tbody>
                   <tr>
                     <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Product 1" class="img-circle img-size-32 mr-2">
                       ألة كهربائية
                       <span class="badge bg-danger">جديد</span>
                     </td>
@@ -67,7 +67,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Product 1" class="img-circle img-size-32 mr-2">
                       ألة كهربائية
                       <span class="badge bg-danger">جديد</span>
                     </td>
@@ -86,7 +86,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Product 1" class="img-circle img-size-32 mr-2">
                       ألة كهربائية
                       <span class="badge bg-danger">جديد</span>
                     </td>
@@ -105,7 +105,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                      <img src="{{ asset('dist/img/default-150x150.png') }}" alt="Product 1" class="img-circle img-size-32 mr-2">
                       ألة كهربائية
                       <span class="badge bg-danger">جديد</span>
                     </td>

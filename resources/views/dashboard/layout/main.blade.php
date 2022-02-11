@@ -18,13 +18,19 @@
 
 <!-- Aside navBar -->
 <body class="hold-transition sidebar-mini layout-fixed">
+
 <div class="wrapper">
+
+  <!-- Preloader -->
+  <!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="{{ asset('dist/img/LOGO.png') }}" alt="Logo" height="60" width="60">
+  </div> -->
 <!-- Main Sidebar Container -->
-    <aside class="main-sidebar elevation-4" style="background-color: #28a745;">
+    <aside class="main-sidebar elevation-4 right" style="background-color: #28a745;">
       <!-- Brand Logo -->
-      <a href="" class="brand-link">
+      <a href="{{ URL('dashboard') }}" class="brand-link">
         <img src="{{ asset('dist/img/LOGO.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
-        <span class="text-white">سبع سنابل</span>
+        <span class="text-white mx-3">سبع سنابل</span>
         <div class="dropdown-divider"></div>
       </a>
   
@@ -36,42 +42,42 @@
             <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="text-white">أدمن</a>
+            <a href="" class="text-white">أدمن</a>
           </div>
         </div>
   <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column">
           <li class="nav-item">
-            <a href="{{ URL('dashboard/index') }}" class="nav-link text-white" id="active">
+            <a href="{{ URL('dashboard') }}" class="nav-link text-white" id="{{ (request()->is('dashboard')) ? 'active' : '' }}">
               <i class="nav-icon ion-android-home"></i>
               <p>
                 لوحة القيادة
               </p>
             </a>
-            <li class="nav-item pt-4">
-              <a href="{{ URL('dashboard/doners') }}" class="nav-link text-white">
+            <li class="nav-item pt-4" >
+              <a href="{{ URL('dashboard/donors') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donors')) ? 'active' : '' }}">
                 <i class="nav-icon ion ion-ios-people"></i>
                 <p>
                   المتبرعين
                 </p>
               </a>
-              <li class="nav-item pt-4">
-                <a href="{{ URL('dashboard/beneficiaries') }}" class="nav-link text-white">
+              <li class="nav-item pt-4" >
+                <a href="{{ URL('dashboard/beneficiaries') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/beneficiaries')) ? 'active' : '' }}">
                   <i class="nav-icon ion ion-ios-people"></i>
                   <p>
                     المستفيدين
                   </p>
                 </a>
-                <li class="nav-item pt-4">
-                  <a href="{{ URL('dashboard/donations') }}" class="nav-link text-white">
+                <li class="nav-item pt-4" >
+                  <a href="{{ URL('dashboard/donations') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donations')) ? 'active' : '' }}">
                     <i class="nav-icon ion ion-android-cart"></i>
                     <p>
                       التبرعات
                     </p>
                   </a>
-                  <li class="nav-item pt-4">
-                    <a href="{{ URL('dashboard/zkat') }}" class="nav-link text-white">
+                  <li class="nav-item pt-4" >
+                    <a href="{{ URL('dashboard/committees') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committees')) ? 'active' : '' }}">
                       <i class="nav-icon ion ion-android-document"></i>
                       <p>
                         اللجان
