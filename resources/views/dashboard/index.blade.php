@@ -136,42 +136,42 @@
                 <div class="card-body p-0">
                   <ul class="users-list clearfix">
                     <li>
-                      <img src="dist/img/user1-128x128.jpg" alt="User Image">
+                      <img src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User Image">
                       <a class="users-list-name" href="#"  style="color: #19692b;">مستخدم</a>
                       <span class="users-list-date" >اليوم</span>
                     </li>
                     <li>
-                      <img src="dist/img/user8-128x128.jpg" alt="User Image">
+                      <img src="{{ asset('dist/img/user8-128x128.jpg') }}" alt="User Image">
                       <a class="users-list-name" href="#" style="color: #19692b;">مستخدم</a>
                       <span class="users-list-date">اليوم</span>
                     </li>
                     <li>
-                      <img src="dist/img/user7-128x128.jpg" alt="User Image">
+                      <img src="{{ asset('dist/img/user7-128x128.jpg') }}" alt="User Image">
                       <a class="users-list-name" href="#" style="color: #19692b;">مستخدم</a>
                       <span class="users-list-date">اليوم</span>
                     </li>
                     <li>
-                      <img src="dist/img/user6-128x128.jpg" alt="User Image">
+                      <img src="{{ asset('dist/img/user6-128x128.jpg') }}" alt="User Image">
                       <a class="users-list-name" href="#" style="color: #19692b;">مستخدم</a>
                       <span class="users-list-date">اليوم</span>
                     </li>
                     <li>
-                      <img src="dist/img/user2-160x160.jpg" alt="User Image">
+                      <img src="{{ asset('dist/img/user2-128x128.jpg') }}" alt="User Image">
                       <a class="users-list-name" href="#" style="color: #19692b;">مستخدم</a>
                       <span class="users-list-date">اليوم</span>
                     </li>
                     <li>
-                      <img src="dist/img/user5-128x128.jpg" alt="User Image">
+                      <img src="{{ asset('dist/img/user5-128x128.jpg') }}" alt="User Image">
                       <a class="users-list-name" href="#" style="color: #19692b;">مستخدم</a>
                       <span class="users-list-date">اليوم</span>
                     </li>
                     <li>
-                      <img src="dist/img/user4-128x128.jpg" alt="User Image">
+                      <img src="{{ asset('dist/img/user4-128x128.jpg') }}" alt="User Image">
                       <a class="users-list-name" href="#" style="color: #1b842c;">مستخدم</a>
                       <span class="users-list-date">اليوم</span>
                     </li>
                     <li>
-                      <img src="dist/img/user3-128x128.jpg" alt="User Image">
+                      <img src="{{ asset('dist/img/user3-128x128.jpg') }}" alt="User Image">
                       <a class="users-list-name" href="#" style="color: #1b842c;">مستخدم</a>
                       <span class="users-list-date">اليوم</span>
                     </li>
