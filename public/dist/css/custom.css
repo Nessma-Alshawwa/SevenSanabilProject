@@ -62,3 +62,19 @@
         margin-right: 0;
     }
 }
+.basic-dark-color{
+    color: #19692b
+}
+.bg-basic-dark-color{
+    background-color: #19692b
+}
+.basic-light-color{
+    color: #28a745
+}
+.bg-basic-light-color{
+    background-color: #28a745
+}
+.btn-basic{
+    background-color: #28a745;
+    color:#fff;
+}
