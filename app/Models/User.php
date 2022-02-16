@@ -2,24 +2,6 @@
 
 namespace App\Models;
 
-use Laravel\Sanctum\HasApiTokens;
-use Laravel\Jetstream\HasProfilePhoto;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-<<<<<<< HEAD
-
-class User extends Authenticatable
-{
-    use HasApiTokens;
-    use HasFactory,HasRoles;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
-=======
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -30,7 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
     use HasRoles;
->>>>>>> bff34346d7f8163e1d9344d0e5952de7994b2530
+
 
     public function Admin(){ // 1 - 1 relationship
         return $this->hasOne(Admin::class);

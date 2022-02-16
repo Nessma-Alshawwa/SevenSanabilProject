@@ -3,11 +3,6 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\User;
-
-=======
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\DataTables\UsersDataTable;
 use Spatie\Permission\Models\Role;
