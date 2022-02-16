@@ -9,15 +9,24 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
+    use HasRoles;
 
+    public function Admin(){ // 1 - 1 relationship
+        return $this->hasOne(Admin::class);
+    }
+
+    public function Donor(){ // 1 - 1 relationship
+        return $this->hasOne(Donor::class);
+    }
+
+    public function CommitteesUser(){ // 1 - 1 relationship
+        return $this->hasOne(CommitteesUser::class);
+    }
     /**
      * The attributes that are mass assignable.
      *
