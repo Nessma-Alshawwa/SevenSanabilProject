@@ -1,3 +1,4 @@
+@role('admin')
 @extends('dashboard.layout.main')
 @section('MainContent')
    <!-- Main content -->
@@ -48,4 +49,4 @@
   @endpush
 
 @stop
-
+@endrole

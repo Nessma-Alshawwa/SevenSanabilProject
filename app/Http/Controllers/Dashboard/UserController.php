@@ -3,13 +3,20 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\DataTables\UsersDataTable;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
     public function index(UsersDataTable $user){
+        // Role::create(['name'=>'admin']);
+        // Permission::create(['name'=>'general delete']);
+        // auth()->user()->givePermissionTo('general delete'); //model_has_permissions table
+        // auth()->user()->assignRole('admin');//model_has_roles table
+        // return User::role('admin')->get();
         return $user->render('dashboard.users', ['title'=> '/المستخدمين']);
     }
 

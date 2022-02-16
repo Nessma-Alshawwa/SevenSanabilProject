@@ -1,3 +1,4 @@
+@role('admin')
 @extends('dashboard.layout.main')
 @section('MainContent')
 
@@ -261,3 +262,4 @@
 </div>
 </div>
 @stop
+@endrole
