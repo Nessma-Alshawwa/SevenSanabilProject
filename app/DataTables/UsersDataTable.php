@@ -76,7 +76,7 @@ class UsersDataTable extends DataTable
                   ->data('email')
                   ->addClass('text-center'),
             Column::make('user_role_level')
-                  ->title('الوظيفة')
+                  ->title('نوع الصلاحية')
                   ->data('user_role_level')
                   ->addClass('text-center'),
             Column::computed('action')
