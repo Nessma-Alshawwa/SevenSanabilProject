@@ -13,12 +13,13 @@
             <input type="hidden" name="id" id="id" value="">
 
             <div class="form-group">
-              <label for="recipient-name" class="col-form-label">الاسم الأول</label>
-              <input type="text" class="form-control" id="recipient-name">
-              <label for="recipient-name" class="col-form-label">الاسم الاخير</label>
-              <input type="text" class="form-control" id="recipient-name">
+              <label for="name" class="col-form-label" id="lable_name"></label>
+              <br>
+              <input type="text" class="form-control" id="name" name="name">
+              <label for="email" class="col-form-label" id="label_email"></label>
+              <input type="text" class="form-control" id="email">
             </div>
-            <div class="form-group">
+            <div class="form-group" id="type">
               <label for="message-text" class="col-form-label">نوع الصلاحية</label>
               <select class="col form-select form-select-lg p-2"
                 aria-label=".form-select-lg example">
@@ -31,7 +32,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success">اضافة</button>
+        <button type="button" class="btn btn-success" id="save-button"></button>
         <button type="button" class="btn btn-secondary exit" data-dismiss="modal" id="close">الغاء</button>
       </div>
     </div>

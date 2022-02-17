@@ -22,12 +22,14 @@ class UserController extends Controller
 
     public function show($id){
         $user = User::where('id', $id)->get();
+        // $roles = $user->getRoleName();
+        // $permissions = $user->getAllPermissions();
         return response()->json([$user]);
     }
 
-    public function AddOrUpdate(Request $request){
-        $data = $request->except('_token');
-        $result = User::updateOrCreate(['id' => $id], $data);
+    public function createPermission(Request $request){
+        $name = $request->get('name');
+        $result = Permission::create(['name'=> $name]);
         return response()->json([
             'status'=> [$result],
             'success'=> true,
@@ -37,6 +39,8 @@ class UserController extends Controller
 
     public function edit($id){
         $user = User::where('id', $id)->get();
+        // $role = $user->getRoleNames();
+        // $permissions = $user->getAllPermissions();
         return ($user);
     }
 

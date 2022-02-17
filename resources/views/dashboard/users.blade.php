@@ -10,7 +10,9 @@
           <h6> صلاحيات المستخدمين </h6>
       </div>
       <div class="card-body px-5">
+        <div id="success_message"></div>
         <a type="button" class="btn btn-success m-2" href="javascript:void(0)" id="createNewPermission">إضافة صلاحية جديدة</a>
+        <a type="button" class="btn btn-success m-2" href="javascript:void(0)" id="createNewRole">إضافة دور جديدة</a>
         {!! $dataTable->table([
             'id' => 'dataTable',
             'class'=> 'dataTable table-bordered table-striped projects basic-dark-color w-100'
@@ -34,34 +36,20 @@
             });
     
             $('body').on('click', '#createNewPermission', function () {
-                console.log('إضافة مستخدم جديد');
                 $('#FormModal').trigger("reset");
                 $('#Modal #modalHeading').html("إضافة صلاحية جديدة");
+                $("#FormModal #name").attr("placeholder", "إضافة صلاحية جديدة");
+                $("#FormModal #email").hide();
+                $("#FormModal #type").hide();
                 $('#Modal #save-button').html("حفظ");
                 $('#Modal').modal('show');
-            });
-            
-            $(document).on('click', '.edit', function () {
-                var id = $(this).attr('data-value');
-                console.log(id);
-                
-                $.get('{{ url("/dashboard/user/edit", '')}}' + "/" + id, function (data) {
-                    $('#modalHeading').html("تعديل بيانات المستخدم");
-                    $('#save-button').html("تعديل");
-                    $("#id").val(id);
-                    $("#FormModal #name").val(data.name);
-                    $("#FormModal #email").val(data.email);
-                    
-                    $('#Modal').modal('show');
-                    console.log('تعديل بيانات المستخدم');
-                })
             });
 
             $(".exit").click(function(e){
               e.preventDefault();
               $('#FormModal').trigger("reset");
               $('#Modal').modal('hide');
-            })
+            });
 
             $('#save-button').click(function (e) {
                 e.preventDefault();
@@ -69,7 +57,7 @@
                 var formData = new FormData(data[0]);
                 $.ajax({
                     data: formData,
-                    url: "{{ url('/dashboard/user/AddOrUpdate')}}",
+                    url: "{{ url('/dashboard/createPermission')}}",
                     type: "POST",
                     processData: false,
                     contentType: false,
@@ -79,8 +67,8 @@
                         $('#Modal').modal('hide');
                         console.log(data);
                         $('#save_msgList').html("");
-                        $('#success_message').addClass('alert alert-success');
-                        $('#success_message').text('Success');
+                        $('#success_message').addClass('alert border-success text-success');
+                        $('#success_message').text('تم بنجاح');
                         $('#dataTable').dataTable().api().ajax.reload();
                     },
                     error: function (response) {

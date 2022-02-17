@@ -18,11 +18,11 @@ use App\Http\Controllers\Dashboard\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     // USERS
     Route::get('/dashboard/users', [UserController::class, 'index']);
     Route::get('/dashboard/user/{id}', [UserController::class, 'show']);
-    Route::post('/dashboard/user/AddOrUpdate', [UserController::class, 'AddOrUpdate']);
+    Route::post('/dashboard/createPermission', [UserController::class, 'createPermission']);
     Route::get('/dashboard/user/edit/{id}', [UserController::class, 'edit']);
     Route::delete('/dashboard/user/destroy/{id}', [UserController::class, 'destroy']);
     Route::get('/dashboard/user/restore/{id}', [UserController::class, 'restore']);
