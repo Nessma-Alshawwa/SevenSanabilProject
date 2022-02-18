@@ -12,7 +12,6 @@
       <div class="card-body px-5">
         <div id="success_message"></div>
         <a type="button" class="btn btn-success m-2" href="javascript:void(0)" id="createNewPermission">إضافة صلاحية جديدة</a>
-        <a type="button" class="btn btn-success m-2" href="javascript:void(0)" id="createNewRole">إضافة دور جديدة</a>
         {!! $dataTable->table([
             'id' => 'dataTable',
             'class'=> 'dataTable table-bordered table-striped projects basic-dark-color w-100'
@@ -28,6 +27,11 @@
     {!! $dataTable->Scripts() !!}
     <script>
         $(document).ready(function () {
+            $(".exit").click(function(e){
+              e.preventDefault();
+              $('#FormModal').trigger("reset");
+              $('#Modal').modal('hide');
+            });
     
             $.ajaxSetup({
                 headers:{
@@ -39,19 +43,11 @@
                 $('#FormModal').trigger("reset");
                 $('#Modal #modalHeading').html("إضافة صلاحية جديدة");
                 $("#FormModal #name").attr("placeholder", "إضافة صلاحية جديدة");
-                $("#FormModal #email").hide();
-                $("#FormModal #type").hide();
-                $('#Modal #save-button').html("حفظ");
+                $('#Modal #edit-button').hide();
                 $('#Modal').modal('show');
             });
 
-            $(".exit").click(function(e){
-              e.preventDefault();
-              $('#FormModal').trigger("reset");
-              $('#Modal').modal('hide');
-            });
-
-            $('#save-button').click(function (e) {
+            $('#add-button').click(function (e) {
                 e.preventDefault();
                 var data = $('#FormModal');
                 var formData = new FormData(data[0]);
@@ -86,14 +82,7 @@
                 });
             });
 
-
-            $('body').on('click', '.deletebutton', function () {
-                var id = $(this).attr('data-value');
-                var url = "{{url('/dashboard/user/destroy')}}";
-                console.log(id);
-                Deletebutton(url, id);
-            });
-    
+            
         });
     </script>
     

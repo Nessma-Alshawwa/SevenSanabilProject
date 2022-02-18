@@ -18,7 +18,7 @@ use App\Http\Controllers\Dashboard\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     // USERS
     Route::get('/dashboard/users', [UserController::class, 'index']);
     Route::get('/dashboard/user/{id}', [UserController::class, 'show']);

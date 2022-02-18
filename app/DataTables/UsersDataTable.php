@@ -66,7 +66,7 @@ class UsersDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->lengthMenu([[100, 3, 5, 10, 50],['All Records', 3, 5, 10, 50]])
-                    ->orderBy(1);
+                    ->orderBy(0, 'asc');
     }
 
     /**

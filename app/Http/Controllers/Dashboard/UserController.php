@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function show($id){
         $user = User::where('id', $id)->get();
-        // $roles = $user->getRoleName();
+        // $roles = $user->getRoleNames();
         // $permissions = $user->getAllPermissions();
         return response()->json([$user]);
     }

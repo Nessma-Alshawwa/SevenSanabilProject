@@ -1,4 +1,3 @@
-@role('admin')
 @extends('dashboard.layout.main')
 @section('MainContent')
   <!-- Main content -->
@@ -269,4 +268,3 @@
         <!-- /.col -->
 <!-- ./wrapper -->
 @stop
-@endrole
