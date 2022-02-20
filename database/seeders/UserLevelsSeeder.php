@@ -14,10 +14,10 @@ class UserLevelsSeeder extends Seeder
      */
     public function run()
     {
-        UserLevel::insert(
+        UserLevel::insert([
             ['name'=>'أدمن'],
             ['name'=>'لجنة زكاة'],
             ['name'=>'متبرع']
-        );
+        ]);
     }
 }
