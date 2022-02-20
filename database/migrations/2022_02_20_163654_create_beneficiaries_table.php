@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class QuantitiesSpent extends Migration
+class CreateBeneficiariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class QuantitiesSpent extends Migration
      */
     public function up()
     {
-        Schema::create('quantities_spent', function (Blueprint $table) {
+        Schema::create('beneficiaries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('donation_request_id')->references('id')->on('donation_requests');
-            $table->foreignId('benefit_request_id')->references('id')->on('benefit_requests');
-            $table->integer('amount_spent');
+            $table->string('name');
+            $table->integer('phone');
+            $table->integer('national_id')->unique();
+            $table->integer('family_member');
+            $table->integer('income');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,7 +33,6 @@ class QuantitiesSpent extends Migration
      */
     public function down()
     {
-        Schema::drop('quantities_spent');
+        Schema::dropIfExists('beneficiaries');
     }
-
 }

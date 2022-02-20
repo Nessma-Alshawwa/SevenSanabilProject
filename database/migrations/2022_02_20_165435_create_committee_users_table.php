@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Admins extends Migration
+class CreateCommitteeUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class Admins extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('committee_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('committee_id')->references('id')->on('committees');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +29,6 @@ class Admins extends Migration
      */
     public function down()
     {
-        Schema::drop('admins');
+        Schema::dropIfExists('committee_users');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class BenefitRequests extends Migration
+class CreateDonationRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,19 @@ class BenefitRequests extends Migration
      */
     public function up()
     {
-        Schema::create('benefit_requests', function (Blueprint $table) {
+        Schema::create('donation_requests', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('status');
             $table->text('image');
             $table->text('description');
             $table->integer('quantity');
-            $table->integer('required_quantity');
-            $table->integer('remaining_quantity');
-            $table->integer('amount_spent');
-            $table->foreignId('beneficiary_id')->references('id')->on('beneficiaries');
+            $table->integer('available_quantity');
+            $table->foreignId('donor_id')->references('id')->on('donors');
             $table->timestamps();
             $table->softDeletes();
         });
+
     }
 
     /**
@@ -36,7 +35,6 @@ class BenefitRequests extends Migration
      */
     public function down()
     {
-        Schema::drop('benefit_requests');
+        Schema::dropIfExists('donation_requests');
     }
-
 }
