@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Committees extends Migration
+class CreateDonationCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class Committees extends Migration
      */
     public function up()
     {
-        Schema::create('committees', function(Blueprint $table){
+        Schema::create('donation_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('location');
-            $table->text('manager');
-            $table->text('description');
+            $table->foreignId('donation_request_id')->references('id')->on('donation_requests');
+            $table->foreignId('category_id')->references('id')->on('categories');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +29,6 @@ class Committees extends Migration
      */
     public function down()
     {
-        Schema::drop('committees');
+        Schema::dropIfExists('donation_categories');
     }
 }

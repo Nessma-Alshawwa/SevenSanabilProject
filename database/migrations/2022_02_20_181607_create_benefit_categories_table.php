@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Beneficiaries extends Migration
+class CreateBenefitCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,14 @@ class Beneficiaries extends Migration
      */
     public function up()
     {
-        Schema::create('beneficiaries', function(Blueprint $table){
+        Schema::create('benefit_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('phone');
-            $table->integer('national_id')->unique();
-            $table->integer('family_member');
-            $table->integer('income');
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('benefit_request_id')->references('id')->on('benefit_requests');
+            $table->foreignId('category_id')->references('id')->on('categories');
             $table->timestamps();
             $table->softDeletes();
         });
+
     }
 
     /**
@@ -33,6 +30,6 @@ class Beneficiaries extends Migration
      */
     public function down()
     {
-        Schema::drop('beneficiaries');
+        Schema::dropIfExists('benefit_categories');
     }
 }
