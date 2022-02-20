@@ -28,6 +28,10 @@ class User extends Authenticatable
     public function CommitteesUser(){ // 1 - 1 relationship
         return $this->hasOne(CommitteesUser::class);
     }
+
+    public function UserLevel(){ // 1 - 1 relationship (table with foreign key)
+        return $this->belongsTo(UserLevel::class, 'user_level');
+    }
     /**
      * The attributes that are mass assignable.
      *

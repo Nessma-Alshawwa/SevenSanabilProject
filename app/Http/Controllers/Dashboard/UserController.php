@@ -12,11 +12,6 @@ use Spatie\Permission\Models\Permission;
 class UserController extends Controller
 {
     public function index(UsersDataTable $user){
-        // Role::create(['name'=>'admin']);
-        // Permission::create(['name'=>'general delete']);
-        // auth()->user()->givePermissionTo('general delete'); //model_has_permissions table
-        // auth()->user()->assignRole('admin');//model_has_roles table
-        // return User::role('admin')->get();
         return $user->render('dashboard.users', ['title'=> '/المستخدمين']);
     }
 
