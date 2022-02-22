@@ -11,10 +11,6 @@ class Committee extends Model
 {
     use HasFactory,HasRoles, SoftDeletes;
 
-    public function CommitteeUsers(){ // 1 - M relationship (One)
-        return $this->hasMany(CommitteeUser::class);
-    }
-
     public function Donors(){ // 1 - M relationship (One)
         return $this->hasMany(Donor::class);
     }

@@ -20,8 +20,8 @@ class User extends Authenticatable
         return $this->belongsTo(Donor::class ,'donor_id');
     }
 
-    public function CommitteesUser(){ // 1 - M relationship (Many)
-        return $this->belongsTo(CommitteesUser::class, 'committee_user_id');
+    public function Committees(){ // 1 - M relationship (Many)
+        return $this->belongsTo(Committee::class, 'committee_id');
     }
 
     public function UserLevels(){ // 1 - M relationship (Many)
@@ -37,7 +37,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'user_level_id',
     ];
 
     /**

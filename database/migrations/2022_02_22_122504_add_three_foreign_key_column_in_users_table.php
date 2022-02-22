@@ -16,8 +16,8 @@ class AddThreeForeignKeyColumnInUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('user_level_id')->nullable();
             $table->foreign('user_level_id')->references('id')->on('user_levels')->onDelete('set null');
-            $table->unsignedBigInteger('committee_user_id')->nullable();
-            $table->foreign('committee_user_id')->references('id')->on('committee_users')->onDelete('set null');
+            $table->unsignedBigInteger('committee_id')->nullable();
+            $table->foreign('committee_id')->references('id')->on('committees')->onDelete('set null');
             $table->unsignedBigInteger('donor_id')->nullable();
             $table->foreign('donor_id')->references('id')->on('donors')->onDelete('set null');
         });
@@ -32,7 +32,7 @@ class AddThreeForeignKeyColumnInUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('user_level_id');
-            $table->dropColumn('committee_user_id');
+            $table->dropColumn('committee_id');
             $table->dropColumn('donor_id');
         });
     }
