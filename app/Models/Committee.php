@@ -23,5 +23,13 @@ class Committee extends Model
         return $this->hasMany(Beneficiary::class);
     }
 
+    public function User(){ // 1 - M relationship (one)
+        return $this->hasMany(User::class);
+    }
+
+    public function Role(){ // 1 - M relationship (one)
+        return $this->hasMany(Role::class);
+    }
+
 
 }

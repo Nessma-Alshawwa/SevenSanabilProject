@@ -11,9 +11,7 @@ class Donor extends Model
 {
     use HasFactory,HasRoles, SoftDeletes;
 
-    public function User(){ // 1 - 1 relationship (table with foreign key)
-        return $this->belongsTo(User::class, 'user_id');
-    }
+
 
     public function Committee(){ // 1 - M relationship (Many)
         return $this->belongsTo(Committee::class, 'committee_id');
@@ -21,5 +19,12 @@ class Donor extends Model
 
     public function DonationRequest(){ // 1 - M relationship (One)
         return $this->hasMany(DonationRequest::class);
+    }
+    public function User(){ // 1 - M relationship (one)
+        return $this->hasMany(User::class);
+    }
+
+    public function Role(){ // 1 - M relationship (one)
+        return $this->hasMany(Role::class);
     }
 }

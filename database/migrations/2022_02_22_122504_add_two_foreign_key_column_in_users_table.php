@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserLevelColumnAsForignKeyInUsersTable extends Migration
+class AddTwoForeignKeyColumnInUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddUserLevelColumnAsForignKeyInUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('user_level_id')->references('id')->on('user_levels');
+            $table->foreignId('committee_id')->references('id')->on('committees')->nullable();
+            $table->foreignId('donor_id')->references('id')->on('donors')->nullable();
         });
     }
 
@@ -26,7 +27,8 @@ class AddUserLevelColumnAsForignKeyInUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('user_level_id');
+            $table->dropColumn('committee_id');
+            $table->dropColumn('donor_id');
         });
     }
 }

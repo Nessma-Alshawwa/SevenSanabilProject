@@ -21,17 +21,22 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
-    public function Donor(){ // 1 - 1 relationship
-        return $this->hasOne(Donor::class);
+    public function Donors(){ // 1 - M relationship (table with foreign key)(Many)
+        return $this->belongsTo(Donor::class ,'donor_id');
     }
 
     public function CommitteesUser(){ // 1 - 1 relationship
         return $this->hasOne(CommitteesUser::class);
     }
 
-    public function UserLevel(){ // 1 - 1 relationship (table with foreign key)
+    public function UserLevels(){ // 1 - M relationship (table with foreign key)(Many)
         return $this->belongsTo(UserLevel::class, 'user_level');
     }
+
+    public function Committees(){ // 1 - M relationship (table with foreign key)(Many)
+        return $this->belongsTo(Committee::class, 'committee_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

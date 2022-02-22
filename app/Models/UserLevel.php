@@ -9,7 +9,11 @@ class UserLevel extends Model
 {
     use HasFactory;
 
-    public function User(){ // 1 - 1 relationship
-        return $this->hasOne(User::class);
+    public function User(){ // 1 - M relationship (one)
+        return $this->hasMany(User::class);
+    }
+
+    public function Role(){ // 1 - M relationship (one)
+        return $this->hasMany(Role::class);
     }
 }
