@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2022 at 01:39 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.8
+-- Generation Time: Feb 22, 2022 at 09:17 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,20 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admins`
---
-
-CREATE TABLE `admins` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `beneficiaries`
 --
 
@@ -48,7 +34,6 @@ CREATE TABLE `beneficiaries` (
   `national_id` int(11) NOT NULL,
   `family_member` int(11) NOT NULL,
   `income` int(11) NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -125,21 +110,6 @@ CREATE TABLE `committees` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `committees_users`
---
-
-CREATE TABLE `committees_users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `committie_id` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `donation_categories`
 --
 
@@ -182,10 +152,9 @@ CREATE TABLE `donors` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `phone` int(11) NOT NULL,
   `national_id` int(11) NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -226,19 +195,20 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2014_10_12_200000_add_two_factor_columns_to_users_table', 1),
 (4, '2019_08_19_000000_create_failed_jobs_table', 1),
 (5, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(6, '2022_02_08_181616_admins', 1),
-(7, '2022_02_08_181723_committees', 1),
-(8, '2022_02_08_181738_donors', 1),
-(9, '2022_02_08_181809_beneficiaries', 1),
-(10, '2022_02_08_181940_committees_users', 1),
-(11, '2022_02_08_182011_benefit_requests', 1),
-(12, '2022_02_08_182224_donation_requests', 1),
-(13, '2022_02_08_182522_quantities_spent', 1),
-(14, '2022_02_08_182549_categories', 1),
-(15, '2022_02_08_182614_benefit_categories', 1),
-(16, '2022_02_08_182633_donation_categories', 1),
-(17, '2022_02_11_093640_create_sessions_table', 1),
-(18, '2022_02_13_121528_create_permission_tables', 1);
+(6, '2022_02_11_093640_create_sessions_table', 1),
+(7, '2022_02_13_121528_create_permission_tables', 1),
+(8, '2022_02_20_163654_create_beneficiaries_table', 1),
+(9, '2022_02_20_164703_create_benefit_requests_table', 1),
+(10, '2022_02_20_164851_create_categories_table', 1),
+(11, '2022_02_20_165154_create_committees_table', 1),
+(12, '2022_02_20_170452_create_donors_table', 1),
+(13, '2022_02_20_173834_create_user_levels_table', 1),
+(14, '2022_02_20_181607_create_benefit_categories_table', 1),
+(15, '2022_02_20_181759_create_donation_requests_table', 1),
+(16, '2022_02_20_182524_create_donation_categories_table', 1),
+(17, '2022_02_20_182546_create_quantities_spent_table', 1),
+(18, '2022_02_22_122504_add_three_foreign_key_column_in_users_table', 1),
+(19, '2022_02_22_123209_add_three_foreign_key_column_in_roles_table', 1);
 
 -- --------------------------------------------------------
 
@@ -263,6 +233,13 @@ CREATE TABLE `model_has_roles` (
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `model_has_roles`
+--
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+(1, 'App\\Models\\User', 1);
 
 -- --------------------------------------------------------
 
@@ -289,6 +266,22 @@ CREATE TABLE `permissions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'Create Role', 'web', '2022-02-22 18:01:36', '2022-02-22 18:01:36'),
+(2, 'Edit Role', 'web', '2022-02-22 18:01:36', '2022-02-22 18:01:36'),
+(3, 'View Roles', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
+(4, 'Disable Role', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
+(5, 'Activate Role', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
+(6, 'Create User', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
+(7, 'Edit User', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
+(8, 'View Users', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
+(9, 'Disable User', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
+(10, 'Activate User', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37');
 
 -- --------------------------------------------------------
 
@@ -335,8 +328,18 @@ CREATE TABLE `roles` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `user_level_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `committee_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `donor_id` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `user_level_id`, `committee_id`, `donor_id`) VALUES
+(1, 'superadmin', 'web', '2022-02-22 18:01:35', '2022-02-22 18:01:35', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -348,6 +351,22 @@ CREATE TABLE `role_has_permissions` (
   `permission_id` bigint(20) UNSIGNED NOT NULL,
   `role_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `role_has_permissions`
+--
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1);
 
 -- --------------------------------------------------------
 
@@ -369,7 +388,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('scpldP4RYGx6GD3rJIbctXCbV0ykEaPSCFkNHrE6', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiWWRYVnBnVXpXdUVVTWFYa3hmd1FKTEhUNXVmNUNONDg5cTJVMnYxRSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTAkamNNaENmL2p6WDJaczFLcU0ydFZqZXF2aEYwQllaei4xa2k3ZXh4OTRueUZPbFFadDkuL1MiO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEwJGpjTWhDZi9qelgyWnMxS3FNMnRWamVxdmhGMEJZWnouMWtpN2V4eDk0bnlGT2xRWnQ5Li9TIjt9', 1644928185);
+('AnsKHfFECO0UNYo6zDUkJ6oh3P0bW9vAb5NHeoTb', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVTNvaENZaG5ha1IzZDY2ajV1SUlaNkt4YlQwcWx0alBZbGdHTGNHQyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQvdXNlcnMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTAkV1d2SzlGSng3bm9Dd2FGWE51SnlyT25uL2ZDd0tlQmpUdVVXd3IwWUdqNm5WWjFxRFRsNXUiO30=', 1645560883);
 
 -- --------------------------------------------------------
 
@@ -380,7 +399,6 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_role_level` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -390,35 +408,49 @@ CREATE TABLE `users` (
   `current_team_id` bigint(20) UNSIGNED DEFAULT NULL,
   `profile_photo_path` varchar(2048) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `user_level_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `committee_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `donor_id` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `user_role_level`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
-(1, 'Nessma Alshawwa', '1', 'alshawanessma@gmail.com', NULL, '$2y$10$jcMhCf/jzX2Zs1KqM2tVjeqvhF0BYZz.1ki7exx94nyFOlQZt9./S', NULL, NULL, NULL, NULL, NULL, '2022-02-15 03:23:08', '2022-02-15 03:23:08'),
-(2, 'admin', '1', 'admin@gmail.com', NULL, '$2y$10$av1e7xZtKf4yf8DoLXH.DusITOLpDT5kwfbW/v5iRi2DnbvZ/FvIm', NULL, NULL, NULL, NULL, NULL, '2022-02-15 05:55:07', '2022-02-15 05:55:07');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`, `user_level_id`, `committee_id`, `donor_id`) VALUES
+(1, 'أدمن', 'admin@gmail.com', NULL, '$2y$10$WWvK9FJx7noCwaFXNuJyrOnn/fCwKeBjTuUWwr0YGj6nVZ1qDTl5u', NULL, NULL, NULL, NULL, NULL, '2022-02-22 18:04:53', '2022-02-22 18:04:53', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_levels`
+--
+
+CREATE TABLE `user_levels` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_levels`
+--
+
+INSERT INTO `user_levels` (`id`, `name`) VALUES
+(1, 'أدمن'),
+(2, 'لجنة زكاة'),
+(3, 'متبرع');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admins`
---
-ALTER TABLE `admins`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `admins_user_id_foreign` (`user_id`);
-
---
 -- Indexes for table `beneficiaries`
 --
 ALTER TABLE `beneficiaries`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `beneficiaries_national_id_unique` (`national_id`),
-  ADD KEY `beneficiaries_user_id_foreign` (`user_id`);
+  ADD UNIQUE KEY `beneficiaries_national_id_unique` (`national_id`);
 
 --
 -- Indexes for table `benefit_categories`
@@ -448,14 +480,6 @@ ALTER TABLE `committees`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `committees_users`
---
-ALTER TABLE `committees_users`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `committees_users_user_id_foreign` (`user_id`),
-  ADD KEY `committees_users_committie_id_foreign` (`committie_id`);
-
---
 -- Indexes for table `donation_categories`
 --
 ALTER TABLE `donation_categories`
@@ -475,8 +499,7 @@ ALTER TABLE `donation_requests`
 --
 ALTER TABLE `donors`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `donors_national_id_unique` (`national_id`),
-  ADD KEY `donors_user_id_foreign` (`user_id`);
+  ADD UNIQUE KEY `donors_national_id_unique` (`national_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -539,7 +562,10 @@ ALTER TABLE `quantities_spent`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`);
+  ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`),
+  ADD KEY `roles_user_level_id_foreign` (`user_level_id`),
+  ADD KEY `roles_committee_id_foreign` (`committee_id`),
+  ADD KEY `roles_donor_id_foreign` (`donor_id`);
 
 --
 -- Indexes for table `role_has_permissions`
@@ -561,17 +587,20 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `users_user_level_id_foreign` (`user_level_id`),
+  ADD KEY `users_committee_id_foreign` (`committee_id`),
+  ADD KEY `users_donor_id_foreign` (`donor_id`);
+
+--
+-- Indexes for table `user_levels`
+--
+ALTER TABLE `user_levels`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `admins`
---
-ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `beneficiaries`
@@ -595,18 +624,12 @@ ALTER TABLE `benefit_requests`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `committees`
 --
 ALTER TABLE `committees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `committees_users`
---
-ALTER TABLE `committees_users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -637,13 +660,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -661,29 +684,23 @@ ALTER TABLE `quantities_spent`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `user_levels`
+--
+ALTER TABLE `user_levels`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `admins`
---
-ALTER TABLE `admins`
-  ADD CONSTRAINT `admins_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `beneficiaries`
---
-ALTER TABLE `beneficiaries`
-  ADD CONSTRAINT `beneficiaries_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `benefit_categories`
@@ -699,13 +716,6 @@ ALTER TABLE `benefit_requests`
   ADD CONSTRAINT `benefit_requests_beneficiary_id_foreign` FOREIGN KEY (`beneficiary_id`) REFERENCES `beneficiaries` (`id`);
 
 --
--- Constraints for table `committees_users`
---
-ALTER TABLE `committees_users`
-  ADD CONSTRAINT `committees_users_committie_id_foreign` FOREIGN KEY (`committie_id`) REFERENCES `committees` (`id`),
-  ADD CONSTRAINT `committees_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
 -- Constraints for table `donation_categories`
 --
 ALTER TABLE `donation_categories`
@@ -717,12 +727,6 @@ ALTER TABLE `donation_categories`
 --
 ALTER TABLE `donation_requests`
   ADD CONSTRAINT `donation_requests_donor_id_foreign` FOREIGN KEY (`donor_id`) REFERENCES `donors` (`id`);
-
---
--- Constraints for table `donors`
---
-ALTER TABLE `donors`
-  ADD CONSTRAINT `donors_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `model_has_permissions`
@@ -744,11 +748,27 @@ ALTER TABLE `quantities_spent`
   ADD CONSTRAINT `quantities_spent_donation_request_id_foreign` FOREIGN KEY (`donation_request_id`) REFERENCES `donation_requests` (`id`);
 
 --
+-- Constraints for table `roles`
+--
+ALTER TABLE `roles`
+  ADD CONSTRAINT `roles_committee_id_foreign` FOREIGN KEY (`committee_id`) REFERENCES `committees` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `roles_donor_id_foreign` FOREIGN KEY (`donor_id`) REFERENCES `donors` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `roles_user_level_id_foreign` FOREIGN KEY (`user_level_id`) REFERENCES `user_levels` (`id`) ON DELETE SET NULL;
+
+--
 -- Constraints for table `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_committee_id_foreign` FOREIGN KEY (`committee_id`) REFERENCES `committees` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `users_donor_id_foreign` FOREIGN KEY (`donor_id`) REFERENCES `donors` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `users_user_level_id_foreign` FOREIGN KEY (`user_level_id`) REFERENCES `user_levels` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -15,6 +15,7 @@ class UserController extends Controller
 {
     public function index(UsersDataTable $users){
         $levels = UserLevel::get();
+        // auth()->user()->assignRole("superadmin");
         return $users->render('dashboard.users', ['title'=> '/المستخدمين', 'levels'=> $levels]);
     }
 
