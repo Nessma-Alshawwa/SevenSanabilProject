@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\User;
+use App\Models\UserLevel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\DataTables\UsersDataTable;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
@@ -11,20 +13,26 @@ use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
-    public function index(UsersDataTable $user){
-        return $user->render('dashboard.users', ['title'=> '/المستخدمين']);
+    public function index(UsersDataTable $users){
+        $levels = UserLevel::get();
+        return $users->render('dashboard.users', ['title'=> '/المستخدمين', 'levels'=> $levels]);
     }
 
     public function show($id){
-        $user = User::where('id', $id)->get();
-        // $roles = $user->getRoleNames();
-        // $permissions = $user->getAllPermissions();
-        return response()->json([$user]);
     }
 
-    public function createPermission(Request $request){
-        $name = $request->get('name');
-        $result = Permission::create(['name'=> $name]);
+    public function createUser(Request $request){
+        $name = $request['name'];
+        $email = $request['email'];
+        $password = Hash::make($request['password']);
+        $user_level_id = $request['user_level_id'];
+        
+        $user = new User();
+		$user->name = $name;
+        $user->email = $email;
+		$user->password = $password;
+		$user->user_level_id = $user_level_id;
+        $result = $user->save();
         return response()->json([
             'status'=> [$result],
             'success'=> true,
@@ -33,10 +41,6 @@ class UserController extends Controller
     }
 
     public function edit($id){
-        $user = User::where('id', $id)->get();
-        // $role = $user->getRoleNames();
-        // $permissions = $user->getAllPermissions();
-        return ($user);
     }
 
     public function destroy($id){

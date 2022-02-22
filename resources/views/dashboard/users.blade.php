@@ -1,4 +1,3 @@
-@role('admin')
 @extends('dashboard.layout.main')
 @section('MainContent')
    <!-- Main content -->
@@ -11,7 +10,7 @@
       </div>
       <div class="card-body px-5">
         <div id="success_message"></div>
-        <a type="button" class="btn btn-success m-2" href="javascript:void(0)" id="createNewPermission">إضافة صلاحية جديدة</a>
+        <a type="button" class="btn btn-success m-2" href="javascript:void(0)" id="createNewUser">إضافة مستخدم جديدة</a>
         {!! $dataTable->table([
             'id' => 'dataTable',
             'class'=> 'dataTable table-bordered table-striped projects basic-dark-color w-100'
@@ -39,10 +38,12 @@
                 }
             });
     
-            $('body').on('click', '#createNewPermission', function () {
+            $('body').on('click', '#createNewUser', function () {
                 $('#FormModal').trigger("reset");
-                $('#Modal #modalHeading').html("إضافة صلاحية جديدة");
-                $("#FormModal #name").attr("placeholder", "إضافة صلاحية جديدة");
+                $('#Modal #modalHeading').html("إضافة مستخدم جديدة");
+                $("#FormModal #name").attr("placeholder", "اسم المستخدم");
+                $("#FormModal #email").attr("placeholder", "البريد الالكتروني");
+                $("#FormModal #password").attr("placeholder", "كلمة المرور");
                 $('#Modal #edit-button').hide();
                 $('#Modal').modal('show');
             });
@@ -53,7 +54,7 @@
                 var formData = new FormData(data[0]);
                 $.ajax({
                     data: formData,
-                    url: "{{ url('/dashboard/createPermission')}}",
+                    url: "{{ url('/dashboard/createUser')}}",
                     type: "POST",
                     processData: false,
                     contentType: false,
@@ -89,5 +90,3 @@
   @endpush
 
 @stop
-
-@endrole

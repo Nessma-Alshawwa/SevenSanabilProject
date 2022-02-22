@@ -16,25 +16,16 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
     use HasRoles;
 
-
-    public function Admin(){ // 1 - 1 relationship
-        return $this->hasOne(Admin::class);
-    }
-
-    public function Donors(){ // 1 - M relationship (table with foreign key)(Many)
+    public function Donors(){ // 1 - M relationship (Many)
         return $this->belongsTo(Donor::class ,'donor_id');
     }
 
-    public function CommitteesUser(){ // 1 - 1 relationship
-        return $this->hasOne(CommitteesUser::class);
+    public function CommitteesUser(){ // 1 - M relationship (Many)
+        return $this->belongsTo(CommitteesUser::class, 'committee_user_id');
     }
 
-    public function UserLevels(){ // 1 - M relationship (table with foreign key)(Many)
-        return $this->belongsTo(UserLevel::class, 'user_level');
-    }
-
-    public function Committees(){ // 1 - M relationship (table with foreign key)(Many)
-        return $this->belongsTo(Committee::class, 'committee_id');
+    public function UserLevels(){ // 1 - M relationship (Many)
+        return $this->belongsTo(UserLevel::class, 'user_level_id');
     }
 
     /**
@@ -46,6 +37,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_level_id',
     ];
 
     /**

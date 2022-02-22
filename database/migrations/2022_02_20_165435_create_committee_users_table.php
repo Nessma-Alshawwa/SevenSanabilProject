@@ -15,7 +15,6 @@ class CreateCommitteeUsersTable extends Migration
     {
         Schema::create('committee_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('committee_id')->references('id')->on('committees');
             $table->timestamps();
             $table->softDeletes();

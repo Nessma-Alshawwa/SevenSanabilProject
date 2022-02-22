@@ -21,24 +21,14 @@ class UsersDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('user_roles', function($data){
-                $roles = $data->getRoleNames();// Returns a collection
-                foreach($roles as $role){
-                    return $role;
-                }
-            })
-            ->addColumn('user_permissions', function($data){
-                $permissions = $data->getAllPermissions();// Returns a collection
-                foreach($permissions as $permission){
-                    return $permission->name;
-                }
+            ->addColumn('user_level', function($data){
+                return $data->UserLevels->name;
             })
             ->addColumn('action', function($data){
                 return view('dashboard.includes.actionsButton', ['data'=> $data]);
             })
             ->rawColumns([
-                'user_roles',
-                'user_permissions',
+                'user_level',
                 'action'
             ]);
     }
@@ -89,11 +79,8 @@ class UsersDataTable extends DataTable
                   ->title('البريد الالكتروني')
                   ->data('email')
                   ->addClass('text-center'),
-            Column::make('user_roles')
-                  ->title('دور المستخدم (Roles)')
-                  ->addClass('text-center'),
-            Column::make('user_permissions')
-                  ->title('صلاحية المستخدم (Permissions)')
+            Column::make('user_level')
+                  ->title('دور المستخدم')
                   ->addClass('text-center'),
             Column::computed('action')
                   ->title('الإجراءات')

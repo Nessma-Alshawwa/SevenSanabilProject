@@ -17,7 +17,6 @@ class CreateDonorsTable extends Migration
             $table->id();
             $table->integer('phone');
             $table->integer('national_id')->unique();
-            $table->foreignId('user_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();
         });

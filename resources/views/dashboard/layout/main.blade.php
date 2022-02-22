@@ -56,7 +56,6 @@
                 </p>
               </a>
             </li>
-            @role('admin')
             <li class="nav-item pt-3">
               <a href="{{ URL('dashboard/users') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
                 <i class="nav-icon ion ion-ios-people"></i>
@@ -65,7 +64,6 @@
                 </p>
               </a>
             </li>
-            @endrole
             <li class="nav-item pt-3" >
               <a href="{{ URL('dashboard/donors') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donors')) ? 'active' : '' }}">
                 <i class="nav-icon ion ion-ios-people"></i>

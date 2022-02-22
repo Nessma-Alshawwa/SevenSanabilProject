@@ -11,8 +11,8 @@ class CommitteesUser extends Model
 {
     use HasFactory,HasRoles, SoftDeletes;
 
-    public function User(){ // 1 - 1 relationship (table with foreign key)
-        return $this->belongsTo(User::class, 'user_id');
+    public function User(){ // 1 - M relationship 
+        return $this->hasMany(User::class);
     }
 
     public function Committee(){ // 1 - M relationship (Many)

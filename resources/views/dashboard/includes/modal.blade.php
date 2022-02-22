@@ -12,12 +12,27 @@
             @csrf
             <input type="hidden" name="id" id="id" value="">
 
-            <div class="form-group" id="add">
+            <div class="form-group">
               <label for="name" class="col-form-label" id="lable_name"></label>
-              <br>
               <input type="text" class="form-control" id="name" name="name">
             </div>
-            <div class="form-group" id="type">
+            <div class="form-group">
+              <label for="name" class="col-form-label" id="lable_email"></label>
+              <input type="text" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+              <label for="name" class="col-form-label" id="lable_password"></label>
+              <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <div class="form-group" id="role">
+              <label for="message-text" class="col-form-label text-muted"></label>
+                <select class="form-control form-select" aria-label=".form-select-lg example" name="user_level_id">
+                  <option value="" class="text-secondary">دور المستخدم</option>
+                  @foreach ($levels as $level)
+                    <option value="{{ $level->id  }}">
+                          {{ $level->name }}</option>
+                      @endforeach
+                </select>
               
             </div>
         </form>

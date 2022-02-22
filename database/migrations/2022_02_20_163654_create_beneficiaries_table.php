@@ -20,7 +20,6 @@ class CreateBeneficiariesTable extends Migration
             $table->integer('national_id')->unique();
             $table->integer('family_member');
             $table->integer('income');
-            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();
         });
