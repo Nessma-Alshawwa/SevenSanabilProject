@@ -64,6 +64,14 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item pt-3">
+              <a href="{{ URL('dashboard/roles') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/roles')) ? 'active' : '' }}">
+                <i class="nav-icon ion ion-ios-people"></i>
+                <p>
+                  الأدوار
+                </p>
+              </a>
+            </li>
             <li class="nav-item pt-3" >
               <a href="{{ URL('dashboard/donors') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donors')) ? 'active' : '' }}">
                 <i class="nav-icon ion ion-ios-people"></i>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\RoleController;
 
 
 /*
@@ -27,6 +28,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/dashboard/user/destroy/{id}', [UserController::class, 'destroy']);
     Route::get('/dashboard/user/restore/{id}', [UserController::class, 'restore']);
 });
+
+// Roles
+    Route::get('/dashboard/roles', [RoleController::class, 'index']);
+    Route::get('/dashboard/roles/create', [RoleController::class, 'create_role']);
+    Route::get('/dashboard/roles/store', [RoleController::class, 'store_role']);
+    // Route::get('/dashboard/roles/{id}', [RoleController::class, 'show']);
+    Route::post('/dashboard/AddOrUpdateRole', [RoleController::class, 'AddOrUpdateRole']);
+    Route::get('/dashboard/role/edit/{id}', [RoleController::class, 'edit']);
+    Route::delete('/dashboard/role/destroy/{id}', [RoleController::class, 'destroy']);
+    Route::get('/dashboard/role/restore/{id}', [RoleController::class, 'restore']);
+
+
+
+
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard.index', ['title'=>'']);
