@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\RoleController;
 
 
 /*
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/dashboard/user/destroy/{id}', [UserController::class, 'destroy']);
     Route::get('/dashboard/user/restore/{id}', [UserController::class, 'restore']);
 });
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard.index', ['title'=>'']);
