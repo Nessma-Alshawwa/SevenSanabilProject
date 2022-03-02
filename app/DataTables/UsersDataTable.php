@@ -24,11 +24,27 @@ class UsersDataTable extends DataTable
             ->addColumn('user_level', function($data){
                 return $data->UserLevels->name;
             })
+            ->addColumn('committee_id', function($data){
+                if(!isset($data->Committees->name)){
+                    return ("لا يوجد");
+                }else{
+                    return $data->Committees->name;
+                } 
+            })
+            ->addColumn('donor_id', function($data){
+                if(!isset($data->Donors->name)){
+                    return ("لا يوجد");
+                }else{
+                    return $data->Donors->name;
+                }
+            })
             ->addColumn('action', function($data){
                 return view('dashboard.includes.actionsButton', ['data'=> $data]);
             })
             ->rawColumns([
                 'user_level',
+                'committee_id',
+                'donor_id',
                 'action'
             ]);
     }
@@ -41,7 +57,7 @@ class UsersDataTable extends DataTable
      */
     public function query()
     {
-        return User::query();
+        return User::query()->with('UserLevels')->with('Committees')->with('Donors');
     }
 
     /**
@@ -70,7 +86,8 @@ class UsersDataTable extends DataTable
             Column::make('id')
                   ->title('#')
                   ->data('id')
-                  ->addClass('text-center'),
+                  ->addClass('text-center')
+                  ->defaultContent(""),
             Column::make('name')
                   ->title('الاسم')
                   ->data('name')
@@ -82,6 +99,14 @@ class UsersDataTable extends DataTable
             Column::make('user_level')
                   ->title('دور المستخدم')
                   ->addClass('text-center'),
+            Column::make('committee_id')
+                  ->title('اللجنة')
+                  ->addClass('text-center')
+                  ->defaultContent("لا يوجد"),
+            Column::make('donor_id')
+                  ->title('المتبرع')
+                  ->addClass('text-center')
+                  ->defaultContent("لا يوجد"),
             Column::computed('action')
                   ->title('الإجراءات')
                   ->exportable(false)
