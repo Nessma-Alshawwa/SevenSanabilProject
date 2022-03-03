@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
   @include('dashboard.includes.appStyle')
   
@@ -39,7 +40,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel my-3 pb-3 d-flex">
           <div class="image">
-            <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{ Auth::user()->profile_photo_path ? Auth::user()->profile_photo_path : Auth::user()->profile_photo_url }}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="" class="text-white">{{ Auth::user()->name }}</a>
@@ -56,13 +57,28 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item pt-3">
+            <li class="nav-item menu-open pt-3">
               <a href="{{ URL('dashboard/users') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
                 <i class="nav-icon ion ion-ios-people"></i>
                 <p>
                   المستخدمين
                 </p>
+                <i class="right fas fa-angle-left"></i>
               </a>
+              <ul class="nav nav-treeview px-3">
+                <li class="nav-item">
+                  <a href="{{ URL('/dashboard/users') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
+                    <i class="far fa-user nav-icon"></i>
+                    <p>عرض المستخدمين</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ URL('/dashboard/user/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/user/create')) ? 'active' : '' }}">
+                    <i class="far fa-user nav-icon"></i>
+                    <p>إضافة مستخدم جديد</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item pt-3">
               <a href="{{ URL('dashboard/roles') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/roles')) ? 'active' : '' }}">

@@ -10,11 +10,12 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
-    use HasRoles;
+    use HasRoles, SoftDeletes;
 
     public function Donors(){ // 1 - M relationship (Many)
         return $this->belongsTo(Donor::class ,'donor_id');
