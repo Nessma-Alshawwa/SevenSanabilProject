@@ -58,6 +58,10 @@
 
 
 <Script type="text/javascript">
+    $(".menu-open .fa-angle-left").click(function(e){
+        e.preventDefault();
+        $('.nav-treeview').toggle();
+    });
   function Deletebutton(url='',id = ''){
       swal({
       title: "هل أنت متأكد؟",
@@ -77,7 +81,33 @@
                       swal("تم الحذف بنجاح!", {
                           icon: "success",
                       });
-                      // $('#dataTable').dataTable().api().ajax.reload();
+                    //   $('#dataTable').dataTable().api().ajax.reload();
+                  }
+              })
+          } else {
+              swal("بياناتك في أمان ولم تحذف!");
+          }
+      })
+  };
+  function Restorebutton(url='',id = ''){
+      swal({
+      title: "هل أنت متأكد من استرجاع البيانات؟",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+              $.ajax({
+                  type: "GET",
+                  url: url+"/"+id,
+                  data:  { id: id, _token: '{{csrf_token()}}' },
+                  dataType: "json",
+                  success: function (response) {
+                      swal("تم الاسترجاع بنجاح!", {
+                          icon: "success",
+                      });
+                    //   $('#dataTable').dataTable().api().ajax.reload();
                   }
               })
           } else {

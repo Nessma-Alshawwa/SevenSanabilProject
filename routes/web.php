@@ -22,9 +22,8 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // USERS
     Route::get('/dashboard/users', [UserController::class, 'index']);
-    Route::get('/dashboard/user/{id}', [UserController::class, 'show']);
-    Route::get('/dashboard/user/datatables', [UserController::class, 'datatables']);
-    Route::post('/dashboard/createUser', [UserController::class, 'store']);
+    Route::get('/dashboard/user/create', [UserController::class, 'create']);
+    Route::post('/dashboard/user/store', [UserController::class, 'store']);
     Route::get('/dashboard/user/edit/{id}', [UserController::class, 'edit']);
     Route::post('/dashboard/user/update/{id}', [UserController::class, 'update']);
     Route::delete('/dashboard/user/destroy/{id}', [UserController::class, 'destroy']);

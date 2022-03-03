@@ -35,16 +35,39 @@ class UserController extends Controller
         $users = [];
 
         if($user_level_id == 1){ //superadmin_user_level_id
-            $users = User::with("UserLevels")->with("Committees")->with("Donors")->get();
+            $users = User::withTrashed()->with("UserLevels")->with("Committees")->with("Donors")->get();
         }else if($user_level_id == 2){ //committee_user_level_id
             $committee_id = $user->committee_id;
-            $users = User::where('committee_id', $committee_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
+            $users = User::withTrashed()->where('committee_id', $committee_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
         }else if($user_level_id == 3){ //donor_user_level_id
             $donor_id = $user->donor_id;
-            $users = User::where('donor_id', $donor_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
+            $users = User::withTrashed()->where('donor_id', $donor_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
         }
 
-        return view('dashboard.users', ['title'=> '/المستخدمين', 'i'=>$i, 'users'=>$users, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors ]);
+        return view('dashboard.users.index', ['title'=> '/المستخدمين', 'i'=>$i, 'users'=>$users, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors ]);
+    }
+
+    public function create(){
+        $levels = UserLevel::get();
+        $committees = Committee::get();
+        $donors = Donor::get();
+        
+        $user = auth()->user();
+        $user_level_id = $user->user_level_id;
+        $users = [];
+
+        if($user_level_id == 1){ //superadmin_user_level_id
+            $users = User::withTrashed()->with("UserLevels")->with("Committees")->with("Donors")->get();
+        }else if($user_level_id == 2){ //committee_user_level_id
+            $committee_id = $user->committee_id;
+            $users = User::withTrashed()->where('committee_id', $committee_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
+        }else if($user_level_id == 3){ //donor_user_level_id
+            $donor_id = $user->donor_id;
+            $users = User::withTrashed()->where('donor_id', $donor_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
+        }
+
+        return view('dashboard.users.create', ['title'=> '/المستخدمين/إضافة مستخدم جديد', 'users'=>$users, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors ]);
+    
     }
 
     public function store(Request $request){
@@ -76,25 +99,26 @@ class UserController extends Controller
         $user->donor_id =$donor_id;
         $result = $user->save();
 
-        return response()->json([
-            'status'=> [$result],
-            'success'=> true,
-            $result
-        ]);
+        return redirect()->back()->with('add_status', $result);
     }
 
     public function edit($id){
-        $user = User::where('id', $id)->first();
+        $user = User::withTrashed()->findOrFail($id);
+        $levels = UserLevel::get();
+        $committees = Committee::get();
+        $donors = Donor::get();
+
         if($user->profile_photo_path !== null){
             $img_link = Storage::url($user->profile_photo_path);
     	    $user->profile_photo_path = $img_link;
         }
 
-        return($user);
+        return view('dashboard.users.edit', ['title'=> '/المستخدمين/تعديل المستخدم', 'user'=>$user, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors ]);
+        
     }
 
     public function update(Request $request, $id){
-        $user = User::where('id', $id)->with("UserLevels")->with("Committees")->with("Donors")->first();
+        $user = User::withTrashed()->findOrFail($id);
 
         $name = $request['name'];
         $email = $request['email'];
