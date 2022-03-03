@@ -29,7 +29,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/user/restore/{id}', [UserController::class, 'restore']);
 });
 
-
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Roles
+    Route::get('/dashboard/roles', [RoleController::class, 'index']); //get
+    Route::get('/dashboard/roles/create', [RoleController::class, 'create_role']); //get
+    Route::post('/dashboard/roles/store', [RoleController::class, 'store_role']); //post
+    Route::get('/dashboard/roles/edit/{id}', [RoleController::class, 'edit_role']); //get
+    Route::post('/dashboard/roles/update/{id}', [RoleController::class, 'update_role']);    //post
+    Route::delete('/dashboard/roles/destroy/{id}', [RoleController::class, 'destroy']);
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard.index', ['title'=>'']);
