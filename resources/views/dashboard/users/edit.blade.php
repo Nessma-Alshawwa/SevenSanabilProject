@@ -14,7 +14,7 @@
                 @endforeach
                 @if (session()->has('add_status'))
                     @if (session('add_status'))
-                        <div class="alert alert-success">تمت التعديل بنجاح</div>
+                        <div class="alert alert-success">تم التعديل بنجاح</div>
                     @else
                         <div class="alert alert-danger">فشل تعديل المستخدم</div>
                     @endif
@@ -25,23 +25,15 @@
                             @csrf
                             <div class="form-group">
                                 <label for="name" class="col-form-label" id="lable_name">اسم المستخدم</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="اسم المستخدم" value="{{ $user->name }}">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="اسم المستخدم" value="{{ $user->name }}" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="email" class="col-form-label" id="lable_email">البريد الإلكتروني</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="البريد الإلكتروني" value="{{ $user->name }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="col-form-label" id="lable_password">كلمة المرور</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="كلمة المرور">
-                            </div>
-                            <div class="form-group">
-                                <label for="image" class="col-form-label" id="lable_image">الصورة الشخصية</label>
-                                <input type="file" name="image" class="form-control image" id="formFile" />
+                                <input type="text" class="form-control" id="email" name="email" placeholder="البريد الإلكتروني" value="{{ $user->email }}" disabled>
                             </div>
                             <div class="form-group" id="role">
                                 <label for="message-text" class="col-form-label" id="label_user_level">دور المستخدم</label>
-                                <select class="form-control custom-select" name="user_level_id">
+                                <select class="form-control custom-select" name="user_level_id" id="user_level_id">
                                     <option value="" class="text-secondary">دور المستخدم</option>
                                     @foreach ($levels as $level)
                                         <option value="{{ $level->id }}" @if ($user->user_level_id == $level->id)
@@ -81,9 +73,10 @@
                             <button class="btn btn-success" id="save-button">تعديل</button>
                         </form>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 justify-content-center">
                         @isset($user->profile_photo_path)
                             <img class="card-img-bottom d-block radius-image-full" src="{{ asset($user->profile_photo_path) }}" alt="صورة المستخدم">  
+                            <p class="text-center font-weight-bold">الصورة الشخصية</p>
                         @endisset
                     </div>
                 </div>
@@ -94,5 +87,27 @@
         <!-- /.card -->
 
     </section>
+  @push('js')
+
+    <script>
+        $(document).ready(function () {
+            $("#user_level_id").change(function(){
+                $(this).find("option:selected").each(function(){
+                    var optionValue = $(this).attr("value");
+                    $('#committee').hide();
+                    $('#donor').hide();
+                    if(optionValue == 2 ){
+                        $('#committee').show();
+                        $('#donor').hide();
+                    }else if(optionValue == 3 ){
+                        $('#committee').show();
+                        $('#donor').show();
+                    }
+                });
+            }).change();
+            
+        })
+    </script>
+    @endpush
 
 @stop
