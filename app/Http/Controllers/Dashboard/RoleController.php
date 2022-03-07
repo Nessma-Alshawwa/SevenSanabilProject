@@ -14,10 +14,6 @@ use Spatie\Permission\Models\Permission;
 class RoleController extends Controller
 {
     public function index(){
-        $committees = Committee::get();
-        $donors = Donor::get();
-        $levels = UserLevel::get();
-        $users = User::get();
         $i = 1;
         $user = auth()->user();
         $user_level_id = $user->user_level_id;
@@ -30,11 +26,10 @@ class RoleController extends Controller
             $donor_id = $user->donor_id;
             $roles = Role::orderBy('id','DESC')->where('$donor_id', $donor_id)->with("Committees")->with("Donors")->with('UserLevels')->get();
         }
-        return view('dashboard.roles.index', ['title'=> '/الأدوار', 'roles'=>$roles,'users'=>$users, 'i'=>$i, 'committees'=>$committees, 'donors'=>$donors, 'levels'=>$levels]);
+        return view('dashboard.roles.index', ['title'=> '/الأدوار', 'roles'=>$roles, 'i'=>$i]);
     }
 
     public function create(){
-        $roles = Role::get();
         $committees = Committee::get();
         $donors = Donor::get();
         $permissions = Permission::all();
@@ -49,7 +44,7 @@ class RoleController extends Controller
             $donor_id = $user->donor_id;
             $levels = UserLevel::where('donor_id', '>=', $donor_id)->with("Committees")->with("Donors")->get();
         }
-        return view('dashboard.roles.create',['title'=> '/إضافة', 'levels'=>$levels, 'roles'=>$roles, 'committees'=>$committees, 'donors'=>$donors, 'permissions'=>$permissions]);
+        return view('dashboard.roles.create',['title'=> '/إضافة', 'levels'=>$levels, 'committees'=>$committees, 'donors'=>$donors, 'permissions'=>$permissions]);
     }
 
     public function store(Request $request){
@@ -59,10 +54,21 @@ class RoleController extends Controller
             'user_level_id' => 'required',
         ]);
 
+        $name = $request['name'];
+        $user_level_id = $request['user_level_id'];
+        $committee_id = $request->input('committee_id', null);
+        $donor_id = $request->input('committee_id', null);
+
+
+        $role = Role::create(['name' => $name,'user_level_id' => $user_level_id, 'committee_id'=> $committee_id, 'donor_id'=> $donor_id]);
+        $role->syncPermissions($request->input('permission'));
+
+        return redirect()->back()->with('add_status', $role);
+
     }
 
     public function destroy($id){
-        Role::where('id', $id)->delete();
+        Role::findOrFail($id)->delete();
         return response()->json([
             'success'=> true,
         ]);

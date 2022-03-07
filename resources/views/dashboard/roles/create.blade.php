@@ -21,7 +21,6 @@
                 @endif
                 <form action="{{ URL('/dashboard/role/store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" id="id" value="">
 
                     <div class="form-group">
                         <label for="name" class="col-form-label" id="lable_name">اسم الدور</label>
@@ -29,7 +28,7 @@
                     </div>
                     <div class="form-group" >
                         <label for="message-text" class="col-form-label" id="label_user_level">المستوى</label>
-                        <select class="form-control custom-select" name="user_level_id">
+                        <select class="form-control custom-select" name="user_level_id" id="user_level_id">
                             <option value="" class="text-secondary">المستوى</option>
                             @foreach ($levels as $level)
                                 <option value="{{ $level->id }}">
@@ -59,10 +58,10 @@
                         </select>
                     </div>
                     <div>
-                        <label for="message-text" class="col-form-label" id="permission">الصلاحيات</label>
+                        <label for="message-text" class="col-form-label">الصلاحيات</label>
                         @foreach($permissions as $permission)
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="{{ $permission->id }}" name="permission" id="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="{{ $permission->id }}" name="permission[]" id="{{ $permission->id }}">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     {{ $permission->name }}
                                 </label>
@@ -77,5 +76,26 @@
         <!-- /.card -->
 
     </section>
+    @push('js')
 
+    <script>
+        $(document).ready(function () {
+            $("#user_level_id").change(function(){
+                $(this).find("option:selected").each(function(){
+                    var optionValue = $(this).attr("value");
+                    $('#committee').hide();
+                    $('#donor').hide();
+                    if(optionValue == 2 ){
+                        $('#committee').show();
+                        $('#donor').hide();
+                    }else if(optionValue == 3 ){
+                        $('#committee').show();
+                        $('#donor').show();
+                    }
+                });
+            }).change();
+            
+        })
+    </script>
+    @endpush
 @stop

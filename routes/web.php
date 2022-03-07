@@ -35,10 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/roles', [RoleController::class, 'index']);
     Route::get('/dashboard/role/create', [RoleController::class, 'create']);
     Route::post('/dashboard/role/store', [RoleController::class, 'store']);
-    Route::get('/dashboard/role/edit/{id}', [RoleController::class, 'edit']);
-    Route::post('/dashboard/role/update/{id}', [RoleController::class, 'update']);
     Route::delete('/dashboard/role/destroy/{id}', [RoleController::class, 'destroy']);
-    Route::delete('/dashboard/role/restore/{id}', [RoleController::class, 'restore']);
 });
 
 Route::get('/dashboard', function () {

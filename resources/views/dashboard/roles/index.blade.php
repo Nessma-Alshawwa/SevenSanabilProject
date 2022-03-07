@@ -11,10 +11,6 @@
       <div class="card-body px-5">
         <div id="success_message"></div>
         <a type="button" class="btn btn-success m-2" href="{{ URL('/dashboard/role/create') }}" id="createNewRole">إضافة دور جديدة</a>
-        {{-- {!! $dataTable->table([
-            'id' => 'dataTable',
-            'class'=> 'dataTable table-bordered table-striped projects basic-dark-color w-100'
-            ]) !!} --}}
             <table id ="dataTable" class="table-bordered table-striped projects basic-dark-color w-100">
                 <thead style="color: #19692b;" class="text-center">
                     <tr>
@@ -70,22 +66,9 @@
                         </td>
                         <td class="project-actions text-right">
                             <div class="row justify-content-center">
-                                @foreach($users as $user)
-                                    @if(Auth::user()->id !== $user->id)
-                                        <a href="{{ URL('/dashboard/role/edit/'. $user->id ) }}" type="button" data-value="{{ $role->id }}" class="btn btn-primary btn-sm text-white m-2">
-                                            <i class="fas fa-edit"></i>  تعديل
-                                        </a>
-                                        @if($role->deleted_at == null)
-                                            <a href="javascript:void(0)" type="button" data-value="{{ $role->id }}" class="deletebutton btn btn-danger btn-sm text-white m-2">
-                                                <i class="fas fa-trash"></i>  حذف
-                                            </a>
-                                        @else
-                                            <a href="javascript:void(0)" type="button" data-value="{{ $role->id }}" class="restorebutton btn btn-warning btn-sm text-white m-2">
-                                                <i class="fa-solid fa-trash-undo"></i>  استرجاع
-                                            </a>
-                                        @endif
-                                    @endif
-                                @endforeach
+                                <a href="javascript:void(0)" type="button" data-value="{{ $role->id }}" class="deletebutton btn btn-danger btn-sm text-white m-2">
+                                    <i class="fas fa-trash"></i>  حذف
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -94,26 +77,24 @@
                 </tbody>
             </table>
     </div>
-    {{-- @include('dashboard.includes.modal') --}}
       <!-- /.card-body -->
     </div>
     <!-- /.card -->
 
   </section>
   @push('js')
-    {{-- {!! $dataTable->Scripts() !!} --}}
-    
-  @endpush
-  <script>
+    <script>
         $(document).ready(function () {
 
             $('body').on('click', '.deletebutton', function () {
                 var id = $(this).attr('data-value');
-                var url = "{{url('/dashboard/rolee/destroy')}}";
+                var url = "{{url('/dashboard/role/destroy')}}";
                 console.log(id);
                 Deletebutton(url, id);
             });
         });
     </script>
+  @endpush
+
 
 @stop
