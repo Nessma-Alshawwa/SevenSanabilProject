@@ -80,13 +80,28 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item pt-3">
+            <li class="nav-item menu-open pt-3">
               <a href="{{ URL('dashboard/roles') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/roles')) ? 'active' : '' }}">
                 <i class="nav-icon ion ion-ios-people"></i>
                 <p>
                   الأدوار
                 </p>
+                <i class="right fas fa-angle-left"></i>
               </a>
+              <ul class="nav nav-treeview px-3">
+                <li class="nav-item">
+                  <a href="{{ URL('/dashboard/roles') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/roles')) ? 'active' : '' }}">
+                    <i class="far fa-user nav-icon"></i>
+                    <p>عرض الأدوار</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ URL('/dashboard/role/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/role/create')) ? 'active' : '' }}">
+                    <i class="far fa-user nav-icon"></i>
+                    <p>إضافة دور جديد</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item pt-3" >
               <a href="{{ URL('dashboard/donors') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donors')) ? 'active' : '' }}">

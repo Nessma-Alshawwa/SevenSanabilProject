@@ -32,12 +32,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Roles
-    Route::get('/dashboard/roles', [RoleController::class, 'index']); //get
-    Route::get('/dashboard/roles/create', [RoleController::class, 'create_role']); //get
-    Route::post('/dashboard/roles/store', [RoleController::class, 'store_role']); //post
-    Route::get('/dashboard/roles/edit/{id}', [RoleController::class, 'edit_role']); //get
-    Route::post('/dashboard/roles/update/{id}', [RoleController::class, 'update_role']);    //post
-    Route::delete('/dashboard/roles/destroy/{id}', [RoleController::class, 'destroy']);
+    Route::get('/dashboard/roles', [RoleController::class, 'index']);
+    Route::get('/dashboard/role/create', [RoleController::class, 'create']);
+    Route::post('/dashboard/role/store', [RoleController::class, 'store']);
+    Route::get('/dashboard/role/edit/{id}', [RoleController::class, 'edit']);
+    Route::post('/dashboard/role/update/{id}', [RoleController::class, 'update']);
+    Route::delete('/dashboard/role/destroy/{id}', [RoleController::class, 'destroy']);
+    Route::delete('/dashboard/role/restore/{id}', [RoleController::class, 'restore']);
 });
 
 Route::get('/dashboard', function () {

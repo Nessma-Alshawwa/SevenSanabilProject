@@ -10,7 +10,7 @@
       </div>
       <div class="card-body px-5">
         <div id="success_message"></div>
-        <a type="button" class="btn btn-success m-2" href="{{ URL("/dashboard/user/create") }}" id="createNewUser">إضافة مستخدم جديدة</a>
+        <a type="button" class="btn btn-success m-2" href="{{ URL('/dashboard/user/create') }}" id="createNewUser">إضافة مستخدم جديدة</a>
         {{-- {!! $dataTable->table([
             'id' => 'dataTable',
             'class'=> 'dataTable table-bordered table-striped projects basic-dark-color w-100'

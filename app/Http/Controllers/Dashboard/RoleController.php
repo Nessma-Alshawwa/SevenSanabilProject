@@ -6,59 +6,65 @@ use App\Models\UserLevel;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Committee;
+use App\Models\Donor;
+use App\Models\User;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
     public function index(){
-        // $roles = Role::With('UserLevels')->get();
-        $roles = Role::get();
-        $user_levels = UserLevel::Get();
-        return view('dashboard.roles.index', ['title'=> '/الأدوار'], compact('roles', 'user_levels'));
+        $committees = Committee::get();
+        $donors = Donor::get();
+        $levels = UserLevel::get();
+        $users = User::get();
+        $i = 1;
+        $user = auth()->user();
+        $user_level_id = $user->user_level_id;
+        if($user_level_id == 1){ //SuperAdmin_user_level_id
+            $roles = Role::orderBy('id','DESC')->with("Committees")->with("Donors")->with('UserLevels')->get();
+        }else if($user_level_id == 2){ //committee_user_level_id
+            $committee_id = $user->committee_id;
+            $roles = Role::orderBy('id','DESC')->where('$committee_id', $committee_id)->with("Committees")->with("Donors")->with('UserLevels')->get();
+        }else if($user_level_id == 3){ //donor_user_level_id
+            $donor_id = $user->donor_id;
+            $roles = Role::orderBy('id','DESC')->where('$donor_id', $donor_id)->with("Committees")->with("Donors")->with('UserLevels')->get();
+        }
+        return view('dashboard.roles.index', ['title'=> '/الأدوار', 'roles'=>$roles,'users'=>$users, 'i'=>$i, 'committees'=>$committees, 'donors'=>$donors, 'levels'=>$levels]);
     }
 
-    public function create_role(){
+    public function create(){
         $roles = Role::get();
-        // $permission = Permission::all();
-        // dd($permission);
-        $user_levels = UserLevel::Get();
-        return view('dashboard.roles.create_role',['title'=> '/إضافة'], compact('roles', 'user_levels'));
+        $committees = Committee::get();
+        $donors = Donor::get();
+        $permissions = Permission::all();
+        $user = auth()->user();
+        $user_level_id = $user->user_level_id;
+        if($user_level_id == 1){ //SuperAdmin_user_level_id
+            $levels = UserLevel::all();
+        }else if($user_level_id == 2){ //committee_user_level_id
+            $committee_id = $user->committee_id;
+            $levels = UserLevel::where('committee_id', '>=', $committee_id)->with("Committees")->with("Donors")->get();
+        }else if($user_level_id == 3){ //donor_user_level_id
+            $donor_id = $user->donor_id;
+            $levels = UserLevel::where('donor_id', '>=', $donor_id)->with("Committees")->with("Donors")->get();
+        }
+        return view('dashboard.roles.create',['title'=> '/إضافة', 'levels'=>$levels, 'roles'=>$roles, 'committees'=>$committees, 'donors'=>$donors, 'permissions'=>$permissions]);
     }
 
-    public function store_role(Request $request){
-        $role = Role::create(['name' => $request->input('name'),'user_level_id' => $request->input('user_level_id'), 
-        'committee_id' => $request->input('committee_id', null), 'donor_id' => $request->input('donor_is', null)
+    public function store(Request $request){
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name',
+            'permission' => 'required',
+            'user_level_id' => 'required',
         ]);
-        $role->syncPermissions($request->input('permission'));
-        $name = $request['name'];
-        $permission = $request['permission'];
-        $user_level_id = $request['user_level_id'];
-        $committee_id = $request['committee_id'];
-        $donor_id = $request['donor_id'];
-		$role = new Role();
-		$role->name = $name;
-		$role->permission = $permission;
-		$role->user_level_id = $user_level_id;
-		$role->committee_id = $committee_id;
-		$role->donor_id = $donor_id;
-        $role_result = $role->save();
-		return redirect('/dashboard/roles')->with(['title'=> ''])->with('add_status', [$role_result]);
+
     }
 
-    public function edit_role($id){
-        $role = Role::where('id', $id);
-        return view('dashboard.roles.edit_role')->with('role', $role);
-    }
-
-    public function update_role(Request $request,$id){
-        $name = $request['name'];
-        $role = Role::where('id',$id)->first();// Model
-        $role->name = $name;
-		$role_result = $role->save();
-        return  redirect('/dashboard/roles')->with(['title'=> ''])->with('add_status', [$role_result]);
-    }
     public function destroy($id){
-        Role::findOrFail($id)->delete();
-        return redirect()->back();
+        Role::where('id', $id)->delete();
+        return response()->json([
+            'success'=> true,
+        ]);
     }
 }

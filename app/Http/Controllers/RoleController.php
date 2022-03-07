@@ -53,7 +53,7 @@ class RoleController extends Controller
             $seller_id = $user->seller_id;
             $roles = Role::orderBy('id','DESC')->where('seller_id', $seller_id)->get();
         }
-
+        
         return view('roles.index',compact('roles','page'));
     }
 
