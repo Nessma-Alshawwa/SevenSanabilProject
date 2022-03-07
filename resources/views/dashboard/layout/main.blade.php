@@ -40,7 +40,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel my-3 pb-3 d-flex">
           <div class="image">
-            <img src="{{ Auth::user()->profile_photo_path ? Auth::user()->profile_photo_path : Auth::user()->profile_photo_url }}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{ Auth::user()->profile_photo_path ? asset(Storage::url(Auth::user()->profile_photo_path)) : Auth::user()->profile_photo_url }}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="" class="text-white">{{ Auth::user()->name }}</a>
@@ -266,7 +266,6 @@
         <div class="col-sm-6">
           <h5 class="m-0" style="color: #23903c;">
             <a href="{{ URL('dashboard') }}" style="color: #23903c;"> لوحة التحكم</a>
-            <a href="{{ URL('dashboard') }}" style="color: #23903c;">/الأدمن </a>
             <a style="color: #23903c;">{{ $title }}</a>
           </h5>
         </div><!-- /.col -->

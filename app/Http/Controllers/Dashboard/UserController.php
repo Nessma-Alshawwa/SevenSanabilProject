@@ -16,14 +16,6 @@ use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
-    // public function index(UsersDataTable $users){
-    //     $levels = UserLevel::get();
-    //     $committees = Committee::get();
-    //     $donors = Donor::get();
-    //     return $users->render('dashboard.users', ['title'=> '/المستخدمين', 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors ]);
-    //     // return view('dashboard.users', ['title'=> '/المستخدمين'], ['levels'=> $levels]);
-    // }
-
     public function index(){
         $levels = UserLevel::get();
         $committees = Committee::get();
@@ -43,7 +35,7 @@ class UserController extends Controller
             $donor_id = $user->donor_id;
             $users = User::withTrashed()->where('donor_id', $donor_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
         }
-
+        // dd($users);
         return view('dashboard.users.index', ['title'=> '/المستخدمين', 'i'=>$i, 'users'=>$users, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors ]);
     }
 
@@ -88,6 +80,7 @@ class UserController extends Controller
 		$image_name = time()+rand(1, 10000000000) . '.' . $image->getClientOriginalExtension();
 		Storage::disk('local')->put($path.$image_name , file_get_contents($image));
 		Storage::disk('local')->exists($path.$image_name);
+        $image = $path.$image_name;
 
         $user = new User();
         $user->name = $name;
@@ -120,10 +113,6 @@ class UserController extends Controller
     public function update(Request $request, $id){
         $user = User::withTrashed()->findOrFail($id);
 
-        $name = $request['name'];
-        $email = $request['email'];
-        $password = Hash::make($request['password']);
-        $image = $request['image'];
         $user_level_id = $request['user_level_id'];
         $committee_id = $request['committee_id'];
         $donor_id = $request['donor_id'];
@@ -134,18 +123,6 @@ class UserController extends Controller
             $user_level_id = 3;
         }
 
-        if (!empty($request['image'])){
-            $image = $request->file('image');
-            $path = 'uploads/images/';
-            $image_name = time()+rand(1, 10000000000) . '.' . $image->getClientOriginalExtension();
-            Storage::disk('local')->put($path.$image_name , file_get_contents($image));
-            Storage::disk('local')->exists($path.$image_name);
-            // $user->profile_photo_path = $path.$image_name;
-        }
-
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = $password;
         $user->user_level_id = $user_level_id;
         $user->committee_id = $committee_id;
         $user->donor_id =$donor_id;
