@@ -38,13 +38,23 @@
                         <label for="image" class="col-form-label" id="lable_image">الصورة الشخصية</label>
                         <input type="file" name="image" class="form-control image" id="formFile" />
                     </div>
-                    <div class="form-group" id="role">
-                        <label for="message-text" class="col-form-label" id="label_user_level">دور المستخدم</label>
+                    <div class="form-group" id="level">
+                        <label for="message-text" class="col-form-label" id="label_user_level">المستوى</label>
                         <select class="form-control custom-select" name="user_level_id" id="user_level_id">
-                            <option value="" class="text-secondary" selected>دور المستخدم</option>
+                            <option value="" class="text-secondary" selected>المستوى</option>
                             @foreach ($levels as $level)
                                 <option value="{{ $level->id }}">
                                 {{ $level->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group" id="role">
+                        <label for="message-text" class="col-form-label" id="role_id">دور المستخدم</label>
+                        <select class="form-control custom-select" name="role_id" id="role_id">
+                            <option value="" class="text-secondary" selected>دور المستخدم</option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">
+                                {{ $role->name }}</option>
                             @endforeach
                         </select>
                     
