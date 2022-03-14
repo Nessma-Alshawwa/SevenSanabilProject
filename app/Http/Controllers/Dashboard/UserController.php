@@ -13,6 +13,7 @@ use App\DataTables\UsersDataTable;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
+use DB;
 
 class UserController extends Controller
 {
@@ -47,13 +48,14 @@ class UserController extends Controller
             $users = User::withTrashed()->where('donor_id', $donor_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
         }
         // dd($users);
-        return view('dashboard.users.index', ['title'=> '/المستخدمين', 'i'=>$i, 'users'=>$users, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors ]);
+        return view('dashboard.users.index', ['title'=> '/المستخدمين', 'users'=>$users, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors, 'i'=>$i ]);
     }
 
     public function create(){
         $levels = UserLevel::get();
         $committees = Committee::get();
         $donors = Donor::get();
+        $roles = Role::all();
         
         $user = auth()->user();
         $user_level_id = $user->user_level_id;
@@ -69,7 +71,7 @@ class UserController extends Controller
             $users = User::withTrashed()->where('donor_id', $donor_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
         }
 
-        return view('dashboard.users.create', ['title'=> '/المستخدمين/إضافة مستخدم جديد', 'users'=>$users, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors ]);
+        return view('dashboard.users.create', ['title'=> '/المستخدمين/إضافة مستخدم جديد', 'users'=>$users, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors, 'roles'=> $roles ]);
     
     }
 
@@ -79,6 +81,7 @@ class UserController extends Controller
         $password = Hash::make($request['password']);
         $committee_id = $request['committee_id'];
         $donor_id = $request['donor_id'];
+        $role_id = $request['role_id'];
 
         if($request['user_level_id']){
             $user_level_id = $request['user_level_id'];
@@ -103,6 +106,8 @@ class UserController extends Controller
         $user->donor_id =$donor_id;
         $result = $user->save();
 
+        DB::table('model_has_roles')->insert(['role_id' => request('role_id') , 'model_type' => "App\Models\User" , 'model_id' => $user->id]);
+
         return redirect()->back()->with('add_status', $result);
     }
 
@@ -112,12 +117,16 @@ class UserController extends Controller
         $committees = Committee::get();
         $donors = Donor::get();
 
+        $roles = Role::all();
+        $user_roles = $user->getRoleNames();
+
+        // dd($roles);
         if($user->profile_photo_path !== null){
             $img_link = Storage::url($user->profile_photo_path);
     	    $user->profile_photo_path = $img_link;
         }
-
-        return view('dashboard.users.edit', ['title'=> '/المستخدمين/تعديل المستخدم', 'user'=>$user, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors ]);
+        // return ($user_role);
+        return view('dashboard.users.edit', ['title'=> '/المستخدمين/تعديل المستخدم', 'user'=>$user, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors, 'user_roles'=>$user_roles, 'roles'=>$roles ]);
         
     }
 
@@ -127,6 +136,8 @@ class UserController extends Controller
         $user_level_id = $request['user_level_id'];
         $committee_id = $request['committee_id'];
         $donor_id = $request['donor_id'];
+        $role_id = $request['role_id'];
+
 
         if($request['user_level_id']){
             $user_level_id = $request['user_level_id'];
@@ -138,7 +149,13 @@ class UserController extends Controller
         $user->committee_id = $committee_id;
         $user->donor_id =$donor_id;
         $result = $user->save();
-        
+
+        if ($role_id) {
+            if (!empty($role_id) && $role_id > 0) {
+                DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+                DB::table('model_has_roles')->insert(['role_id' => $role_id , 'model_type' => "App\Models\User" , 'model_id' => $user->id]);
+            }
+        }
         return response()->json([
             'status'=> [$result],
             'success'=> true,

@@ -31,15 +31,29 @@
                                 <label for="email" class="col-form-label" id="lable_email">البريد الإلكتروني</label>
                                 <input type="text" class="form-control" id="email" name="email" placeholder="البريد الإلكتروني" value="{{ $user->email }}" disabled>
                             </div>
-                            <div class="form-group" id="role">
-                                <label for="message-text" class="col-form-label" id="label_user_level">دور المستخدم</label>
+                            <div class="form-group" id="level">
+                                <label for="message-text" class="col-form-label" id="label_user_level">المستوى</label>
                                 <select class="form-control custom-select" name="user_level_id" id="user_level_id">
-                                    <option value="" class="text-secondary">دور المستخدم</option>
+                                    <option value="" class="text-secondary" selected>المستوى</option>
                                     @foreach ($levels as $level)
                                         <option value="{{ $level->id }}" @if ($user->user_level_id == $level->id)
                                             selected
                                         @endif>
                                         {{ $level->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group" id="role">
+                                <label for="message-text" class="col-form-label" id="role_id">دور المستخدم</label>
+                                <select class="form-control custom-select" name="role_id" id="role_id">
+                                    <option value="" class="text-secondary" selected>دور المستخدم</option>
+                                    @foreach ($roles as $role)
+                                        @foreach ($user_roles as $user_role)
+                                            <option value="{{ $role->id }}" @if ($user_role == $role->name)
+                                                selected
+                                            @endif >
+                                            {{ $role->name }}</option>
+                                        @endforeach
                                     @endforeach
                                 </select>
                             
