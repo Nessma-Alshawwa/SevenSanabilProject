@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\RoleController;
+use App\Http\Controllers\Dashboard\CommitteeController;
 
 
 /*
@@ -38,6 +39,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/dashboard/role/destroy/{id}', [RoleController::class, 'destroy']);
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Committees
+    Route::get('/dashboard/committees', [CommitteeController::class, 'index']);
+    Route::get('/dashboard/committee/create', [CommitteeController::class, 'create']);
+    Route::post('/dashboard/committee/store', [CommitteeController::class, 'store']);
+    Route::get('/dashboard/committee/edit/{id}', [CommitteeController::class, 'edit']);
+    Route::post('/dashboard/committee/update/{id}', [CommitteeController::class, 'update']);
+    Route::delete('/dashboard/committee/destroy/{id}', [CommitteeController::class, 'destroy']);
+    Route::get('/dashboard/committee/restore/{id}', [CommitteeController::class, 'restore']);
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard.index', ['title'=>'']);
 });
@@ -54,6 +66,3 @@ Route::get('/dashboard/donations', function () {
     return view('dashboard.donations', ['title'=>'/التبرعات']);
 });
 
-Route::get('/dashboard/committees', function () {
-    return view('dashboard.committees', ['title'=>'/لجان الزكاة']);
-});

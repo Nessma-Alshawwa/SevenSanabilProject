@@ -16,6 +16,17 @@ use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:View Users', ['only' => ['index']]);
+        $this->middleware('permission:Create User', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Edit User', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Disable User', ['only' => ['destroy']]);
+        $this->middleware('permission:Activate User', ['only' => ['restore']]);
+    }
+
+
     public function index(){
         $levels = UserLevel::get();
         $committees = Committee::get();

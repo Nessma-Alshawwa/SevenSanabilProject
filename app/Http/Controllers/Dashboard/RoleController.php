@@ -13,6 +13,14 @@ use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
+    
+    function __construct()
+    {
+        $this->middleware('permission:View Roles', ['only' => ['index']]);
+        $this->middleware('permission:Create Role', ['only' => ['create','store']]);
+        $this->middleware('permission:Delete Role', ['only' => ['destroy']]);
+    }
+
     public function index(){
         $i = 1;
         $user = auth()->user();

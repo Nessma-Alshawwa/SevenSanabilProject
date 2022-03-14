@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2022 at 09:17 PM
+-- Generation Time: Mar 14, 2022 at 09:42 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.15
 
@@ -107,6 +107,16 @@ CREATE TABLE `committees` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `committees`
+--
+
+INSERT INTO `committees` (`id`, `name`, `location`, `manager`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'لجنة1', 'غزة', 'احمد', 'لجنة زكاة رقم 1', NULL, NULL, NULL),
+(3, 'لجنة2', 'تل الهوا', 'علي', 'لجنة زكاة رقم 2', NULL, '2022-03-14 17:53:03', '2022-03-14 17:53:03'),
+(4, 'لجنة3', 'الزيتون', 'محمد', 'لجنة زكاة رقم3', '2022-03-14 17:46:44', '2022-03-14 17:50:32', '2022-03-14 17:50:32'),
+(5, 'لجنة زكاة2', 'الزيتون', 'محمد', 'لجنة زكاة رقم 2', '2022-03-14 17:55:00', '2022-03-14 17:55:15', '2022-03-14 17:55:15');
+
 -- --------------------------------------------------------
 
 --
@@ -208,7 +218,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2022_02_20_182524_create_donation_categories_table', 1),
 (17, '2022_02_20_182546_create_quantities_spent_table', 1),
 (18, '2022_02_22_122504_add_three_foreign_key_column_in_users_table', 1),
-(19, '2022_02_22_123209_add_three_foreign_key_column_in_roles_table', 1);
+(19, '2022_02_22_123209_add_three_foreign_key_column_in_roles_table', 1),
+(20, '2022_03_03_091053_add_deleted_at_column_on_users_table', 1);
 
 -- --------------------------------------------------------
 
@@ -233,13 +244,6 @@ CREATE TABLE `model_has_roles` (
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `model_has_roles`
---
-
-INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-(1, 'App\\Models\\User', 1);
 
 -- --------------------------------------------------------
 
@@ -272,16 +276,16 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'Create Role', 'web', '2022-02-22 18:01:36', '2022-02-22 18:01:36'),
-(2, 'Edit Role', 'web', '2022-02-22 18:01:36', '2022-02-22 18:01:36'),
-(3, 'View Roles', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
-(4, 'Disable Role', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
-(5, 'Activate Role', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
-(6, 'Create User', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
-(7, 'Edit User', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
-(8, 'View Users', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
-(9, 'Disable User', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37'),
-(10, 'Activate User', 'web', '2022-02-22 18:01:37', '2022-02-22 18:01:37');
+(11, 'Create Role', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
+(12, 'Edit Role', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
+(13, 'View Roles', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
+(14, 'Disable Role', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
+(15, 'Activate Role', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
+(16, 'Create User', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
+(17, 'Edit User', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
+(18, 'View Users', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
+(19, 'Disable User', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
+(20, 'Activate User', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13');
 
 -- --------------------------------------------------------
 
@@ -339,7 +343,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `user_level_id`, `committee_id`, `donor_id`) VALUES
-(1, 'superadmin', 'web', '2022-02-22 18:01:35', '2022-02-22 18:01:35', 1, NULL, NULL);
+(6, 'superadmin', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -357,16 +361,16 @@ CREATE TABLE `role_has_permissions` (
 --
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1),
-(6, 1),
-(7, 1),
-(8, 1),
-(9, 1),
-(10, 1);
+(11, 6),
+(12, 6),
+(13, 6),
+(14, 6),
+(15, 6),
+(16, 6),
+(17, 6),
+(18, 6),
+(19, 6),
+(20, 6);
 
 -- --------------------------------------------------------
 
@@ -388,7 +392,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('AnsKHfFECO0UNYo6zDUkJ6oh3P0bW9vAb5NHeoTb', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVTNvaENZaG5ha1IzZDY2ajV1SUlaNkt4YlQwcWx0alBZbGdHTGNHQyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQvdXNlcnMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTAkV1d2SzlGSng3bm9Dd2FGWE51SnlyT25uL2ZDd0tlQmpUdVVXd3IwWUdqNm5WWjFxRFRsNXUiO30=', 1645560883);
+('nbouMHFQFONHBrE6z9VvygeyfXQLXDvAKqjX3sSQ', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZ1J3RXRDT3p5VzVZWVFpM1RhcWFTaTFFcFI5bW1qRTZzRGxnTG81SyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTAkYWJ4ck9SNFFJTTNBS1JJdW5MTHBVT2Fvd1UuQW5pYmw4aGdlRi5CbHh3QzFCN0daQ25IRFMiO30=', 1647290493);
 
 -- --------------------------------------------------------
 
@@ -411,15 +415,17 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_level_id` bigint(20) UNSIGNED DEFAULT NULL,
   `committee_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `donor_id` bigint(20) UNSIGNED DEFAULT NULL
+  `donor_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`, `user_level_id`, `committee_id`, `donor_id`) VALUES
-(1, 'أدمن', 'admin@gmail.com', NULL, '$2y$10$WWvK9FJx7noCwaFXNuJyrOnn/fCwKeBjTuUWwr0YGj6nVZ1qDTl5u', NULL, NULL, NULL, NULL, NULL, '2022-02-22 18:04:53', '2022-02-22 18:04:53', 1, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`, `user_level_id`, `committee_id`, `donor_id`, `deleted_at`) VALUES
+(1, 'admin', 'admin@gmail.com', NULL, '$2y$10$abxrOR4QIM3AKRIunLLpUOaowU.Anibl8hgeF.BlxwC1B7GZCnHDS', NULL, NULL, NULL, NULL, NULL, '2022-03-06 05:45:01', '2022-03-06 05:45:01', 1, NULL, NULL, NULL),
+(3, 'test', 'test@gmail.com', NULL, '$2y$10$5EmovZZsswpxWVfrptzVwutYEfRJ3rJXADsYOJ7AkcZ4ZSrbMIMsi', NULL, NULL, NULL, NULL, 'C:\\xampp\\tmp\\phpD919.tmp', '2022-03-06 06:02:11', '2022-03-06 08:02:02', 2, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -630,7 +636,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `committees`
 --
 ALTER TABLE `committees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `donation_categories`
@@ -660,13 +666,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -684,13 +690,13 @@ ALTER TABLE `quantities_spent`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_levels`

@@ -58,7 +58,7 @@
               </a>
             </li>
             <li class="nav-item menu-open pt-3">
-              <a href="{{ URL('dashboard/users') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
+                <a href="{{ URL('dashboard/users') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
                 <i class="nav-icon ion ion-ios-people"></i>
                 <p>
                   المستخدمين
@@ -127,13 +127,28 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item pt-3" >
-              <a href="{{ URL('dashboard/committees') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committees')) ? 'active' : '' }}">
+            <li class="nav-item menu-open pt-3">
+                <a href="{{ URL('dashboard/committees') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committees')) ? 'active' : '' }}">
                 <i class="nav-icon ion ion-android-document"></i>
                 <p>
                   اللجان
                 </p>
+                <i class="right fas fa-angle-left"></i>
               </a>
+              <ul class="nav nav-treeview px-3">
+                <li class="nav-item">
+                  <a href="{{ URL('/dashboard/committees') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committees')) ? 'active' : '' }}">
+                    <i class="far fa-file nav-icon"></i>
+                    <p>عرض اللجان</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ URL('/dashboard/committee/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committee/create')) ? 'active' : '' }}">
+                    <i class="far fa-file nav-icon"></i>
+                    <p>إضافة لجنة جديدة</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item pt-3">
               <form method="POST" action="{{ route('logout') }}">

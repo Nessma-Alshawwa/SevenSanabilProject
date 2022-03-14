@@ -6,13 +6,11 @@
     <!-- Table:المستخدمين -->
     <div class="card">
       <div class="card-header text-white bg-basic-light-color">
-          <h6> صلاحيات المستخدمين </h6>
+          <h6> صلاحيات اللجان </h6>
       </div>
       <div class="card-body px-5">
         <div id="success_message"></div>
-        @can('Create User')
-            <a type="button" class="btn btn-success m-2" href="{{ URL('/dashboard/user/create') }}" id="createNewUser">إضافة مستخدم جديدة</a>
-        @endcan
+            <a type="button" class="btn btn-success m-2" href="{{ URL('/dashboard/committee/create') }}" id="createNewCommittee">إضافة لجنة جديدة</a>
         {{-- {!! $dataTable->table([
             'id' => 'dataTable',
             'class'=> 'dataTable table-bordered table-striped projects basic-dark-color w-100'
@@ -27,16 +25,13 @@
                             الاسم 
                         </th>
                         <th style="width: 20%">
-                            البريد الإلكتروني 
+                            المنطقة 
                         </th>
                         <th style="width: 13%">
-                            دور المستخدم 
+                            مدير اللجنة 
                         </th>
                         <th style="width: 13%">
-                            اللجنة 
-                        </th>
-                        <th style="width: 13%">
-                            المتبرع 
+                            الوصف 
                         </th>
                         <th style="width: 20%">
                             الإجراءات
@@ -44,59 +39,41 @@
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    @foreach ($users as $user)
+                    @foreach ($committees as $committee)
                     <tr>
                         <td>
                             {{ $i++ }}
                         </td>
                         <td>
                             <a>
-                                {{ $user->name }}
+                                {{ $committee->name }}
                             </a>
                         </td>
                         <td>
                             <a>
-                                {{ $user->email }}
+                                {{ $committee->location }}
                             </a>
                         </td>
                         <td>
-                            <a style="color: #23903c;">{{ $user->UserLevels->name }}</a>
+                            {{ $committee->manager }}
                         </td>
                         <td>
-                            @if (isset($user->Committees->name))
-                                {{ $user->Committees->name }}
-                            @else
-                                لا يوجد
-                            @endif
-                            
-                        </td>
-                        <td>
-                            @if (isset($user->Donors->name))
-                                {{ $user->Donors->name }}
-                            @else
-                                لا يوجد
-                            @endif
-                            
+                            {{ $committee->description }}
                         </td>
                         <td class="project-actions text-right">
                             <div class="row justify-content-center">
-                                @if(Auth::user()->id !== $user->id)
-                                    <a href="{{ URL('/dashboard/user/edit/'. $user->id ) }}" type="button" data-value="{{ $user->id }}" class="btn btn-primary btn-sm text-white m-2">
+                                    <a href="{{ URL('/dashboard/committee/edit/'. $committee->id ) }}" type="button" data-value="{{ $committee->id }}" class="btn btn-primary btn-sm text-white m-2">
                                         <i class="fas fa-folder"></i>  تعديل
                                     </a>
-                                    @if($user->deleted_at == null)
-                                        <a href="javascript:void(0)" type="button" data-value="{{ $user->id }}" class="deletebutton btn btn-danger btn-sm text-white m-2">
+                                    @if($committee->deleted_at == null)
+                                        <a href="javascript:void(0)" type="button" data-value="{{ $committee->id }}" class="deletebutton btn btn-danger btn-sm text-white m-2">
                                             <i class="fas fa-trash"></i>  حذف
                                         </a>
                                     @else
-                                        <a href="javascript:void(0)" type="button" data-value="{{ $user->id }}" class="restorebutton btn btn-warning btn-sm text-white m-2">
+                                        <a href="javascript:void(0)" type="button" data-value="{{ $committee->id }}" class="restorebutton btn btn-warning btn-sm text-white m-2">
                                             <i class="fa-solid fa-trash-undo"></i>  استرجاع
                                         </a>
                                     @endif
-                                       
-                                @else
-                                    <a>لا يوجد أي اجراءات</a>
-                                @endif
                             </div>
                         </td>
                     </tr>
@@ -116,21 +93,19 @@
 
             $('body').on('click', '.deletebutton', function () {
                 var id = $(this).attr('data-value');
-                var url = "{{url('/dashboard/user/destroy')}}";
+                var url = "{{url('/dashboard/committee/destroy')}}";
                 console.log(id);
                 Deletebutton(url, id);
             });
+
             $('body').on('click', '.restorebutton', function () {
                 var id = $(this).attr('data-value');
-                var url = "{{url('/dashboard/user/restore')}}";
+                var url = "{{url('/dashboard/committee/restore')}}";
                 console.log(id);
                 Restorebutton(url, id);
             });
-
-            
         });
     </script>
-    
   @endpush
 
 @stop
