@@ -42,8 +42,8 @@ class CommitteeController extends Controller
     }
 
     public function edit($id){
-        $committees = Committee::withTrashed()->findOrFail($id);
-        return view('dashboard.committees.edit', ['title'=> '/اللجان/تعديل اللجنة','committees'=> $committees ]);
+        $committee = Committee::withTrashed()->findOrFail($id);
+        return view('dashboard.committees.edit', ['title'=> '/اللجان/تعديل اللجنة','committee'=> $committee ]);
         
     }
 
@@ -75,7 +75,7 @@ class CommitteeController extends Controller
     }
 
     public function restore($id){
-        Committee::onlyTrashed()->where('id', $id)->restore();
+        $comm = Committee::onlyTrashed()->where('id', $id)->restore();
         return response()->json([
             'success'=> true,
         ]);
