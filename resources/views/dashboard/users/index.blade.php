@@ -152,7 +152,7 @@
                             @if(Auth::user()->id !== $user->id)
                                 @can('Edit User')
                                     <a href="{{ URL('/dashboard/user/edit/'. $user->id ) }}" type="button" data-value="{{ $user->id }}" class="btn btn-primary btn-sm text-white m-2">
-                                        <i class="fas fa-folder"></i>  تعديل
+                                        <i class="fas fa-edit"></i>  تعديل
                                     </a>
                                 @endcan
                                 

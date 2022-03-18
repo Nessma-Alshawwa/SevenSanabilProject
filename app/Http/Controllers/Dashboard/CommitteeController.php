@@ -10,7 +10,7 @@ class CommitteeController extends Controller
 {
     public function index(){
         $i = 1;
-        $committees = Committee::orderBy('id','DESC')->get();
+        $committees = Committee::withTrashed()->orderBy('id','DESC')->get();
         return view('dashboard.committees.index', ['title'=> '/اللجان', 'committees'=>$committees, 'i'=>$i]);
     }
 
@@ -60,11 +60,12 @@ class CommitteeController extends Controller
         $committee->description = $description;
         $result = $committee->save();
         
-        return response()->json([
-            'status'=> [$result],
-            'success'=> true,
-            $result
-        ]);
+        return redirect('dashboard/committees')->with('add_status', $result);
+        // return response()->json([
+        //     'status'=> [$result],
+        //     'success'=> true,
+        //     $result
+        // ]);
     }
     
     public function destroy($id){

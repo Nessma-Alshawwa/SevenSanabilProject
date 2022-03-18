@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\RoleController;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\DonorController;
 use App\Http\Controllers\Dashboard\CommitteeController;
 
 
@@ -50,13 +51,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/committee/restore/{id}', [CommitteeController::class, 'restore']);
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Donors
+    Route::get('/dashboard/donors', [DonorController::class, 'index']);
+    Route::get('/dashboard/donor/edit/{id}', [DonorController::class, 'edit']);
+    Route::post('/dashboard/donor/update/{id}', [DonorController::class, 'update']);
+    Route::delete('/dashboard/donor/destroy/{id}', [DonorController::class, 'destroy']);
+    Route::get('/dashboard/donor/restore/{id}', [DonorController::class, 'restore']);
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard.index', ['title'=>'']);
 });
 
-Route::get('/dashboard/donors', function () {
-    return view('dashboard.donors', ['title'=>'/المتبرعين']);
-});
 
 Route::get('/dashboard/beneficiaries', function () {
     return view('dashboard.beneficiaries', ['title'=>'/المستفيدين']);
