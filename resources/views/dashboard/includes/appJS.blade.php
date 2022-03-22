@@ -58,10 +58,11 @@
 
 
 <Script type="text/javascript">
-    $(".menu-open .fa-angle-left").click(function(e){
-        e.preventDefault();
-        $('.nav-treeview').toggle();
-    });
+    // $(".menu-open .fa-angle-left").click(function(e){
+    //     e.preventDefault();
+    //     $('.nav-treeview').toggle();
+    // });
+    
   function Deletebutton(url='',id = ''){
       swal({
       title: "هل أنت متأكد؟",

@@ -58,9 +58,6 @@
               </a>
             </li>
             <li class="nav-item menu-open pt-3">
-
-                <a href="{{ URL('dashboard/users') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
-
               <a class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
 
                 <i class="nav-icon ion ion-ios-people"></i>
