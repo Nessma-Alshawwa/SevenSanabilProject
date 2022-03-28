@@ -116,4 +116,54 @@
           }
       })
   };
+  
+  function Approvebutton(url='',id = ''){
+      swal({
+      title: "هل أنت متأكد من الموافقة؟",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+              $.ajax({
+                  type: "GET",
+                  url: url+"/"+id,
+                  data:  { id: id, _token: '{{csrf_token()}}' },
+                  dataType: "json",
+                  success: function (response) {
+                      swal("تمت الموافقة بنجاح!", {
+                          icon: "success",
+                      });
+
+                  }
+              })
+          }
+      })
+  };
+
+  function Rejectbutton(url='',id = ''){
+      swal({
+      title: "هل أنت متأكد من الرفض؟",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+              $.ajax({
+                  type: "GET",
+                  url: url+"/"+id,
+                  data:  { id: id, _token: '{{csrf_token()}}' },
+                  dataType: "json",
+                  success: function (response) {
+                      swal("تم الرفض !", {
+                          icon: "success",
+                      });
+
+                  }
+              })
+          }
+      })
+  };
 </Script>

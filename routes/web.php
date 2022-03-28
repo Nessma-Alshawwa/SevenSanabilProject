@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\DonorController;
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CommitteeController;
 
 
@@ -56,8 +57,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/donors', [DonorController::class, 'index']);
     Route::get('/dashboard/donor/edit/{id}', [DonorController::class, 'edit']);
     Route::post('/dashboard/donor/update/{id}', [DonorController::class, 'update']);
-    Route::delete('/dashboard/donor/destroy/{id}', [DonorController::class, 'destroy']);
-    Route::get('/dashboard/donor/restore/{id}', [DonorController::class, 'restore']);
+    // Route::delete('/dashboard/donor/destroy/{id}', [DonorController::class, 'destroy']);
+    // Route::get('/dashboard/donor/restore/{id}', [DonorController::class, 'restore']);
+    Route::get('/dashboard/donor/approve/{id}', [DonorController::class, 'approve']);
+    Route::get('/dashboard/donor/reject/{id}', [DonorController::class, 'reject']);
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Categories
+    Route::get('/dashboard/categories', [CategoryController::class, 'index']);
+    Route::get('/dashboard/category/create', [CategoryController::class, 'create']);
+    Route::post('/dashboard/category/store', [CategoryController::class, 'store']);
+    Route::get('/dashboard/category/edit/{id}', [CategoryController::class, 'edit']);
+    Route::post('/dashboard/category/update/{id}', [CategoryController::class, 'update']);
+    Route::delete('/dashboard/category/destroy/{id}', [CategoryController::class, 'destroy']);
+    Route::get('/dashboard/category/restore/{id}', [CategoryController::class, 'restore']);
 });
 
 Route::get('/dashboard', function () {

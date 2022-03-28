@@ -10,7 +10,9 @@
       </div>
       <div class="card-body px-5">
         <div id="success_message"></div>
+        @can('Create Committee')
             <a type="button" class="btn btn-success m-2" href="{{ URL('/dashboard/committee/create') }}" id="createNewCommittee">إضافة لجنة جديدة</a>
+        @endcan
         {{-- {!! $dataTable->table([
             'id' => 'dataTable',
             'class'=> 'dataTable table-bordered table-striped projects basic-dark-color w-100'
@@ -62,17 +64,23 @@
                         </td>
                         <td class="project-actions text-right">
                             <div class="row justify-content-center">
+                                @can('Edit Committee')
                                     <a href="{{ URL('/dashboard/committee/edit/'. $committee->id ) }}" type="button" data-value="{{ $committee->id }}" class="btn btn-primary btn-sm text-white m-2">
                                         <i class="fas fa-edit"></i>  تعديل
                                     </a>
+                                @endcan
                                     @if($committee->deleted_at == null)
+                                        @can('Disable Committee')
                                         <a href="javascript:void(0)" type="button" data-value="{{ $committee->id }}" class="deletebutton btn btn-danger btn-sm text-white m-2">
                                             <i class="fas fa-trash"></i>  حذف
                                         </a>
+                                        @endcan
                                     @else
+                                        @can('Activate Committee')
                                         <a href="javascript:void(0)" type="button" data-value="{{ $committee->id }}" class="restorebutton btn btn-warning btn-sm text-white m-2">
                                             <i class="fa-solid fa-trash-undo"></i>  استرجاع
                                         </a>
+                                        @endcan
                                     @endif
                             </div>
                         </td>

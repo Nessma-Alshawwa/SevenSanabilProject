@@ -8,6 +8,15 @@ use App\Http\Controllers\Controller;
 
 class CommitteeController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:View Committees', ['only' => ['index']]);
+        $this->middleware('permission:Create Committee', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Edit Committee', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Disable Committee', ['only' => ['destroy']]);
+        $this->middleware('permission:Activate Committee', ['only' => ['restore']]);
+    }
+
     public function index(){
         $i = 1;
         $committees = Committee::withTrashed()->orderBy('id','DESC')->get();
@@ -61,11 +70,6 @@ class CommitteeController extends Controller
         $result = $committee->save();
         
         return redirect('dashboard/committees')->with('add_status', $result);
-        // return response()->json([
-        //     'status'=> [$result],
-        //     'success'=> true,
-        //     $result
-        // ]);
     }
     
     public function destroy($id){

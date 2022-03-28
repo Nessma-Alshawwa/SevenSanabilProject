@@ -63,18 +63,24 @@
                         </td>
                         <td class="project-actions text-right">
                             <div class="row justify-content-center">
-                                    <a href="{{ URL('/dashboard/donor/edit/'. $donor->id ) }}" type="button" data-value="{{ $donor->id }}" class="btn btn-primary btn-sm text-white m-2">
-                                        <i class="fas fa-edit"></i>  تعديل
-                                    </a>
-                                    @if($donor->deleted_at == null)
-                                        <a href="javascript:void(0)" type="button" data-value="{{ $donor->id }}" class="deletebutton btn btn-danger btn-sm text-white m-2">
-                                            <i class="fas fa-trash"></i>  حذف
-                                        </a>
-                                    @else
-                                        <a href="javascript:void(0)" type="button" data-value="{{ $donor->id }}" class="restorebutton btn btn-warning btn-sm text-white m-2">
-                                            <i class="fa-solid fa-trash-undo"></i>  استرجاع
-                                        </a>
+                                    @if($donor->status == 2 )
+                                        @can('Approve Donor')
+                                            <a href="javascript:void(0)" type="button" data-value="{{ $donor->id }}" class="approvebutton btn btn-info btn-sm text-white m-2">
+                                                <i class="fas fa-check"></i>  موافقة
+                                            </a>
+                                        @endcan
+                                        @else
+                                        @can('Edit Donor')
+                                            <a href="{{ URL('/dashboard/donor/edit/'. $donor->id ) }}" type="button" data-value="{{ $donor->id }}" class="btn btn-primary btn-sm text-white m-2">
+                                                <i class="fas fa-edit"></i>  تعديل
+                                            </a>
+                                        @endcan
                                     @endif
+                                        @can('Reject Donor')
+                                            <a href="javascript:void(0)" type="button" data-value="{{ $donor->id }}" class="rejectbutton btn btn-danger btn-sm text-white m-2">
+                                                <i class="fas fa-trash"></i>  رفض
+                                            </a>
+                                        @endcan
                             </div>
                         </td>
                     </tr>
@@ -93,19 +99,32 @@
     <script>
         $(document).ready(function () {
 
-            $('body').on('click', '.deletebutton', function () {
+            // $('body').on('click', '.deletebutton', function () {
+            //     var id = $(this).attr('data-value');
+            //     var url = "{{url('/dashboard/donor/destroy')}}";
+            //     console.log(id);
+            //     Deletebutton(url, id);
+            // });
+            // $('body').on('click', '.restorebutton', function () {
+            //     var id = $(this).attr('data-value');
+            //     var url = "{{url('/dashboard/donor/restore')}}";
+            //     console.log(id);
+            //     Restorebutton(url, id);
+            // });
+            
+            $('body').on('click', '.approvebutton', function () {
                 var id = $(this).attr('data-value');
-                var url = "{{url('/dashboard/donor/destroy')}}";
+                var url = "{{url('/dashboard/donor/approve')}}";
                 console.log(id);
-                Deletebutton(url, id);
-            });
-            $('body').on('click', '.restorebutton', function () {
-                var id = $(this).attr('data-value');
-                var url = "{{url('/dashboard/donor/restore')}}";
-                console.log(id);
-                Restorebutton(url, id);
+                Approvebutton(url, id);
             });
 
+            $('body').on('click', '.rejectbutton', function () {
+                var id = $(this).attr('data-value');
+                var url = "{{url('/dashboard/donor/reject')}}";
+                console.log(id);
+                Rejectbutton(url, id);
+            });
             
         });
     </script>

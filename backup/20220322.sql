@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2022 at 09:42 PM
+-- Generation Time: Mar 22, 2022 at 06:00 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.15
 
@@ -112,9 +112,9 @@ CREATE TABLE `committees` (
 --
 
 INSERT INTO `committees` (`id`, `name`, `location`, `manager`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'لجنة1', 'غزة', 'احمد', 'لجنة زكاة رقم 1', NULL, NULL, NULL),
-(3, 'لجنة2', 'تل الهوا', 'علي', 'لجنة زكاة رقم 2', NULL, '2022-03-14 17:53:03', '2022-03-14 17:53:03'),
-(4, 'لجنة3', 'الزيتون', 'محمد', 'لجنة زكاة رقم3', '2022-03-14 17:46:44', '2022-03-14 17:50:32', '2022-03-14 17:50:32'),
+(1, 'لجنة زكاة رقم 1', 'غزة-تل الهوا', 'احمد', 'لجنة زكاة رقم 1', NULL, '2022-03-15 13:50:46', NULL),
+(3, 'لجنة12', 'تل الهواا', 'علي', 'لجنة زكاة رقم 2', NULL, '2022-03-17 17:27:33', '2022-03-17 17:02:39'),
+(4, 'لجنة زكاة 3', 'الزيتون', 'Ahmad', 'لجنة زكاة رقم3', '2022-03-14 17:46:44', '2022-03-18 07:53:43', NULL),
 (5, 'لجنة زكاة2', 'الزيتون', 'محمد', 'لجنة زكاة رقم 2', '2022-03-14 17:55:00', '2022-03-14 17:55:15', '2022-03-14 17:55:15');
 
 -- --------------------------------------------------------
@@ -164,8 +164,18 @@ CREATE TABLE `donors` (
   `national_id` int(11) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 2
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `donors`
+--
+
+INSERT INTO `donors` (`id`, `phone`, `national_id`, `deleted_at`, `created_at`, `updated_at`, `name`, `status`) VALUES
+(1, 592797156, 222222222, '2022-03-18 13:04:36', NULL, '2022-03-18 13:04:36', 'متبرع1', 2),
+(2, 592797156, 648454544, NULL, NULL, NULL, 'donor2', 2);
 
 -- --------------------------------------------------------
 
@@ -219,7 +229,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2022_02_20_182546_create_quantities_spent_table', 1),
 (18, '2022_02_22_122504_add_three_foreign_key_column_in_users_table', 1),
 (19, '2022_02_22_123209_add_three_foreign_key_column_in_roles_table', 1),
-(20, '2022_03_03_091053_add_deleted_at_column_on_users_table', 1);
+(20, '2022_03_03_091053_add_deleted_at_column_on_users_table', 1),
+(21, '2022_03_18_145008_add_two_column_in_donors_table', 2);
 
 -- --------------------------------------------------------
 
@@ -285,7 +296,12 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (17, 'Edit User', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
 (18, 'View Users', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
 (19, 'Disable User', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
-(20, 'Activate User', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13');
+(20, 'Activate User', 'web', '2022-03-13 12:06:13', '2022-03-13 12:06:13'),
+(21, 'Create Committee', 'web', '2022-03-22 14:46:30', '2022-03-22 14:46:30'),
+(22, 'Edit Committee', 'web', '2022-03-22 14:46:31', '2022-03-22 14:46:31'),
+(23, 'View Committees', 'web', '2022-03-22 14:46:31', '2022-03-22 14:46:31'),
+(24, 'Disable Committee', 'web', '2022-03-22 14:46:31', '2022-03-22 14:46:31'),
+(25, 'Activate Committee', 'web', '2022-03-22 14:46:31', '2022-03-22 14:46:31');
 
 -- --------------------------------------------------------
 
@@ -370,7 +386,12 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (17, 6),
 (18, 6),
 (19, 6),
-(20, 6);
+(20, 6),
+(21, 6),
+(22, 6),
+(23, 6),
+(24, 6),
+(25, 6);
 
 -- --------------------------------------------------------
 
@@ -392,7 +413,11 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('nbouMHFQFONHBrE6z9VvygeyfXQLXDvAKqjX3sSQ', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZ1J3RXRDT3p5VzVZWVFpM1RhcWFTaTFFcFI5bW1qRTZzRGxnTG81SyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTAkYWJ4ck9SNFFJTTNBS1JJdW5MTHBVT2Fvd1UuQW5pYmw4aGdlRi5CbHh3QzFCN0daQ25IRFMiO30=', 1647290493);
+('5PO6aERaotBHMMO8yVIbncGtiv9BOOGA3SS7kVN9', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUTJuNDNlT2dldUlDVGxHazF4WmxyT1Z4dFhXY2c4S2xSazJGUDBhZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQvZG9ub3JzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2MDoiJDJ5JDEwJGFieHJPUjRRSU0zQUtSSXVuTExwVU9hb3dVLkFuaWJsOGhnZUYuQmx4d0MxQjdHWkNuSERTIjt9', 1647600582),
+('c3FCoLtMenNk2E93SZsbmhCqYO0pC2ZsQpxaoLWo', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiWUViVnJIVjZQQXByYTFRem9GZjRGNkl4WjFkWmpudGVQMXJob3NpTiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQvZG9ub3JzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2MDoiJDJ5JDEwJGFieHJPUjRRSU0zQUtSSXVuTExwVU9hb3dVLkFuaWJsOGhnZUYuQmx4d0MxQjdHWkNuSERTIjt9', 1647685618),
+('HcczBhEdwLZTZXRinzPoEoXTKJVd3QZEl71KR1i0', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiaWhCYldaeU5JSkxMSkU4RnVoTkp4VTdONHlVNXJDUjVHRklSdFJHUiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQyOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZGFzaGJvYXJkL2NvbW1pdHRlZXMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTAkYWJ4ck9SNFFJTTNBS1JJdW5MTHBVT2Fvd1UuQW5pYmw4aGdlRi5CbHh3QzFCN0daQ25IRFMiO30=', 1647636446),
+('J35iILtcrgl9fXndDjUrnH4ZcwvHOBPAHWuGNybn', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUWdBdHlwUVVMTXJ0dnVPUVVhVUZuMFZwZDFpNXpSTlBYOWZLamFqbyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTAkYWJ4ck9SNFFJTTNBS1JJdW5MTHBVT2Fvd1UuQW5pYmw4aGdlRi5CbHh3QzFCN0daQ25IRFMiO30=', 1647968404),
+('JYoxEFfOURyQ3qS9doQPsL0jcEKOhLZRqS2OtVtk', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoibFRCSnpjWWdORml5MG44bmI0T2F6ZHd6Y3hRV2ZzSHUzS0FYdm1VZyI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ0OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvZGFzaGJvYXJkL2Rvbm9yL2VkaXQvMiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxNzoicGFzc3dvcmRfaGFzaF93ZWIiO3M6NjA6IiQyeSQxMCRhYnhyT1I0UUlNM0FLUkl1bkxMcFVPYW93VS5BbmlibDhoZ2VGLkJseHdDMUI3R1pDbkhEUyI7fQ==', 1647617357);
 
 -- --------------------------------------------------------
 
@@ -636,7 +661,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `committees`
 --
 ALTER TABLE `committees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `donation_categories`
@@ -654,7 +679,7 @@ ALTER TABLE `donation_requests`
 -- AUTO_INCREMENT for table `donors`
 --
 ALTER TABLE `donors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -666,13 +691,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -696,7 +721,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_levels`

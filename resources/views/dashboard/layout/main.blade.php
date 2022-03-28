@@ -116,13 +116,45 @@
                 
               </ul>
             </li>
+
+            <li class="nav-item menu-open pt-3">
+              <a class="nav-link text-white" id="{{ (request()->is('dashboard/categories')) ? 'active' : '' }}">
+                <i class="nav-icon ion ion-ios-people"></i>
+                <p>
+                  التصنيفات
+                </p>
+                <i class="right fas fa-angle-left"></i>
+              </a>
+              <ul class="nav nav-treeview px-3">
+                  <li class="nav-item">
+                    @can('View categories')
+                      <a href="{{ URL('/dashboard/categories') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/categories')) ? 'active' : '' }}">
+                        <i class="far fa-user nav-icon"></i>
+                        <p>عرض التصنيفات</p>
+                      </a>
+                    @endcan
+                  </li>
+                  <li class="nav-item">
+                  @can('Create Category')
+                    <a href="{{ URL('/dashboard/category/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/category/create')) ? 'active' : '' }}">
+                      <i class="far fa-user nav-icon"></i>
+                      <p>إضافة تصنيف جديد</p>
+                    </a>
+                  @endcan
+                  </li>
+                
+              </ul>
+            </li>
+
             <li class="nav-item pt-3" >
+            @can('View Donors')
               <a href="{{ URL('dashboard/donors') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donors')) ? 'active' : '' }}">
                 <i class="nav-icon ion ion-ios-people"></i>
                 <p>
                   المتبرعين
                 </p>
               </a>
+            @endcan
             </li>
             <li class="nav-item pt-3" >
               <a href="{{ URL('dashboard/beneficiaries') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/beneficiaries')) ? 'active' : '' }}">
@@ -149,12 +181,16 @@
                 <i class="right fas fa-angle-left"></i>
               </a>
               <ul class="nav nav-treeview px-3">
+              @can('View Committees')
                 <li class="nav-item">
                   <a href="{{ URL('/dashboard/committees') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committees')) ? 'active' : '' }}">
                     <i class="far fa-file nav-icon"></i>
                     <p>عرض اللجان</p>
                   </a>
                 </li>
+              @endcan
+
+              @can('Create Committee')
                 <li class="nav-item">
                   <a href="{{ URL('/dashboard/committee/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committee/create')) ? 'active' : '' }}">
                     <i class="far fa-file nav-icon"></i>
@@ -163,6 +199,8 @@
                 </li>
               </ul>
             </li>
+            @endcan
+            
             <li class="nav-item pt-3">
               <form method="POST" action="{{ route('logout') }}">
                 @csrf

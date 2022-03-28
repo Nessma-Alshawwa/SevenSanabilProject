@@ -8,6 +8,15 @@ use App\Http\Controllers\Controller;
 
 class DonorController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:View Donors', ['only' => ['index']]);
+        $this->middleware('permission:Create Donor', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Edit Donor', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Approve Donor', ['only' => ['approve']]);
+        $this->middleware('permission:Reject Donor', ['only' => ['reject']]);
+    }
+
     public function index(){
         $i = 1;
         $donors = Donor::withTrashed()->orderBy('id','DESC')->get();
@@ -36,15 +45,29 @@ class DonorController extends Controller
         return redirect('dashboard/donors')->with('add_status', $result);
     }
 
-    public function destroy($id){
-        Donor::where('id', $id)->delete();
+    // public function destroy($id){
+    //     Donor::where('id', $id)->delete();
+    //     return response()->json([
+    //         'success'=> true,
+    //     ]);
+    // }
+
+    // public function restore($id){
+    //     Donor::onlyTrashed()->where('id', $id)->restore();
+    //     return response()->json([
+    //         'success'=> true,
+    //     ]);
+    // }
+
+    public function approve($id) {
+        Donor::withTrashed()->where('id', $id)->update(['status' => 1]);
         return response()->json([
             'success'=> true,
         ]);
     }
 
-    public function restore($id){
-        Donor::onlyTrashed()->where('id', $id)->restore();
+    public function reject($id) {
+        Donor::withTrashed()->where('id', $id)->update(['status' => 0]);
         return response()->json([
             'success'=> true,
         ]);
