@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\DonorController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CommitteeController;
+use App\Http\Controllers\Dashboard\BeneficiariesController;
 
 
 /*
@@ -78,9 +79,12 @@ Route::get('/dashboard', function () {
     return view('dashboard.index', ['title'=>'']);
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Beneficiaries
+    Route::get('/dashboard/beneficiaries', [BeneficiariesController::class, 'index']);
+    Route::get('/dashboard/beneficiary/edit/{id}', [BeneficiariesController::class, 'edit']);
+    Route::post('/dashboard/beneficiary/update/{id}', [BeneficiariesController::class, 'update']);
 
-Route::get('/dashboard/beneficiaries', function () {
-    return view('dashboard.beneficiaries', ['title'=>'/المستفيدين']);
 });
 
 Route::get('/dashboard/donations', function () {

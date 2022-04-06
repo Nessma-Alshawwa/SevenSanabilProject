@@ -17,5 +17,8 @@ class Beneficiary extends Model
     public function BenefitRequest(){ // 1 - M relationship (One)
         return $this->hasMany(BenefitRequest::class);
     }
+
+    public $incrementing = false;
+    public $timestamps = false;
     
 }

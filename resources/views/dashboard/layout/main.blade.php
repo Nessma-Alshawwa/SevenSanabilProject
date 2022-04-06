@@ -57,164 +57,194 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item menu-open pt-3">
-              <a class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
 
-                <i class="nav-icon ion ion-ios-people"></i>
-                <p>
-                  المستخدمين
-                </p>
-                <i class="right fas fa-angle-left"></i>
-              </a>
-              <ul class="nav nav-treeview px-3">
-                @can('View Users')
-                  <li class="nav-item">
-                    <a href="{{ URL('/dashboard/users') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
-                      <i class="far fa-user nav-icon"></i>
-                      <p>عرض المستخدمين</p>
-                    </a>
-                  </li>
-                @endcan
-                
-                @can('Create User')
-                  <li class="nav-item">
-                    <a href="{{ URL('/dashboard/user/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/user/create')) ? 'active' : '' }}">
-                      <i class="far fa-user nav-icon"></i>
-                      <p>إضافة مستخدم جديد</p>
-                    </a>
-                  </li>
-                @endcan
-                  
-              </ul>
-            </li>
-            <li class="nav-item menu-open pt-3">
-              <a class="nav-link text-white" id="{{ (request()->is('dashboard/roles')) ? 'active' : '' }}">
-                <i class="nav-icon ion ion-ios-people"></i>
-                <p>
-                  الأدوار
-                </p>
-                <i class="right fas fa-angle-left"></i>
-              </a>
-              <ul class="nav nav-treeview px-3">
-                @can('View Roles')
-                  <li class="nav-item">
-                    <a href="{{ URL('/dashboard/roles') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/roles')) ? 'active' : '' }}">
-                      <i class="far fa-user nav-icon"></i>
-                      <p>عرض الأدوار</p>
-                    </a>
-                  </li>
-                @endcan
+            {{------------ Users ---------------}}
+              <li class="nav-item menu-open pt-3">
+                <a class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
 
-                @can('Create Role')
-                  <li class="nav-item">
-                    <a href="{{ URL('/dashboard/role/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/role/create')) ? 'active' : '' }}">
-                      <i class="far fa-user nav-icon"></i>
-                      <p>إضافة دور جديد</p>
-                    </a>
-                  </li>
-                @endcan
-                
-              </ul>
-            </li>
-
-            <li class="nav-item menu-open pt-3">
-              <a class="nav-link text-white" id="{{ (request()->is('dashboard/categories')) ? 'active' : '' }}">
-                <i class="nav-icon ion ion-ios-people"></i>
-                <p>
-                  التصنيفات
-                </p>
-                <i class="right fas fa-angle-left"></i>
-              </a>
-              <ul class="nav nav-treeview px-3">
-                  <li class="nav-item">
-                    @can('View categories')
-                      <a href="{{ URL('/dashboard/categories') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/categories')) ? 'active' : '' }}">
+                  <i class="nav-icon ion ion-ios-people"></i>
+                  <p>
+                    المستخدمين
+                  </p>
+                  <i class="right fas fa-angle-left"></i>
+                </a>
+                <ul class="nav nav-treeview px-3">
+                  @can('View Users')
+                    <li class="nav-item">
+                      <a href="{{ URL('/dashboard/users') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
                         <i class="far fa-user nav-icon"></i>
-                        <p>عرض التصنيفات</p>
+                        <p>عرض المستخدمين</p>
                       </a>
-                    @endcan
-                  </li>
-                  <li class="nav-item">
-                  @can('Create Category')
-                    <a href="{{ URL('/dashboard/category/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/category/create')) ? 'active' : '' }}">
-                      <i class="far fa-user nav-icon"></i>
-                      <p>إضافة تصنيف جديد</p>
-                    </a>
+                    </li>
                   @endcan
-                  </li>
-                
-              </ul>
-            </li>
+                  
+                  @can('Create User')
+                    <li class="nav-item">
+                      <a href="{{ URL('/dashboard/user/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/user/create')) ? 'active' : '' }}">
+                        <i class="far fa-user nav-icon"></i>
+                        <p>إضافة مستخدم جديد</p>
+                      </a>
+                    </li>
+                  @endcan
+                    
+                </ul>
+              </li>
+            {{------------ End Users ---------------}}
 
-            <li class="nav-item pt-3" >
-            @can('View Donors')
-              <a href="{{ URL('dashboard/donors') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donors')) ? 'active' : '' }}">
-                <i class="nav-icon ion ion-ios-people"></i>
-                <p>
-                  المتبرعين
-                </p>
-              </a>
-            @endcan
-            </li>
-            <li class="nav-item pt-3" >
-              <a href="{{ URL('dashboard/beneficiaries') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/beneficiaries')) ? 'active' : '' }}">
-                <i class="nav-icon ion ion-ios-people"></i>
-                <p>
-                  المستفيدين
-                </p>
-              </a>
-            </li>
-            <li class="nav-item pt-3" >
-              <a href="{{ URL('dashboard/donations') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donations')) ? 'active' : '' }}">
-                <i class="nav-icon ion ion-android-cart"></i>
-                <p>
-                  التبرعات
-                </p>
-              </a>
-            </li>
-            <li class="nav-item menu-open pt-3">
-                <a href="{{ URL('dashboard/committees') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committees')) ? 'active' : '' }}">
-                <i class="nav-icon ion ion-android-document"></i>
-                <p>
-                  اللجان
-                </p>
-                <i class="right fas fa-angle-left"></i>
-              </a>
-              <ul class="nav nav-treeview px-3">
-              @can('View Committees')
-                <li class="nav-item">
-                  <a href="{{ URL('/dashboard/committees') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committees')) ? 'active' : '' }}">
-                    <i class="far fa-file nav-icon"></i>
-                    <p>عرض اللجان</p>
+            {{------------ Roles ---------------}}
+              @can('View Roles')
+                <li class="nav-item menu-open pt-3">
+                  <a class="nav-link text-white" id="{{ (request()->is('dashboard/roles')) ? 'active' : '' }}">
+                    <i class="nav-icon ion ion-ios-people"></i>
+                    <p>
+                      الأدوار
+                    </p>
+                    <i class="right fas fa-angle-left"></i>
+                  </a>
+                  <ul class="nav nav-treeview px-3">
+                    @can('View Roles')
+                      <li class="nav-item">
+                        <a href="{{ URL('/dashboard/roles') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/roles')) ? 'active' : '' }}">
+                          <i class="far fa-user nav-icon"></i>
+                          <p>عرض الأدوار</p>
+                        </a>
+                      </li>
+                    @endcan
+
+                    @can('Create Role')
+                      <li class="nav-item">
+                        <a href="{{ URL('/dashboard/role/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/role/create')) ? 'active' : '' }}">
+                          <i class="far fa-user nav-icon"></i>
+                          <p>إضافة دور جديد</p>
+                        </a>
+                      </li>
+                    @endcan
+                    
+                  </ul>
+                </li>
+              @endcan
+            {{------------ End Roles ---------------}}
+            
+            {{------------ Categories ---------------}}
+              @can('View Categories')
+                <li class="nav-item menu-open pt-3">
+                  <a class="nav-link text-white" id="{{ (request()->is('dashboard/categories')) ? 'active' : '' }}">
+                    <i class="nav-icon ion ion-ios-people"></i>
+                    <p>
+                      التصنيفات
+                    </p>
+                    <i class="right fas fa-angle-left"></i>
+                  </a>
+                  <ul class="nav nav-treeview px-3">
+                      <li class="nav-item">
+                        @can('View Categories')
+                          <a href="{{ URL('/dashboard/categories') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/categories')) ? 'active' : '' }}">
+                            <i class="far fa-user nav-icon"></i>
+                            <p>عرض التصنيفات</p>
+                          </a>
+                        @endcan
+                      </li>
+                      <li class="nav-item">
+                      @can('Create Category')
+                        <a href="{{ URL('/dashboard/category/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/category/create')) ? 'active' : '' }}">
+                          <i class="far fa-user nav-icon"></i>
+                          <p>إضافة تصنيف جديد</p>
+                        </a>
+                      @endcan
+                      </li>
+                    
+                  </ul>
+                </li>
+              @endcan
+            {{------------ End Categories ---------------}}
+
+            {{------------ Donors ---------------}}
+              @can('View Donors')
+                <li class="nav-item pt-3" >
+                  <a href="{{ URL('dashboard/donors') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donors')) ? 'active' : '' }}">
+                    <i class="nav-icon ion ion-ios-people"></i>
+                    <p>
+                      المتبرعين
+                    </p>
                   </a>
                 </li>
               @endcan
-
-              @can('Create Committee')
-                <li class="nav-item">
-                  <a href="{{ URL('/dashboard/committee/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committee/create')) ? 'active' : '' }}">
-                    <i class="far fa-file nav-icon"></i>
-                    <p>إضافة لجنة جديدة</p>
+            {{------------ End Donors ---------------}}
+            
+            {{------------ Beneficiaries ---------------}}
+              @can('View Beneficiaries')
+                <li class="nav-item pt-3" >
+                  <a href="{{ URL('dashboard/beneficiaries') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/beneficiaries')) ? 'active' : '' }}">
+                    <i class="nav-icon ion ion-ios-people"></i>
+                    <p>
+                      المستفيدين
+                    </p>
                   </a>
                 </li>
-              </ul>
-            </li>
-            @endcan
-            
-            <li class="nav-item pt-3">
-              <form method="POST" action="{{ route('logout') }}">
-                @csrf
+              @endcan
+            {{------------ End Beneficiaries ---------------}}
 
-                <a href="{{ route('logout') }}" 
-                  onclick="event.preventDefault(); 
-                          this.closest('form').submit();" class="nav-link text-white">
-                    <i class="nav-icon ion ion-log-out"></i>
-                <p>
-                  تسجيل الخروج
-                </p>
+            {{------------ Donations ---------------}}
+              <li class="nav-item pt-3" >
+                <a href="{{ URL('dashboard/donations') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donations')) ? 'active' : '' }}">
+                  <i class="nav-icon ion ion-android-cart"></i>
+                  <p>
+                    التبرعات
+                  </p>
                 </a>
-            </form>
-            </li>
+              </li>
+            {{------------ End Donations ---------------}}
+
+            {{------------ Committees ---------------}}
+              @can('View Committees')
+                <li class="nav-item menu-open pt-3">
+                    <a href="{{ URL('dashboard/committees') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committees')) ? 'active' : '' }}">
+                    <i class="nav-icon ion ion-android-document"></i>
+                    <p>
+                      اللجان
+                    </p>
+                    <i class="right fas fa-angle-left"></i>
+                  </a>
+                  <ul class="nav nav-treeview px-3">
+                    @can('View Committees')
+                      <li class="nav-item">
+                        <a href="{{ URL('/dashboard/committees') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committees')) ? 'active' : '' }}">
+                          <i class="far fa-file nav-icon"></i>
+                          <p>عرض اللجان</p>
+                        </a>
+                      </li>
+                    @endcan
+
+                    @can('Create Committee')
+                      <li class="nav-item">
+                        <a href="{{ URL('/dashboard/committee/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/committee/create')) ? 'active' : '' }}">
+                          <i class="far fa-file nav-icon"></i>
+                          <p>إضافة لجنة جديدة</p>
+                        </a>
+                      </li>
+                    @endcan
+                  </ul>
+                </li>
+              @endcan
+            {{------------ End Committees ---------------}}
+            
+            {{------------ LOGOUT ---------------}}
+              <li class="nav-item pt-3 pb-5">
+                <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+
+                  <a href="{{ route('logout') }}" 
+                    onclick="event.preventDefault(); 
+                            this.closest('form').submit();" class="nav-link text-white">
+                      <i class="nav-icon ion ion-log-out"></i>
+                    <p>
+                      تسجيل الخروج
+                    </p>
+                  </a>
+                </form>
+              </li>
+            {{------------ End LOGOUT ---------------}}
+
           </ul>
         </nav>
       </div>
