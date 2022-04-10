@@ -11,6 +11,16 @@
             <h6> حالة المستفيدين</h6>
         </div>
       <div class="card-body p-0">
+        @foreach($errors->all() as $message)
+            <div class="alert alert-danger m-3">{{$message}}</div>
+        @endforeach
+        @if (session()->has('add_status'))
+            @if (session('add_status'))
+                <div class="alert alert-success m-3">تم التعديل بنجاح</div>
+            @else
+                <div class="alert alert-danger m-3">فشل تعديل المستفيد</div>
+            @endif
+        @endif
         <table class="table table-striped projects">
             <thead style="color: #19692b;">
                 <tr>

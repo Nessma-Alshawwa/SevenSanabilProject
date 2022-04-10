@@ -57,7 +57,6 @@
                                 {{ $role->name }}</option>
                             @endforeach
                         </select>
-                    
                     </div>
                     <div class="form-group" id="committee">
                         <label for="message-text" class="col-form-label" id="label_committee">تابع للجنة زكاة</label>
@@ -98,7 +97,10 @@
                     var optionValue = $(this).attr("value");
                     $('#committee').hide();
                     $('#donor').hide();
-                    if(optionValue == 2 ){
+                    if(optionValue == 1){
+                        $('#committee').hide();
+                        $('#donor').hide();
+                    }else if(optionValue == 2 ){
                         $('#committee').show();
                         $('#donor').hide();
                     }else if(optionValue == 3 ){

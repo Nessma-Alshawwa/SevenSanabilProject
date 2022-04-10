@@ -28,20 +28,20 @@
                                 <input type="text" class="form-control" id="name" name="name" placeholder="اسم المستفيد" value="{{ $beneficiary->name }}">
                             </div>
                             <div class="form-group">
-                                <label for="name" class="col-form-label" id="lable_name">رقم الجوال </label>
-                                <input type="number" class="form-control" id="name" name="name" placeholder="رقم الجوال" value="{{ $beneficiary->phone }}" >
+                                <label for="phone" class="col-form-label" id="lable_name">رقم الجوال </label>
+                                <input type="number" class="form-control" name="phone" placeholder="رقم الجوال" value="{{ $beneficiary->phone }}" >
                             </div>
                             <div class="form-group">
-                                <label for="name" class="col-form-label" id="lable_name">رقم الهوية</label>
-                                <input type="number" class="form-control" id="name" name="name" placeholder="رقم الهوية" value="{{ $beneficiary->national_id }}" disabled>
+                                <label for="national_id" class="col-form-label" id="lable_name">رقم الهوية</label>
+                                <input type="number" class="form-control" name="national_id" placeholder="رقم الهوية" value="{{ $beneficiary->national_id }}" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="name" class="col-form-label" id="lable_name">عدد أفراد العائلة</label>
-                                <input type="number" class="form-control" id="name" name="name" placeholder="عدد أفراد العائلة" value="{{ $beneficiary->family_member }}">
+                                <label for="family_member" class="col-form-label" id="lable_name">عدد أفراد العائلة</label>
+                                <input type="number" class="form-control" name="family_member" placeholder="عدد أفراد العائلة" value="{{ $beneficiary->family_member }}">
                             </div>
                             <div class="form-group">
-                                <label for="name" class="col-form-label" id="lable_name">الدخل الشهري</label>
-                                <input type="number" class="form-control" id="name" name="name" placeholder="الدخل الشهري" value="{{ $beneficiary->income }}">
+                                <label for="income" class="col-form-label" id="lable_name">الدخل الشهري</label>
+                                <input type="number" class="form-control" name="income" placeholder="الدخل الشهري" value="{{ $beneficiary->income }}">
                             </div>
                             <div class="form-group" id="committee">
                                 <label for="message-text" class="col-form-label" id="label_committee">تابع للجنة زكاة</label>

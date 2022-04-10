@@ -59,6 +59,7 @@
             </li>
 
             {{------------ Users ---------------}}
+            @can('View Users')
               <li class="nav-item menu-open pt-3">
                 <a class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
 
@@ -89,6 +90,7 @@
                     
                 </ul>
               </li>
+            @endcan
             {{------------ End Users ---------------}}
 
             {{------------ Roles ---------------}}

@@ -58,10 +58,6 @@
 
 
 <Script type="text/javascript">
-    // $(".menu-open .fa-angle-left").click(function(e){
-    //     e.preventDefault();
-    //     $('.nav-treeview').toggle();
-    // });
     
   function Deletebutton(url='',id = ''){
       swal({

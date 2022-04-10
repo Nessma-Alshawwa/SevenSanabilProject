@@ -37,7 +37,7 @@ class BeneficiariesController extends Controller
 
     public function update(Request $request, $id){
 
-        $beneficiary = Beneficiary::findOrFail($id);
+        $beneficiary = Beneficiary::withTrashed()->findOrFail($id);
 
         $name = $request['name'];
         $phone = $request['phone'];
@@ -45,11 +45,11 @@ class BeneficiariesController extends Controller
         $income = $request['income'];
         $committee_id = $request['committee_id'];
 
-        $beneficiary->$name = $name;
-        $beneficiary->$phone = $phone;
-        $beneficiary->$family_member = $family_member;
-        $beneficiary->$income = $income;
-        $beneficiary->$committee_id = $committee_id;
+        $beneficiary->name = $name;
+        $beneficiary->phone = $phone;
+        $beneficiary->family_member = $family_member;
+        $beneficiary->income = $income;
+        $beneficiary->committee_id = $committee_id;
         $result = $beneficiary->save();
 
         return redirect('/dashboard/beneficiaries')->with('add_status', $result);

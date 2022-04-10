@@ -36,6 +36,7 @@ class UserController extends Controller
         
         $user = auth()->user();
         $user_level_id = $user->user_level_id;
+        $donor_id = $user->donor_id;
         $users = [];
 
         if($user_level_id == 1){ //superadmin_user_level_id
@@ -43,7 +44,7 @@ class UserController extends Controller
         }else if($user_level_id == 2){ //committee_user_level_id
             $committee_id = $user->committee_id;
             $users = User::withTrashed()->where('committee_id', $committee_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
-        }else if($user_level_id == 3){ //donor_user_level_id
+        }else if($user_level_id == 3 && $donor_id != null){ //donor_user_level_id
             $donor_id = $user->donor_id;
             $users = User::withTrashed()->where('donor_id', $donor_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
         }
@@ -71,7 +72,7 @@ class UserController extends Controller
             $users = User::withTrashed()->where('donor_id', $donor_id)->with("UserLevels")->with("Committees")->with("Donors")->get();
         }
 
-        return view('dashboard.users.create', ['title'=> '/المستخدمين/إضافة مستخدم جديد', 'users'=>$users, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors, 'roles'=> $roles ]);
+        return view('dashboard.users.create', ['title'=> '/المستخدمين/إضافة مستخدم جديد','user_level_id'=>$user_level_id, 'users'=>$users, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors, 'roles'=> $roles ]);
     
     }
 
