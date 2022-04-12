@@ -9,6 +9,16 @@
           <h6> حالة المتبرعين </h6>
       </div>
       <div class="card-body px-5">
+      @foreach($errors->all() as $message)
+            <div class="alert alert-danger m-3">{{$message}}</div>
+        @endforeach
+        @if (session()->has('add_status'))
+            @if (session('add_status'))
+                <div class="alert alert-success m-3">تم التعديل بنجاح</div>
+            @else
+                <div class="alert alert-danger m-3">فشل تعديل المتبرع</div>
+            @endif
+        @endif
         <div id="success_message"></div>
         {{-- {!! $dataTable->table([
             'id' => 'dataTable',
@@ -58,9 +68,13 @@
                                 {{ $donor->phone }}
                             </a>
                         </td>
-                        <td>
-                            {{ $donor->status }}
-                        </td>
+                            <td>
+                                @foreach($status as $donor_status)
+                                    @if($donor->status == 2)
+                                        {{ $donor_status }}
+                                    @endif
+                                @endforeach
+                            </td>
                         <td class="project-actions text-right">
                             <div class="row justify-content-center">
                                     @if($donor->status == 2 )
@@ -77,9 +91,11 @@
                                         @endcan
                                     @endif
                                         @can('Reject Donor')
+                                            @if($donor->status != 0)
                                             <a href="javascript:void(0)" type="button" data-value="{{ $donor->id }}" class="rejectbutton btn btn-danger btn-sm text-white m-2">
                                                 <i class="fas fa-trash"></i>  رفض
                                             </a>
+                                            @endif
                                         @endcan
                             </div>
                         </td>

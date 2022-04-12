@@ -3,12 +3,22 @@
    <!-- Main content -->
    <section class="content">
 
-    <!-- Table:المستخدمين -->
+    <!-- Table:اللجان -->
     <div class="card">
       <div class="card-header text-white bg-basic-light-color">
           <h6> صلاحيات اللجان </h6>
       </div>
       <div class="card-body px-5">
+      @foreach($errors->all() as $message)
+            <div class="alert alert-danger m-3">{{$message}}</div>
+        @endforeach
+        @if (session()->has('add_status'))
+            @if (session('add_status'))
+                <div class="alert alert-success m-3">تم التعديل بنجاح</div>
+            @else
+                <div class="alert alert-danger m-3">فشل تعديل اللجنة</div>
+            @endif
+        @endif
         <div id="success_message"></div>
         @can('Create Committee')
             <a type="button" class="btn btn-success m-2" href="{{ URL('/dashboard/committee/create') }}" id="createNewCommittee">إضافة لجنة جديدة</a>

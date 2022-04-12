@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Donor extends Model
 {
     use HasFactory,HasRoles, SoftDeletes;
-
-
-
+    
     public function Committee(){ // 1 - M relationship (Many)
         return $this->belongsTo(Committee::class, 'committee_id');
     }

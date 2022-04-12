@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Donor;
+use App\Models\Committee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -19,13 +20,19 @@ class DonorController extends Controller
 
     public function index(){
         $i = 1;
+        // $committees = Committee::withTrashed()->get();
+        // $user = auth()->user();
+        // $Committee_id = $user->Committee_id;
+        // $donors = Donor::withTrashed()->with('Committee')->where('Committee_id',$Committee_id)->orderBy('id','DESC')->get();
         $donors = Donor::withTrashed()->orderBy('id','DESC')->get();
-        return view('dashboard.donors.index', ['title'=> '/المتبرعين','donors'=>$donors, 'i'=>$i]);
+        $status = config('constance.status');
+        return view('dashboard.donors.index', ['title'=> '/المتبرعين','donors'=>$donors,'status'=>$status,'i'=>$i]);
     }
 
     public function edit($id){
         $donor = Donor::withTrashed()->findOrFail($id);
-        return view('dashboard.donors.edit', ['title'=> '/المتبرعين/تعديل بيانات المتبرع','donor'=> $donor ]);
+        $status = config('constance.status');
+        return view('dashboard.donors.edit', ['title'=> '/المتبرعين/تعديل بيانات المتبرع','donor'=> $donor, 'status'=>$status]);
         
     }
 
@@ -44,20 +51,6 @@ class DonorController extends Controller
         
         return redirect('dashboard/donors')->with('add_status', $result);
     }
-
-    // public function destroy($id){
-    //     Donor::where('id', $id)->delete();
-    //     return response()->json([
-    //         'success'=> true,
-    //     ]);
-    // }
-
-    // public function restore($id){
-    //     Donor::onlyTrashed()->where('id', $id)->restore();
-    //     return response()->json([
-    //         'success'=> true,
-    //     ]);
-    // }
 
     public function approve($id) {
         Donor::withTrashed()->where('id', $id)->update(['status' => 1]);

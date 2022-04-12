@@ -9,6 +9,16 @@
           <h6> التصنيفات </h6>
       </div>
       <div class="card-body px-5">
+      @foreach($errors->all() as $message)
+            <div class="alert alert-danger m-3">{{$message}}</div>
+        @endforeach
+        @if (session()->has('add_status'))
+            @if (session('add_status'))
+                <div class="alert alert-success m-3">تم التعديل بنجاح</div>
+            @else
+                <div class="alert alert-danger m-3">فشل تعديل التصنيف</div>
+            @endif
+        @endif
         <div id="success_message"></div>
         @can('Create Category')
             <a type="button" class="btn btn-success m-2" href="{{ URL('/dashboard/category/create') }}" id="createNewUser">إضافة تصنيف جديدة</a>
