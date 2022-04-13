@@ -25,8 +25,7 @@ class DonorController extends Controller
         // $Committee_id = $user->Committee_id;
         // $donors = Donor::withTrashed()->with('Committee')->where('Committee_id',$Committee_id)->orderBy('id','DESC')->get();
         $donors = Donor::withTrashed()->orderBy('id','DESC')->get();
-        $status = config('constance.status');
-        return view('dashboard.donors.index', ['title'=> '/المتبرعين','donors'=>$donors,'status'=>$status,'i'=>$i]);
+        return view('dashboard.donors.index', ['title'=> '/المتبرعين','donors'=>$donors,'i'=>$i]);
     }
 
     public function edit($id){

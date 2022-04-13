@@ -69,11 +69,7 @@
                             </a>
                         </td>
                             <td>
-                                @foreach($status as $donor_status)
-                                    @if($donor->status == 2)
-                                        {{ $donor_status }}
-                                    @endif
-                                @endforeach
+                                {{ config('constance.status.' . $donor->status) }}
                             </td>
                         <td class="project-actions text-right">
                             <div class="row justify-content-center">
