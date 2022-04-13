@@ -59,38 +59,38 @@
             </li>
 
             {{------------ Users ---------------}}
-            @can('View Users')
-              <li class="nav-item menu-open pt-3">
-                <a class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
+              @can('View Users')
+                <li class="nav-item menu-open pt-3">
+                  <a class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
 
-                  <i class="nav-icon ion ion-ios-people"></i>
-                  <p>
-                    المستخدمين
-                  </p>
-                  <i class="right fas fa-angle-left"></i>
-                </a>
-                <ul class="nav nav-treeview px-3">
-                  @can('View Users')
-                    <li class="nav-item">
-                      <a href="{{ URL('/dashboard/users') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
-                        <i class="far fa-user nav-icon"></i>
-                        <p>عرض المستخدمين</p>
-                      </a>
-                    </li>
-                  @endcan
-                  
-                  @can('Create User')
-                    <li class="nav-item">
-                      <a href="{{ URL('/dashboard/user/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/user/create')) ? 'active' : '' }}">
-                        <i class="far fa-user nav-icon"></i>
-                        <p>إضافة مستخدم جديد</p>
-                      </a>
-                    </li>
-                  @endcan
+                    <i class="nav-icon ion ion-ios-people"></i>
+                    <p>
+                      المستخدمين
+                    </p>
+                    <i class="right fas fa-angle-left"></i>
+                  </a>
+                  <ul class="nav nav-treeview px-3">
+                    @can('View Users')
+                      <li class="nav-item">
+                        <a href="{{ URL('/dashboard/users') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/users')) ? 'active' : '' }}">
+                          <i class="far fa-user nav-icon"></i>
+                          <p>عرض المستخدمين</p>
+                        </a>
+                      </li>
+                    @endcan
                     
-                </ul>
-              </li>
-            @endcan
+                    @can('Create User')
+                      <li class="nav-item">
+                        <a href="{{ URL('/dashboard/user/create') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/user/create')) ? 'active' : '' }}">
+                          <i class="far fa-user nav-icon"></i>
+                          <p>إضافة مستخدم جديد</p>
+                        </a>
+                      </li>
+                    @endcan
+                      
+                  </ul>
+                </li>
+              @endcan
             {{------------ End Users ---------------}}
 
             {{------------ Roles ---------------}}
@@ -185,6 +185,17 @@
                 </li>
               @endcan
             {{------------ End Beneficiaries ---------------}}
+
+            {{------------ BenefitRequest ---------------}}
+              <li class="nav-item pt-3" >
+                <a href="{{ URL('/dashboard/benefit_request') }}" class="nav-link text-white" id="{{ (request()->is('/dashboard/benefit_request')) ? 'active' : '' }}">
+                  <i class="nav-icon ion ion-android-cart"></i>
+                  <p>
+                    طلبات الاستفادة
+                  </p>
+                </a>
+              </li>
+            {{------------ End BenefitRequest ---------------}}
 
             {{------------ Donations ---------------}}
               <li class="nav-item pt-3" >
