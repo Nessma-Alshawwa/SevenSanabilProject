@@ -83,6 +83,7 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // Beneficiaries
     Route::get('/dashboard/beneficiaries', [BeneficiariesController::class, 'index']);
+    Route::get('/dashboard/beneficiary/{id}', [BeneficiariesController::class, 'show']);
     Route::get('/dashboard/beneficiary/edit/{id}', [BeneficiariesController::class, 'edit']);
     Route::post('/dashboard/beneficiary/update/{id}', [BeneficiariesController::class, 'update']);
 

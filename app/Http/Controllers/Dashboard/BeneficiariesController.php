@@ -35,6 +35,12 @@ class BeneficiariesController extends Controller
         return view('dashboard.beneficiaries.edit', ['title'=> '/المستفيدين/تعديل المستفيد', 'beneficiary'=> $beneficiary, 'committees'=> $committees]);
     }
 
+    public function show($id){
+        $beneficiary = Beneficiary::with("Committee")->withTrashed()->findOrFail($id);
+        $committees = Committee::get();
+        return view('dashboard.beneficiaries.show', ['title'=> '/المستفيدين/المستفيد', 'beneficiary'=> $beneficiary, 'committees'=> $committees]);
+    }
+
     public function update(Request $request, $id){
 
         $beneficiary = Beneficiary::withTrashed()->findOrFail($id);
