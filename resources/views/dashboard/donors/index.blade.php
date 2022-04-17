@@ -16,7 +16,7 @@
             @if (session('add_status'))
                 <div class="alert alert-success m-3">تم التعديل بنجاح</div>
             @else
-                <div class="alert alert-danger m-3">فشل تعديل المتبرع</div>
+                <div class="alert alert-danger m-3">فشل تعديل بيانات المتبرع</div>
             @endif
         @endif
         <div id="success_message"></div>

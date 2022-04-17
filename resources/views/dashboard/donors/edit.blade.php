@@ -39,9 +39,9 @@
                                 <label for="message-text" class="col-form-label" id="label_status">الحالة</label>
                                 <select class="form-control custom-select" name="status" id="status">
                                     <option value="" class="text-secondary" selected>الحالة</option>
-                                    <option value="0" class="text-secondary">0</option>
-                                    <option value="1" class="text-secondary">1</option>
-                                    <option value="2" class="text-secondary">2</option>
+                                    @foreach($status as $donor_status)
+                                        <option value="" class="text-secondary">{{ $donor_status }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <button class="btn btn-success" id="save-button">تعديل</button>

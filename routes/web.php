@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CommitteeController;
 use App\Http\Controllers\Dashboard\BeneficiariesController;
 use App\Http\Controllers\Dashboard\BenefitRequestController;
+use App\Http\Controllers\Dashboard\DonationRequestController;
 
 
 /*
@@ -59,8 +60,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/donors', [DonorController::class, 'index']);
     Route::get('/dashboard/donor/edit/{id}', [DonorController::class, 'edit']);
     Route::post('/dashboard/donor/update/{id}', [DonorController::class, 'update']);
-    // Route::delete('/dashboard/donor/destroy/{id}', [DonorController::class, 'destroy']);
-    // Route::get('/dashboard/donor/restore/{id}', [DonorController::class, 'restore']);
     Route::get('/dashboard/donor/approve/{id}', [DonorController::class, 'approve']);
     Route::get('/dashboard/donor/reject/{id}', [DonorController::class, 'reject']);
 });
@@ -91,6 +90,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // BenefitRequest
     Route::get('/dashboard/benefit_request', [BenefitRequestController::class, 'index']);
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    // DonationRequest
+    Route::get('/dashboard/donation_request', [DonationRequestController::class, 'index']);
 });
 
 Route::get('/dashboard/donations', function () {

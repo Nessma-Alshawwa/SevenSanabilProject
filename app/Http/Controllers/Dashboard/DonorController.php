@@ -20,12 +20,16 @@ class DonorController extends Controller
 
     public function index(){
         $i = 1;
-        // $committees = Committee::withTrashed()->get();
-        // $user = auth()->user();
-        // $Committee_id = $user->Committee_id;
-        // $donors = Donor::withTrashed()->with('Committee')->where('Committee_id',$Committee_id)->orderBy('id','DESC')->get();
-        $donors = Donor::withTrashed()->orderBy('id','DESC')->get();
-        return view('dashboard.donors.index', ['title'=> '/المتبرعين','donors'=>$donors,'i'=>$i]);
+        $committees = Committee::get();
+        $user = auth()->user();
+        $user_level_id = $user->user_level_id;
+        if($user_level_id == 1){
+            $donors = Donor::withTrashed()->orderBy('id','DESC')->get();
+        }else if($user_level_id == 2){
+            $committee_id = $user->committee_id;
+            $donors = Donor::withTrashed()->where('committee_id', $committee_id)->with("Committee")->orderBy('id','DESC')->get();
+        }
+        return view('dashboard.donors.index', ['title'=> '/المتبرعين','donors'=>$donors, 'committees'=> $committees,'i'=>$i]);
     }
 
     public function edit($id){
