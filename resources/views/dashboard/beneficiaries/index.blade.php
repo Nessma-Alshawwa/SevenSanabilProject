@@ -75,48 +75,48 @@
                                 فحص
                             </a>
                                 <div class="modal fade" id="display" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                    <div class="modal-header bg-success">
-                                        <h5 class="modal-title" id="exampleModalLabel">معلومات المستفيد</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-success">
+                                                <h5 class="modal-title" id="exampleModalLabel">معلومات المستفيد</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped projects text-center">
+                                                    <tr>
+                                                        <th style="width: 40%; color: #19692b;" class="table-active">اسم المستفيد</th>
+                                                        <td>{{ $benficiary->name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 40%; color: #19692b;" class="table-active">رقم الجوال</th>
+                                                        <td>{{ $benficiary->phone }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 40%; color: #19692b;" class="table-active">رقم الهوية</th>
+                                                        <td>{{ $benficiary->national_id }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 40%; color: #19692b;" class="table-active">عدد أفراد الأسرة</th>
+                                                        <td>{{ $benficiary->family_member }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 40%; color: #19692b;" class="table-active">الدخل الشهري</th>
+                                                        <td>{{ $benficiary->income }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="width: 40%; color: #19692b;" class="table-active">تابع للجنة زكاة</th>
+                                                        <td>{{ $benficiary->Committee->name }}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                                            </div>  
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <table class="table table-striped projects text-center">
-                                            <tr>
-                                                <th style="width: 40%; color: #19692b;" class="table-active">اسم المستفيد</th>
-                                                <td>{{ $benficiary->name }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th style="width: 40%; color: #19692b;" class="table-active">رقم الجوال</th>
-                                                <td>{{ $benficiary->phone }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th style="width: 40%; color: #19692b;" class="table-active">رقم الهوية</th>
-                                                <td>{{ $benficiary->national_id }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th style="width: 40%; color: #19692b;" class="table-active">عدد أفراد الأسرة</th>
-                                                <td>{{ $benficiary->family_member }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th style="width: 40%; color: #19692b;" class="table-active">الدخل الشهري</th>
-                                                <td>{{ $benficiary->income }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th style="width: 40%; color: #19692b;" class="table-active">تابع للجنة زكاة</th>
-                                                <td>{{ $benficiary->Committee->name }}</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
-                                    </div>  
-                                </div>
-                                </div>
                                 </div>
                             <a class="btn btn-info btn-sm" href={{ URL('/dashboard/beneficiary/edit/'. $benficiary->id ) }}>
                                 <i class="fas fa-pencil-alt">

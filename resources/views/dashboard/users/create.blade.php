@@ -43,8 +43,20 @@
                         <select class="form-control custom-select" name="user_level_id" id="user_level_id">
                             <option value="" class="text-secondary" selected>المستوى</option>
                             @foreach ($levels as $level)
-                                <option value="{{ $level->id }}">
-                                {{ $level->name }}</option>
+                                @if (Auth::user()->user_level_id == 3)
+                                    @if ($level->id == 3)
+                                        <option value="{{ $level->id }}">
+                                        {{ $level->name }}</option>
+                                    @endif
+                                @elseif (Auth::user()->user_level_id == 2)
+                                    @if ($level->id > 1 )
+                                        <option value="{{ $level->id }}">
+                                        {{ $level->name }}</option>
+                                    @endif   
+                                @else
+                                    <option value="{{ $level->id }}">
+                                        {{ $level->name }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -53,8 +65,21 @@
                         <select class="form-control custom-select" name="role_id" id="role_id">
                             <option value="" class="text-secondary" selected>دور المستخدم</option>
                             @foreach ($roles as $role)
-                                <option value="{{ $role->id }}">
-                                {{ $role->name }}</option>
+                                @if (Auth::user()->user_level_id == 3)
+                                    @if ($role->user_level_id == 3)
+                                        <option value="{{ $role->id }}">
+                                            {{ $role->name }}</option>
+                                    @endif
+                                @elseif (Auth::user()->user_level_id == 2)
+                                    @if ($role->user_level_id > 1 )
+                                        <option value="{{ $role->id }}">
+                                            {{ $role->name }}</option>
+                                    @endif   
+                                @else
+                                    <option value="{{ $role->id }}">
+                                    {{ $role->name }}</option>
+                                @endif
+                                
                             @endforeach
                         </select>
                     </div>

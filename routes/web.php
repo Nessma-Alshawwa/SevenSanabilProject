@@ -61,8 +61,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/donor/update/{id}', [DonorController::class, 'update']);
     // Route::delete('/dashboard/donor/destroy/{id}', [DonorController::class, 'destroy']);
     // Route::get('/dashboard/donor/restore/{id}', [DonorController::class, 'restore']);
-    Route::get('/dashboard/donor/approve/{id}', [DonorController::class, 'approve']);
-    Route::get('/dashboard/donor/reject/{id}', [DonorController::class, 'reject']);
+    Route::post('/dashboard/donor/approve/{id}', [DonorController::class, 'approve']);
+    Route::delete('/dashboard/donor/reject/{id}', [DonorController::class, 'reject']);
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -92,6 +92,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // BenefitRequest
     Route::get('/dashboard/benefit_request', [BenefitRequestController::class, 'index']);
+    Route::get('/dashboard/benefit_request/{id}', [BenefitRequestController::class, 'show']);
+    Route::post('/dashboard/benefit_request/add_quantity/{id}', [BenefitRequestController::class, 'add_quantity']);
+    Route::post('/dashboard/benefit_request/edit_status/{id}', [BenefitRequestController::class, 'edit_status']);
+    Route::post('/dashboard/benefit_request/approve/{id}', [BenefitRequestController::class, 'approve']);
+    Route::delete('/dashboard/benefit_request/reject/{id}', [BenefitRequestController::class, 'reject']);
 });
 
 Route::get('/dashboard/donations', function () {

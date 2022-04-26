@@ -123,7 +123,7 @@
       .then((willDelete) => {
           if (willDelete) {
               $.ajax({
-                  type: "GET",
+                  type: "POST",
                   url: url+"/"+id,
                   data:  { id: id, _token: '{{csrf_token()}}' },
                   dataType: "json",
@@ -137,7 +137,7 @@
           }
       })
   };
-
+  
   function Rejectbutton(url='',id = ''){
       swal({
       title: "هل أنت متأكد من الرفض؟",
@@ -148,7 +148,7 @@
       .then((willDelete) => {
           if (willDelete) {
               $.ajax({
-                  type: "GET",
+                  type: "DELETE",
                   url: url+"/"+id,
                   data:  { id: id, _token: '{{csrf_token()}}' },
                   dataType: "json",
