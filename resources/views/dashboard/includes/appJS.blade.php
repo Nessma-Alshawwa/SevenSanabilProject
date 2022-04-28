@@ -138,6 +138,56 @@
       })
   };
 
+  function Shippingbutton(url='',id = ''){
+      swal({
+      title: "هل أنت متأكد أنه تم الشحن؟",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+              $.ajax({
+                  type: "GET",
+                  url: url+"/"+id,
+                  data:  { id: id, _token: '{{csrf_token()}}' },
+                  dataType: "json",
+                  success: function (response) {
+                      swal("تم الشحن بنجاح!", {
+                          icon: "success",
+                      });
+
+                  }
+              })
+          }
+      })
+  };
+
+  function Deliverybutton(url='',id = ''){
+      swal({
+      title: "هل أنت متأكد أنه تم التسليم؟",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+              $.ajax({
+                  type: "GET",
+                  url: url+"/"+id,
+                  data:  { id: id, _token: '{{csrf_token()}}' },
+                  dataType: "json",
+                  success: function (response) {
+                      swal("تمت التسليم بنجاح!", {
+                          icon: "success",
+                      });
+
+                  }
+              })
+          }
+      })
+  };
+
   function Rejectbutton(url='',id = ''){
       swal({
       title: "هل أنت متأكد من الرفض؟",

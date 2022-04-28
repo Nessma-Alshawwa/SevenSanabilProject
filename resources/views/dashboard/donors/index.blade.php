@@ -110,20 +110,6 @@
   @push('js')
     <script>
         $(document).ready(function () {
-
-            // $('body').on('click', '.deletebutton', function () {
-            //     var id = $(this).attr('data-value');
-            //     var url = "{{url('/dashboard/donor/destroy')}}";
-            //     console.log(id);
-            //     Deletebutton(url, id);
-            // });
-            // $('body').on('click', '.restorebutton', function () {
-            //     var id = $(this).attr('data-value');
-            //     var url = "{{url('/dashboard/donor/restore')}}";
-            //     console.log(id);
-            //     Restorebutton(url, id);
-            // });
-            
             $('body').on('click', '.approvebutton', function () {
                 var id = $(this).attr('data-value');
                 var url = "{{url('/dashboard/donor/approve')}}";

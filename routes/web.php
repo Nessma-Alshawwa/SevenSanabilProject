@@ -96,6 +96,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // DonationRequest
     Route::get('/dashboard/donation_request', [DonationRequestController::class, 'index']);
+    Route::get('/dashboard/donation_request/approve/{id}', [DonationRequestController::class, 'approve']);
+    Route::get('/dashboard/donation_request/shipping/{id}', [DonationRequestController::class, 'shipping']);
+    Route::get('/dashboard/donation_request/delivery/{id}', [DonationRequestController::class, 'delivery']);
+    Route::get('/dashboard/donation_request/reject/{id}', [DonationRequestController::class, 'reject']);
 });
 
 Route::get('/dashboard/donations', function () {
