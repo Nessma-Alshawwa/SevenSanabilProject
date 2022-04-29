@@ -62,6 +62,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/donor/update/{id}', [DonorController::class, 'update']);
     Route::get('/dashboard/donor/approve/{id}', [DonorController::class, 'approve']);
     Route::get('/dashboard/donor/reject/{id}', [DonorController::class, 'reject']);
+    // Route::delete('/dashboard/donor/destroy/{id}', [DonorController::class, 'destroy']);
+    // Route::get('/dashboard/donor/restore/{id}', [DonorController::class, 'restore']);
+    Route::post('/dashboard/donor/approve/{id}', [DonorController::class, 'approve']);
+    Route::delete('/dashboard/donor/reject/{id}', [DonorController::class, 'reject']);
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -91,14 +95,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // BenefitRequest
     Route::get('/dashboard/benefit_request', [BenefitRequestController::class, 'index']);
+    Route::get('/dashboard/benefit_request/{id}', [BenefitRequestController::class, 'show']);
+    Route::post('/dashboard/benefit_request/add_quantity/{id}', [BenefitRequestController::class, 'add_quantity']);
+    Route::post('/dashboard/benefit_request/edit_status/{id}', [BenefitRequestController::class, 'edit_status']);
+    Route::post('/dashboard/benefit_request/approve/{id}', [BenefitRequestController::class, 'approve']);
+    Route::delete('/dashboard/benefit_request/reject/{id}', [BenefitRequestController::class, 'reject']);
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // DonationRequest
     Route::get('/dashboard/donation_request', [DonationRequestController::class, 'index']);
+    Route::post('/dashboard/donation_request/add_category/{id}', [DonationRequestController::class, 'add_category']);
+    Route::post('/dashboard/donation_request/edit_status/{id}', [DonationRequestController::class, 'edit_status']);
     Route::get('/dashboard/donation_request/approve/{id}', [DonationRequestController::class, 'approve']);
-    Route::get('/dashboard/donation_request/shipping/{id}', [DonationRequestController::class, 'shipping']);
-    Route::get('/dashboard/donation_request/delivery/{id}', [DonationRequestController::class, 'delivery']);
     Route::get('/dashboard/donation_request/reject/{id}', [DonationRequestController::class, 'reject']);
 });
 

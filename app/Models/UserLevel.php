@@ -18,4 +18,7 @@ class UserLevel extends Model
     public function Role(){ // 1 - M relationship (one)
         return $this->hasMany(Role::class);
     }
+    public function Permission(){ // 1 - M relationship (one)
+        return $this->hasMany(Permission::class);
+    }
 }

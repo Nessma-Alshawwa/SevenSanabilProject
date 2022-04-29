@@ -36,10 +36,26 @@
                                 <select class="form-control custom-select" name="user_level_id" id="user_level_id">
                                     <option value="" class="text-secondary" selected>المستوى</option>
                                     @foreach ($levels as $level)
-                                        <option value="{{ $level->id }}" @if ($user->user_level_id == $level->id)
-                                            selected
-                                        @endif>
-                                        {{ $level->name }}</option>
+                                        @if (Auth::user()->user_level_id == 3)
+                                            @if ($level->id == 3)
+                                                <option value="{{ $level->id }}" @if ($user->user_level_id == $level->id)
+                                                    selected
+                                                @endif>
+                                                {{ $level->name }}</option>
+                                            @endif
+                                        @elseif (Auth::user()->user_level_id == 2)
+                                            @if ($level->id > 1 )
+                                                <option value="{{ $level->id }}" @if ($user->user_level_id == $level->id)
+                                                    selected
+                                                @endif>
+                                                {{ $level->name }}</option>
+                                            @endif   
+                                        @else
+                                            <option value="{{ $level->id }}" @if ($user->user_level_id == $level->id)
+                                                    selected
+                                                @endif>
+                                                {{ $level->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -49,10 +65,26 @@
                                     <option value="" class="text-secondary" selected>دور المستخدم</option>
                                     @foreach ($roles as $role)
                                         @foreach ($user_roles as $user_role)
-                                            <option value="{{ $role->id }}" @if ($user_role == $role->name)
-                                                selected
-                                            @endif >
-                                            {{ $role->name }}</option>
+                                            @if (Auth::user()->user_level_id == 3)
+                                                @if ($role->user_level_id == 3)
+                                                    <option value="{{ $role->id }}" @if ($user_role == $role->name)
+                                                        selected
+                                                    @endif >
+                                                    {{ $role->name }}</option>
+                                                @endif
+                                            @elseif (Auth::user()->user_level_id == 2)
+                                                @if ($role->user_level_id > 1 )
+                                                    <option value="{{ $role->id }}" @if ($user_role == $role->name)
+                                                        selected
+                                                    @endif >
+                                                    {{ $role->name }}</option>
+                                                @endif   
+                                            @else
+                                                <option value="{{ $role->id }}" @if ($user_role == $role->name)
+                                                        selected
+                                                    @endif >
+                                                    {{ $role->name }}</option>
+                                            @endif
                                         @endforeach
                                     @endforeach
                                 </select>
