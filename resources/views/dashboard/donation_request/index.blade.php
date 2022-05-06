@@ -127,7 +127,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <td>category</td>
+                                    @foreach ($DonationRequest->DonationCategory as $DonationCategory)
+                                        <td>{{ $DonationCategory->Categories->name }}</td>@break  
+                                    @endforeach
                                     <td>{{ $DonationRequest->quantity }}</td>
                                     <td><span class="badge {{ $DonationRequest->status == 0 ? 'badge-danger' : ( $DonationRequest->status == 1 ? 'badge-success' : ( $DonationRequest->status == 2 ? 'badge-warning' : ( $DonationRequest->status == 3 ? 'badge-info' : ( $DonationRequest->status == 4 ? 'badge-secondary' : '' ) ) ) ) }}">{{ config('constance.donationRequest_status.' .$DonationRequest->status) }}</span></td>
                                     <td>
@@ -148,8 +150,14 @@
                                                             <div class="modal-body">
                                                                 <form action="{{URL('/dashboard/donation_request/add_category/' . $DonationRequest->id) }}" method="POST" id="DonationRequestCategory-form">
                                                                     @csrf
-                                                                    {{-- <input type="hidden" name="id" value="{{ $DonationRequest->id }}"> --}}
-                                                                    <input class="w-100" type="text" name="name" placeholder="فئة التبرع">
+                                                                    <label for="message-text" class="col-form-label" id="label_status">فئة التبرع</label>
+                                                                    <select class="form-control custom-select" name="category">
+                                                                        <option value="" class="text-secondary">تحديد فئة التبرع</option>
+                                                                        @foreach ($Categories as $category)
+                                                                            <option value="{{ $category->id }}">
+                                                                            {{ $category->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                             </div>
                                                             <div class="modal-footer">
                                                                     <button type="submit" class="btn btn-success">تأكيد</button>
@@ -181,7 +189,7 @@
                                                                     <select class="form-control custom-select" name="status">
                                                                         <option value="" class="text-secondary">تحديد الحالة</option>
                                                                         @foreach (config('constance.donationRequest_status') as $key => $value)
-                                                                            <option value="{{ $key }}" @if ($BenefitRequest->status == $key)
+                                                                            <option value="{{ $key }}" @if ($DonationRequest->status == $key)
                                                                                 selected
                                                                             @endif>
                                                                             {{ $value }}</option>
