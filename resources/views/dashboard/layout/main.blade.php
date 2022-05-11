@@ -198,6 +198,7 @@
             {{------------ End Beneficiaries ---------------}}
 
             {{------------ BenefitRequest ---------------}}
+            @can('View Benefite Requests')
               <li class="nav-item pt-3" >
                 <a href="{{ URL('/dashboard/benefit_request') }}" class="nav-link text-white" id="{{ (request()->is('/dashboard/benefit_request')) ? 'active' : '' }}">
                   <i class="nav-icon ion ion-android-cart"></i>
@@ -206,6 +207,7 @@
                   </p>
                 </a>
               </li>
+            @endcan
             {{------------ End BenefitRequest ---------------}}
 
             {{------------ Donations ---------------}}

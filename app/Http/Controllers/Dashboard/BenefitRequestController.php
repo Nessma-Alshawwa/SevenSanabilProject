@@ -22,6 +22,7 @@ class BenefitRequestController extends Controller
 
         if ($BenefitRequest->DonationRequests->available_quantity >= $quantity){
             $BenefitRequest->amount_spent = $quantity;
+            $BenefitRequest->remaining_quantity = $BenefitRequest->required_quantity - $BenefitRequest->amount_spent;
             $BenefitRequest->status = 3; // بانتظار التسليم
         }
         $result = $BenefitRequest->save();
@@ -32,6 +33,12 @@ class BenefitRequestController extends Controller
         $BenefitRequest = BenefitRequest::with('Beneficiaries')->with('DonationRequests')->withTrashed()->findOrFail($id);
         $status = $request['status'];
         $BenefitRequest->status = $status;
+        
+        if ($BenefitRequest->status == 2) {
+            $BenefitRequest->amount_spent = 0;
+            $BenefitRequest->remaining_quantity = $BenefitRequest->required_quantity;
+        }
+
         $result = $BenefitRequest->save();
 
         return redirect('/dashboard/benefit_request')->with('add_status', $result);

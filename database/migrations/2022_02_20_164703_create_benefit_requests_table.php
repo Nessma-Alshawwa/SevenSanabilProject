@@ -19,7 +19,6 @@ class CreateBenefitRequestsTable extends Migration
             $table->string('status');
             $table->text('image');
             $table->text('description');
-            $table->integer('quantity');
             $table->integer('required_quantity');
             $table->integer('remaining_quantity');
             $table->integer('amount_spent');
