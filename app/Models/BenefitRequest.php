@@ -16,8 +16,8 @@ class BenefitRequest extends Model
     public function DonationRequests(){ // 1 - M relationship (Many)
         return $this->belongsTo(DonationRequest::class, 'donation_request_id');
     }
-    public function QuntitiesSpent(){ // 1 - M relationship (One)
-        return $this->hasMany(QuntitiesSpent::class);
+    public function QuantitiesSpent(){ // 1 - M relationship (One)
+        return $this->hasMany(QuantitiesSpent::class);
     }
     public function BenefitCategory(){ // 1 - M relationship (One)
         return $this->hasMany(BenefitCategory::class);

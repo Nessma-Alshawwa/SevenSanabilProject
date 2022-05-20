@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class QuantitiesSpent extends Model
 {
+    public $table = 'quantities_spent';
+
     use HasFactory, SoftDeletes;
     public function DonationRequests(){ // 1 - M relationship (Many)
         return $this->belongsTo(DonationRequest::class,'donation_request_id');
