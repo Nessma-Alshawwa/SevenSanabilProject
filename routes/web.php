@@ -115,3 +115,31 @@ Route::get('/dashboard/donations', function () {
     return view('dashboard.donations', ['title'=>'/التبرعات']);
 });
 
+Route::get('/Home', function () {
+    return view('Website.Home');
+});
+Route::get('/about', function () {
+    return view('Website.about');
+});
+Route::get('/clothes', function () {
+    return view('Website.clothes');
+});
+Route::get('/donateNow', function () {
+    return view('Website.donateNow');
+});
+Route::get('/electronic', function () {
+    return view('Website.electronic');
+});
+Route::get('/furnature', function () {
+    return view('Website.furnature');
+});
+Route::get('/login', function () {
+    return view('Website.login');
+});
+Route::get('/profile', function () {
+    return view('Website.profile');
+});
+Route::get('/signup', function () {
+    return view('Website.signup');
+});
+
