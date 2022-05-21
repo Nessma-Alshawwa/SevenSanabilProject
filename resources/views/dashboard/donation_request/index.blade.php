@@ -28,9 +28,9 @@
                                 <th style="width: 4%">#</th>
                                 <th style="width: 15%">طلب التبرع</th>
                                 <th style="width: 15%">رقم الهوية</th>
-                                <th style="width: 15%">الفئة</th>
-                                <th style="width: 15%">الكمية</th>
-                                <th style="width: 15%">الحالة</th>
+                                <th style="width: 10%">الفئة</th>
+                                <th style="width: 10%">الكمية المطلوبة</th>
+                                <th style="width: 10%">الحالة</th>
                                 <th style="width: 20%">الإجراءات</th>
                             </tr>
                         </thead>
@@ -81,6 +81,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @can('View Donors')
                                     <td><a href="javascript:void(0)" data-toggle="modal" data-target="#Donor" data-whatever="@getbootstrap" style="color: #23903c;">{{ $DonationRequest->Donors->national_id }}</a></td>
                                     <div class="modal fade bd-example-modal-lg" id="Donor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                                         <div class="modal-dialog modal-lg" role="document">
@@ -93,7 +94,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="container-fluid border">
-                                                        @foreach ($Donors as $donor)
+                                                    @foreach ($Donors as $donor)
                                                         @if ($donor->id == $DonationRequest->donor_id )
                                                             <div class="row border">
                                                             <div class="col-md-4 border"><h6 style="color: #19692b;">اسم المتبرع</h6>
@@ -118,7 +119,7 @@
                                                                 <div class="col-md-8"><p>{{ $donor->Committee->name }}</p></div>
                                                             </div>
                                                         @endif
-                                                        @endforeach
+                                                    @endforeach
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -127,17 +128,23 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endcan
                                     @foreach ($DonationRequest->DonationCategory as $DonationCategory)
                                         <td>{{ $DonationCategory->Categories->name }}</td>@break  
                                     @endforeach
                                     <td>{{ $DonationRequest->quantity }}</td>
+                                    <!-- <td>{{ $DonationRequest->QuantitiesSpent->sum('amount_spent') }}</td>
+                                    <td>{{ $DonationRequest->available_quantity }}</td> -->
                                     <td><span class="badge {{ $DonationRequest->status == 0 ? 'badge-danger' : ( $DonationRequest->status == 1 ? 'badge-success' : ( $DonationRequest->status == 2 ? 'badge-warning' : ( $DonationRequest->status == 3 ? 'badge-info' : ( $DonationRequest->status == 4 ? 'badge-secondary' : '' ) ) ) ) }}">{{ config('constance.donationRequest_status.' .$DonationRequest->status) }}</span></td>
                                     <td>
                                         <div class="row justify-content-center">
-                                            @if($DonationRequest->status == 2 )
+                                        @if($DonationRequest->status == 2 )
+                                            @can('Approve Donation Request')
                                                 <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#display" data-whatever="@getbootstrap" data-value="{{ $DonationRequest->id }}" class="approvebutton btn btn-info btn-sm text-white m-2">
                                                     <i class="fas fa-check"></i>  موافقة
                                                 </a>
+                                            @endcan
+                                            @can('Select Category to Donation Request')
                                                 <div class="modal fade" id="display" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
@@ -168,7 +175,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @endcan
                                                 @else
+                                                @can('Edit Status of Donation Request')
                                                 <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#edit_status" data-whatever="@getbootstrap" data-value="{{ $DonationRequest->id }}" class="btn btn-primary btn-sm text-white m-2">
                                                     <i class="fas fa-edit"></i>  تعديل الحالة
                                                 </a>
@@ -205,11 +214,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endif
+                                                @endcan
+                                        @endif
                                             @if($DonationRequest->status != 0)
-                                                <a href="javascript:void(0)" type="button" data-value="{{ $DonationRequest->id }}" class="rejectButton btn btn-danger btn-sm text-white m-2">
-                                                    <i class="fas fa-trash"></i>  رفض
-                                                </a>
+                                                @can('Reject Donation Request')
+                                                    <a href="javascript:void(0)" type="button" data-value="{{ $DonationRequest->id }}" class="rejectButton btn btn-danger btn-sm text-white m-2">
+                                                        <i class="fas fa-trash"></i>  رفض
+                                                    </a>
+                                                @endcan
                                             @endif
                                         </div>
                                     </td>
