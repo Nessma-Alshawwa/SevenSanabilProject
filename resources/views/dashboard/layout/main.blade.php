@@ -174,7 +174,7 @@
             {{------------ End Donors ---------------}}
 
             {{------------ DonationRequest ---------------}}
-            {{-- @cab('View Donation Requests')--}}
+            @can('View Donation Requests')
               <li class="nav-item pt-3" >
                 <a href="{{ URL('/dashboard/donation_request') }}" class="nav-link text-white" id="{{ (request()->is('/dashboard/donation_request')) ? 'active' : '' }}">
                   <i class="nav-icon ion ion-android-cart"></i>
@@ -183,7 +183,7 @@
                   </p>
                 </a>
               </li>
-              {{-- @endcan --}}
+              @endcan
             {{------------ End DonationRequest ---------------}}
             
             {{------------ Beneficiaries ---------------}}

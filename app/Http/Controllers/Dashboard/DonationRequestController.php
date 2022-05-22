@@ -12,6 +12,15 @@ use App\Models\QuantitiesSpent;
 
 class DonationRequestController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:View Donation Requests', ['only' => ['index']]);
+        $this->middleware('permission:Select Category to Donation Request', ['only' => ['add_category']]);
+        $this->middleware('permission:Edit Status of Donation Request', ['only' => ['edit_status']]);
+        $this->middleware('permission:Approve Donation Request', ['only' => ['approve']]);
+        $this->middleware('permission:Reject Donation Request', ['only' => ['reject']]);
+    }
+
     public function index(){
         $i = 1;
         $DonationRequests = DonationRequest::with('DonationCategory')->with('DonationCategory.Categories')->get();
