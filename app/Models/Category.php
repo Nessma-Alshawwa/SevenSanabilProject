@@ -13,6 +13,9 @@ class Category extends Model
     public function BenefitCategory(){ // 1 - M relationship (One)
         return $this->hasMany(BenefitCategory::class);
     }
+    public function ParentCategory(){ // 1 - M relationship (One)
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
     public function DonationCategory(){ // 1 - M relationship (One)
         return $this->hasMany(DonationCategory::class);
     }

@@ -3919,7 +3919,7 @@ textarea.form-control-lg {
 }
 
 .nav-link {
-  display: block;
+  /* display: block; */
   padding: 0.5rem 1rem;
   color: #198754
 ;
@@ -3932,7 +3932,7 @@ textarea.form-control-lg {
   }
 }
 .nav-link:hover, .nav-link:focus {
-  color: #0a58ca;
+  color: #80bca0;
 }
 .nav-link.disabled {
   color: #6c757d;
@@ -3961,7 +3961,7 @@ textarea.form-control-lg {
 }
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #495057;
+  color: #0f4d30;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
@@ -3978,7 +3978,7 @@ textarea.form-control-lg {
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
+  color: #0c4329;
   background-color: #046306;
 }
 

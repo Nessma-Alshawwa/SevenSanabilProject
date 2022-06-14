@@ -9,7 +9,7 @@ use App\Http\Controllers\Dashboard\CommitteeController;
 use App\Http\Controllers\Dashboard\BeneficiariesController;
 use App\Http\Controllers\Dashboard\BenefitRequestController;
 use App\Http\Controllers\Dashboard\DonationRequestController;
-
+use App\Http\Controllers\Website\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,9 +115,7 @@ Route::get('/dashboard/donations', function () {
     return view('dashboard.donations', ['title'=>'/التبرعات']);
 });
 
-Route::get('/Home', function () {
-    return view('Website.Home');
-});
+Route::get('/Home', [HomeController::class , 'index'])->name('Home');
 Route::get('/about', function () {
     return view('Website.about');
 });
@@ -127,15 +125,18 @@ Route::get('/clothes', function () {
 Route::get('/donateNow', function () {
     return view('Website.donateNow');
 });
+Route::get('/benefitNow', function () {
+    return view('Website.benefitNow');
+});
 Route::get('/electronic', function () {
     return view('Website.electronic');
 });
 Route::get('/furnature', function () {
     return view('Website.furnature');
 });
-Route::get('/login', function () {
-    return view('Website.login');
-});
+// Route::get('/login', function () {
+//     return view('Website.login');
+// });
 Route::get('/profile', function () {
     return view('Website.profile');
 });
