@@ -84,12 +84,12 @@
               </div>
               <div class="col-lg-4 col-md-6 col-sm-12 mt-md-0 mt-sm-4 mt-3">
                   <div class="box-wrap">
-                      <h4><a href="">أهدافنا</a></h4>
+                      <h4><a href="#goals">أهدافنا</a></h4>
                   </div>
               </div>
               <div class="col-lg-4 col-md-6 col-sm-12 mt-lg-0 mt-sm-4 mt-3">
                   <div class="box-wrap">
-                      <h4><a href="contact.html">طلب استفادة</a></h4>
+                      <h4><a href="{{ URL('benefitNow') }}">طلب استفادة</a></h4>
                   </div>
               </div>
           </div>
@@ -116,35 +116,44 @@
             -----------------------
           </h2>
         </div>
-      <div class="row justify-content-evenly p-4">
-        @foreach ($categories as $category)
-          <div class="col-4 rounded-pill">
-            <h5 class="text-center shadow rounded-pill p-3 color1">{{$category->name}}</h5>
-            <div style="height:600px;" class="my-2">
-              <img 
-              src="{{ asset('app/'.$category->image) }}"
-              alt=""
-              class=""
-              width="100%"
-              height="70%"
-              style="border-bottom-left-radius: 8%;
-                     border-top-right-radius: 8%"
-              >
-              <div class="d-flex justify-content-evenly pt-2">
-                <a href="{{ URL('furnature') }}"
-                class="btn btn-style btn-primary"
-                   >
-                    تصفح
-                </a>
+        <div class="row justify-content-evenly my-5">
+          @foreach ($categories as $category)
+            <div class="rounded-pill col-md-4 col-sm-12 mt-3 mb-5">
+              <h5 class="text-center shadow rounded-pill py-3 color1">{{$category->name}}</h5>
+              <div style="height:400px" class="py-2">
+                <img 
+                src="{{ asset('app/'.$category->image) }}"
+                alt=""
+                class=""
+                width="100%"
+                height="100%"
+                style="border-bottom-left-radius: 8%;
+                      border-top-right-radius: 8%"
+                >
+                <div class="d-flex justify-content-evenly pt-2">
+                  <a href="{{ URL('/categories/show/'.$category->id) }}"
+                  class="btn btn-style btn-primary"
+                    >
+                      تصفح
+                  </a>
+                </div>
               </div>
             </div>
+          @endforeach
+          <div class="text-center pt-5 mt-5">
+            <div class="d-flex justify-content-center py-3">
+              {!! $categories->links() !!}
+            </div>
+            <a href="{{ URL('categories') }}"
+                  class="btn btn-style btn-primary py-2"
+                    >
+                      عرض المزيد
+                  </a>
           </div>
-        @endforeach
-      </div>
-      {!! $categories->links() !!}
+        </div>
       </div>
        <!-- middle -->
-    <div class="middle" id="facts">
+    <div class="middle" id="goals">
       <div class="pt-lg-3 w3l-bg py-5">
         <div class="container welcome-left text-center py-3">
           <h3 class="title-big py-5">أهدافنا</h3>
@@ -169,7 +178,7 @@
           </div>
           <div class="row py-4 d-flex justify-content-evenly">
             @foreach ($DonationRequests as $DonationRequest)
-            <div class="col-4 card shadow px-2"
+            <div class="card shadow px-2 col-md-4 col-sm-12 mt-3 mb-5"
             style="width: 18rem; border-radius: 25%;">
               <h5 class="card-title text-center p-2 color1">
                 {{ $DonationRequest->title }}
@@ -195,66 +204,16 @@
                   {{ $DonationRequest->description }}
                 </p>
                 <div class="row justify-content-center">
-                  <a href="#" class="col-6 btn text-white rounded-pill bgColor3">
+                  <a href="{{URL('benefitNow/'.$DonationRequest->id)}}" class="col-6 btn text-white rounded-pill bgColor3">
                     تقديم طلب
                   </a>
                 </div>
               </div>
             </div>
             @endforeach
+            <div class="d-flex justify-content-center pt-5 mt-5">
             {!! $DonationRequests->links() !!}
-
-          </div>
-        </section>
-      </div>
-    </div>
-
-    
-    <div class="w3l-index5">
-      <div class="container">
-        <section >
-          <div class="row p-5">
-            <h2 class="text-center color1">مشاريع تنتظر دعمكم</h2>
-            <h2 class="text-center color1">
-              -----------------------
-            </h2>
-          </div>
-          <div class="row py-4 d-flex justify-content-evenly">
-            @foreach ($BenefitRequests as $BenefitRequest)
-            <div class="col-4 card shadow px-2"
-            style="width: 18rem; border-radius: 25%;">
-              <h5 class="card-title text-center p-2 color1">
-                {{ $BenefitRequest->title }}
-              </h5>
-              <img
-              src="{{ asset( $BenefitRequest->image ) }}"
-              class="card-img-top border border-success"
-              alt="..."
-              height="250"
-              style="border-radius: 25%;">
-                <div class="progress mt-4">
-                  <div class="progress-bar bgColor4"
-                        role="progressbar"
-                        style="width: 25%;"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100">
-                        25%
-                  </div>
-                </div>
-              <div class="card-body ">
-                <p class="card-text color1 text-center">
-                  {{ $BenefitRequest->description }}
-                </p>
-                <div class="row justify-content-center">
-                  <a href="#" class="col-6 btn text-white rounded-pill bgColor3">
-                    تبرع 
-                  </a>
-                </div>
-              </div>
             </div>
-            @endforeach
-            {!! $BenefitRequests->links() !!}
 
           </div>
         </section>
@@ -263,45 +222,48 @@
     <!-- --------------------------------------------------------------------------------- -->
     <!-- section3 -->
     
-      <section class="container pb-5" >
-        <div class="container row">
-          <h2 class="text-center color1">الاحصائيات</h2>
-          <h2 class="text-center color1">
-            -----------------------
-          </h2>
-        </div>
-        <div class="w-100">
-
-          <div
-           class="row justify-content-center w-100 py-5 px-5"
-           style="background-image: url({{ asset('dist/img/donate.jpg') }});
-                  background-size: cover;">
-                  <div class="col-4 w-100"
-                       style="opacity: 0.8;
-                       background-color: white;">
-                    <div class="counter text-center">
-                      <span class="fa fa-box-open text-center"></span>
-                      <div class="timer count-title count-number my-3 color1" data-to="70000" data-speed="1500"></div>
-                      <h3 class="mb-4 color1">اجمالي التبرعات</h3>
+      <section class="w3l-index5" >
+        <div class="container py-5">
+          <div class="container row">
+            <h2 class="text-center color1">الاحصائيات</h2>
+            <h2 class="text-center color1">
+              -----------------------
+            </h2>
+          </div>
+          <div class="w-100">
+  
+            <div
+             class="row justify-content-center w-100 py-5 px-5"
+             style="background-image: url({{ asset('dist/img/donate.jpg') }});
+                    background-size: cover;">
+                    <div class="col-md-4 col-sm-12 w-100"
+                         style="opacity: 0.8;
+                         background-color: white;">
+                      <div class="counter text-center">
+                        <span class="fa fa-box-open text-center"></span>
+                        <div class="timer count-title count-number my-3 color1" data-to="70000" data-speed="1500"></div>
+                        <h3 class="mb-4 color1">اجمالي التبرعات</h3>
+                      </div>
+                      <div class="counter text-center">
+                        <i class="fa fa-sack"></i>
+                        <div class="timer count-title count-number my-3 color1" data-to="70000" data-speed="1500"></div>
+                        <h3 class="mb-4 color1">عدد عمليات التبرع</h3>
+                      </div>
+                      <div class="counter text-center">
+                        <span class="fa fa-users text-center"></span>
+                        <div class="timer count-title count-number my-3 color1" data-to="70000" data-speed="1500"></div>
+                        <h3 class="mb-4 color1">عدد المستفيدين</h3>
+                      </div>
                     </div>
-                    <div class="counter text-center">
-                      <i class="fa fa-sack"></i>
-                      <div class="timer count-title count-number my-3 color1" data-to="70000" data-speed="1500"></div>
-                      <h3 class="mb-4 color1">عدد عمليات التبرع</h3>
-                    </div>
-                    <div class="counter text-center">
-                      <span class="fa fa-users text-center"></span>
-                      <div class="timer count-title count-number my-3 color1" data-to="70000" data-speed="1500"></div>
-                      <h3 class="mb-4 color1">عدد المستفيدين</h3>
-                    </div>
-                  </div>
+            </div>
+          </div>
+          <div class="row pt-5">
+            <h2 class="text-center color1">
+              (لَنْ تَنالُوا الْبِرَّ حَتَّى تُنْفِقُوا مِمَّا تُحِبُّونَ وَما تُنْفِقُوا مِنْ شَيْءٍ فَإِنَّ اللَّهَ بِهِ عَلِيمٌ)
+            </h2>
           </div>
         </div>
-        <div class="row pt-5">
-          <h2 class="text-center color1">
-            (لَنْ تَنالُوا الْبِرَّ حَتَّى تُنْفِقُوا مِمَّا تُحِبُّونَ وَما تُنْفِقُوا مِنْ شَيْءٍ فَإِنَّ اللَّهَ بِهِ عَلِيمٌ)
-          </h2>
-        </div>
+        
       </section>
 <!-- ----------------------------------------------------------------------------------------- -->
 

@@ -1456,9 +1456,9 @@ pre {
   .form-control:focus {
     color: #495057;
     background-color: #fff;
-    border-color: #ffa980;
+    border-color: #28a745;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(255, 82, 0, 0.25); }
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); }
   .form-control::-webkit-input-placeholder {
     color: #6c757d;
     opacity: 1; }
@@ -1816,7 +1816,7 @@ textarea.form-control {
     text-decoration: none; }
   .btn:focus, .btn.focus {
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(255, 82, 0, 0.25); }
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); }
   .btn.disabled, .btn:disabled {
     opacity: 0.65; }
 
@@ -1848,7 +1848,7 @@ fieldset:disabled a.btn {
     border-color: #28a745; }
     .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
     .show > .btn-primary.dropdown-toggle:focus {
-      box-shadow: 0 0 0 0.2rem rgba(255, 108, 38, 0.5); }
+      box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5); }
 
 .btn-secondary {
   color: #fff;
@@ -2718,7 +2718,7 @@ input[type="button"].btn-block {
   .custom-control-input:focus ~ .custom-control-label::before {
     box-shadow: 0 0 0 0.2rem rgba(255, 82, 0, 0.25); }
   .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
-    border-color: #ffa980; }
+    border-color: #28a745; }
   .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
     color: #fff;
     background-color: #ffcbb3;
@@ -2822,9 +2822,9 @@ input[type="button"].btn-block {
      -moz-appearance: none;
           appearance: none; }
   .custom-select:focus {
-    border-color: #ffa980;
+    border-color: #28a745;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(255, 82, 0, 0.25); }
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); }
     .custom-select:focus::-ms-value {
       color: #495057;
       background-color: #fff; }
@@ -2870,7 +2870,7 @@ input[type="button"].btn-block {
   margin: 0;
   opacity: 0; }
   .custom-file-input:focus ~ .custom-file-label {
-    border-color: #ffa980;
+    border-color: #28a745;
     box-shadow: 0 0 0 0.2rem rgba(255, 82, 0, 0.25); }
   .custom-file-input[disabled] ~ .custom-file-label,
   .custom-file-input:disabled ~ .custom-file-label {
@@ -9967,8 +9967,8 @@ a.dropdown-item:hover:before {
   text-transform: capitalize;
   transition: all 0.5s ease;
   padding: 16px 0;
-  font-size: 19px;
-  font-weight: 400;
+  font-size: 18px;
+  /* font-weight: 400; */
   position: relative;
   color: var(--heading-color); }
 

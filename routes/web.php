@@ -9,7 +9,11 @@ use App\Http\Controllers\Dashboard\CommitteeController;
 use App\Http\Controllers\Dashboard\BeneficiariesController;
 use App\Http\Controllers\Dashboard\BenefitRequestController;
 use App\Http\Controllers\Dashboard\DonationRequestController;
+use App\Http\Controllers\Website\BenefitController;
+use App\Http\Controllers\Website\CategoryController as WebsiteCategoryController;
+use App\Http\Controllers\Website\DonationController;
 use App\Http\Controllers\Website\HomeController;
+use App\Models\DonationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +26,9 @@ use App\Http\Controllers\Website\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::middleware(['auth', 'verified'])->group(function () {
     // USERS
     Route::get('/dashboard/users', [UserController::class, 'index']);
@@ -111,36 +115,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/donation_request/reject/{id}', [DonationRequestController::class, 'reject']);
 });
 
-Route::get('/dashboard/donations', function () {
-    return view('dashboard.donations', ['title'=>'/التبرعات']);
-});
 
-Route::get('/Home', [HomeController::class , 'index'])->name('Home');
+Route::get('/', [HomeController::class , 'index'])->name('Home');
+
 Route::get('/about', function () {
     return view('Website.about');
-});
-Route::get('/clothes', function () {
-    return view('Website.clothes');
-});
-Route::get('/donateNow', function () {
-    return view('Website.donateNow');
-});
-Route::get('/benefitNow', function () {
-    return view('Website.benefitNow');
-});
-Route::get('/electronic', function () {
-    return view('Website.electronic');
-});
-Route::get('/furnature', function () {
-    return view('Website.furnature');
-});
+})->name('about');
+
+Route::get('/categories', [WebsiteCategoryController::class , 'index'])->name('categories');
+Route::get('/categories/show/{id}', [WebsiteCategoryController::class , 'show'])->name('categories.show');
+
+Route::get('/donateNow', [DonationController::class, 'DonateNow'])->name('DonateNow');
+Route::post('/DonateNowRequest', [DonationController::class, 'DonateNowRequest'])->name('DonateNowRequest');
+
+
+Route::get('/benefitRequest', [BenefitController::class , 'index'])->name('benefitRequest');
+Route::get('/benefitNow/{id}',[BenefitController::class, 'show'])->name('benefitNow.show');
+Route::post('/benefitNow/{id}',[BenefitController::class, 'benefitRequest'])->name('benefitNow.benefitRequest');
+Route::get('/benefitNow', [BenefitController::class, 'BenefitNow'])->name('BenefitNow');
+Route::post('/benefitNow', [BenefitController::class, 'BenefitNowRequest'])->name('BenefitNowRequest');
+
 // Route::get('/login', function () {
 //     return view('Website.login');
 // });
-Route::get('/profile', function () {
-    return view('Website.profile');
-});
-Route::get('/signup', function () {
-    return view('Website.signup');
-});
-

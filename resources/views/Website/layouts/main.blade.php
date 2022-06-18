@@ -48,7 +48,7 @@
 <header id="site-header" class="fixed-top">
   <div class="container">
     <nav class="navbar navbar-expand-lg stroke">
-      <a class="navbar-brand" href="{{ URL('Home') }}">
+      <a class="navbar-brand" href="{{ URL('/') }}">
         <img src="{{ asset('dist/img/logo2.png') }}" class="rounded-circle" alt="" width="80" height="80" />
       </a>
       <!-- if logo is image enable this   
@@ -66,26 +66,22 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav w-100">
           <ul>
-            <li class="nav-item {{ (request()->is('Home')) ? 'active' : '' }}">
-              <a class="nav-link " aria-current="page" href="{{ URL('Home') }}"
+            <li class="nav-item {{ (request()->is('/')) ? 'active' : '' }}">
+              <a class="nav-link " aria-current="page" href="{{ URL('/') }}"
                 >الرئيسية</a
               >
             </li>
             
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                الطلبات
+            <li class="nav-item {{ (request()->is('benefitRequest')) ? 'active' : '' }}">
+              <a class="nav-link" href="{{ URL('benefitRequest') }}">
+                طلبات الاستفادة
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">طلبات التبرع</a>
-                <a class="dropdown-item" href="#">طلبات الاستفادة</a>
-              </div>
+            </li>
+            <li class="nav-item {{ (request()->is('categories')) ? 'active' : '' }}">
+              <a class="nav-link"  href="{{ URL('categories') }}">فئات التبرع</a>
             </li>
             <li class="nav-item {{ (request()->is('about')) ? 'active' : '' }}">
               <a class="nav-link"  href="{{ URL('about') }}">عن سبع سنابل</a>
-            </li>
-            <li class="nav-item {{ (request()->is('benefitNow')) ? 'active' : '' }}">
-              <a class="nav-link"  href="{{ URL('benefitNow') }}">طلب استفادة</a>
             </li>
             <li class="nav-item {{ (request()->is('login')) ? 'active' : '' }}">
               <a class="nav-link" href="{{ URL('login') }}">تسجيل الدخول</a>
@@ -144,13 +140,13 @@
         <div class="container">
           <div class="d-flex">
             <div>
-              <a class="navbar-brand" href="{{ URL('Home') }}">
+              <a class="navbar-brand" href="{{ URL('/') }}">
                 <img src="{{ asset('dist/img/logo2.png') }}" alt="" width="80" height="80" />
               </a>
             </div>
             <ul class="nav p-4">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{{ URL('Home') }}"
+                <a class="nav-link" aria-current="page" href="{{ URL('/') }}"
                   >الرئيسية</a
                 >
               </li>
@@ -229,7 +225,7 @@
         <div class="col-6 d-flex justify-content-center">
           <h5 class="text-center"><a class="nav-link text-white" href="{{ URL('about') }}">عن سبع سنابل</a></h5>
           <h5 class="text-center"><a class="nav-link text-white" href="">سياسة الخصوصية</a></h5>
-          <h5 class="text-center"><a class="nav-link text-white" href="">تبرع الآن</a></h5>
+          <h5 class="text-center"><a class="nav-link text-white" href="{{URL('donateNow')}}">تبرع الآن</a></h5>
         </div>
         </div>
   
