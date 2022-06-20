@@ -28,7 +28,7 @@
                 <div class="container rounded shadow my-5 p-5">
                         <div class="row">
                                 <div class="col-md-6 col-sm-12">
-                                        <img src="{{ asset($DonationRequest->image) }}" class="border border-success rounded shadow w-100" >
+                                        <img src="{{ asset('app/'.$DonationRequest->image) }}" class="border border-success rounded shadow w-100" >
                                 </div>
                                 <div class="col-md-6 col-sm-12 card rounded shadow w-100">
                                         <div class="card-body text-right">

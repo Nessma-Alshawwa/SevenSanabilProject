@@ -45,6 +45,11 @@
                             <button class="btn btn-success" id="save-button">تعديل</button>
                         </form>
                     </div>
+                    <div class="col-lg-4 justify-content-center">
+                        {{-- @isset($category->image) --}}
+                            <img class="card-img-bottom d-block radius-image-full" src="{{ asset('app/'.$category->image) }}" alt="صورة التصنيف">  
+                        {{-- @endisset --}}
+                    </div>
                 </div>
                 
             </div>

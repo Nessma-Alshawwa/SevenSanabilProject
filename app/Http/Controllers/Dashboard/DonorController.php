@@ -42,14 +42,14 @@ class DonorController extends Controller
     public function update(Request $request, $id){
         $donor = Donor::withTrashed()->findOrFail($id);
         $name = $request['name'];
-        $national_id = $request['national_id'];
+        // $national_id = $request['national_id'];
         $phone = $request['phone'];
-        $status = $request['status'];
+        // $status = $request['status'];
 
         $donor->name = $name;
-        $donor->national_id = $national_id;
+        // $donor->national_id = $national_id;
         $donor->phone = $phone;
-        $donor->status = $status;
+        // $donor->status = $status;
         $result = $donor->save();
         
         return redirect('dashboard/donors')->with('add_status', $result);

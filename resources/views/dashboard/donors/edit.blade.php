@@ -29,21 +29,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="national_id" class="col-form-label" id="lable_national_id">رقم الهوية</label>
-                                <input type="text" class="form-control" id="national_id" name="national_id" placeholder="رقم الهوية" value="{{ $donor->national_id }}">
+                                <input type="text" class="form-control" id="national_id" name="national_id" placeholder="رقم الهوية" value="{{ $donor->national_id }}" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="col-form-label" id="lable_phone">رقم الجوال</label>
                                 <input type="text" class="form-control" id="phone" name="phone" placeholder="رقم الجوال" value="{{ $donor->phone }}">
                             </div>
-                            <div class="form-group" id="level">
-                                <label for="message-text" class="col-form-label" id="label_status">الحالة</label>
-                                <select class="form-control custom-select" name="status" id="status">
-                                    <option value="" class="text-secondary" selected>الحالة</option>
-                                    <option value="2" class="text-secondary" >قيد الانتظار</option>
-                                    <option value="1" class="text-secondary" >تمت الموافقة</option>
-                                    <option value="0" class="text-secondary" >تم الرفض</option>
-                                </select>
-                            </div>
+                            
                             <button class="btn btn-success" id="save-button">تعديل</button>
                         </form>
                     </div>

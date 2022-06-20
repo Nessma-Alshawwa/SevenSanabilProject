@@ -213,14 +213,14 @@
             {{------------ End BenefitRequest ---------------}}
 
             {{------------ Donations ---------------}}
-              <li class="nav-item pt-3" >
+              {{-- <li class="nav-item pt-3" >
                 <a href="{{ URL('dashboard/donations') }}" class="nav-link text-white" id="{{ (request()->is('dashboard/donations')) ? 'active' : '' }}">
                   <i class="nav-icon ion ion-android-cart"></i>
                   <p>
                     التبرعات
                   </p>
                 </a>
-              </li>
+              </li> --}}
             {{------------ End Donations ---------------}}
 
             {{------------ Committees ---------------}}
@@ -286,7 +286,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ URL('dashboard/index') }}" class="nav-link" style="color: #19692b;">الرئيسية</a>
+        <a href="{{ URL('/') }}" class="nav-link" style="color: #19692b;">الرئيسية</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link" style="color: #19692b;">تواصل</a>

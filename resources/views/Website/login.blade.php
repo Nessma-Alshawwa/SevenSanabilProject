@@ -5,7 +5,7 @@
     <h1 class="text-center mt-4 mb-4 color1">
         تسجيل الدخول
     </h1>
-    <form class="shadow mx-auto mb-4 p-4"
+    <form class="shadow mx-auto mb-4 p-4 text-right"
             style="width:40%; height: 400px;">
         <div class="mb-4">
             <h6 for="exampleInputEmail1"
@@ -29,27 +29,24 @@
                     type="checkbox"
                     class="form-check-input"
                     id="exampleCheck1">
-            <label class="form-check-label color1"
+            <label class="form-check-label color1 px-4"
                     for="exampleCheck1">
                     تذكرني
             </label>
         </div>
-        <div class="d-flex justify-content-between">
-            <a href="#" class="color2">
-                 هل نسيت كلمة السر؟
-            </a>
+        <div class="mb-4">
+            <a href="#" class="color2 col-md-12">
+                هل نسيت كلمة السر؟
+           </a>
+        </div>
+        <div class="mb-4 text-center">
+            
             <button type="submit"
-                        class="btn text-white bgColor1">
+                        class="btn text-white bgColor1 w-50 ">
                         تسجيل الدخول
             </button>
         </div>
     </form>
-    <div class="row mt-4 mb-4">
-        <h5 class="text-center color1">
-            ليس لديك حساب؟
-            <a href="{{ URL('signup') }}" class="color2">تسجيل جديد</a>
-        </h5>
-    </div>
 </div>
 <!-- ----------------------------------------------------------------------------------------- -->
 @stop

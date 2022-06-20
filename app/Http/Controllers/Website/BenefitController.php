@@ -65,54 +65,54 @@ class BenefitController extends Controller
         $result = $BenefitRequest->save();
         return redirect()->back()->with('add_status', $result);
     }
-    public function BenefitNow(){
-        $committees = Committee::get();
-        return view('Website.Benefit.BenefitNow', ['committees'=> $committees]);
-    }
+    // public function BenefitNow(){
+    //     $committees = Committee::get();
+    //     return view('Website.Benefit.BenefitNow', ['committees'=> $committees]);
+    // }
 
-    public function BenefitNowRequest(Request $request){
-        $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'national_id' => 'required|numeric',
-            'family_member' => 'required|numeric',
-            'income' => 'required|numeric',
-            'title' => 'required',
-            'required_quantity' => 'required|numeric',
-            'description' => 'required',
-        ]);
-        $Beneficiary = Beneficiary::where('national_id', $request->national_id)->first();
-        $BenefitRequest = new BenefitRequest();
-        if($Beneficiary){
-            $BenefitRequest->title = $request['title'];
-            // $BenefitRequest->status = 2;
-            $BenefitRequest->description = $request['description'];
-            $BenefitRequest->required_quantity = $request['required_quantity'];
-            $BenefitRequest->remaining_quantity = $BenefitRequest->required_quantity;
-            $BenefitRequest->amount_spent = 0;
-            $BenefitRequest->beneficiary_id = $Beneficiary->id;
-        }else{
-            $beneficiary = new Beneficiary();
-            $beneficiary->name = $request['name'];
-            $beneficiary->phone = $request['phone'];
-            $beneficiary->national_id = $request['national_id'];
-            $beneficiary->family_member = $request['family_member'];
-            $beneficiary->income = $request['income'];
-            $beneficiary->committee_id  = $request['committee_id'];
-            $beneficiary->save();
+    // public function BenefitNowRequest(Request $request){
+    //     $request->validate([
+    //         'name' => 'required',
+    //         'phone' => 'required',
+    //         'national_id' => 'required|numeric',
+    //         'family_member' => 'required|numeric',
+    //         'income' => 'required|numeric',
+    //         'title' => 'required',
+    //         'required_quantity' => 'required|numeric',
+    //         'description' => 'required',
+    //     ]);
+    //     $Beneficiary = Beneficiary::where('national_id', $request->national_id)->first();
+    //     $BenefitRequest = new BenefitRequest();
+    //     if($Beneficiary){
+    //         $BenefitRequest->title = $request['title'];
+    //         // $BenefitRequest->status = 2;
+    //         $BenefitRequest->description = $request['description'];
+    //         $BenefitRequest->required_quantity = $request['required_quantity'];
+    //         $BenefitRequest->remaining_quantity = $BenefitRequest->required_quantity;
+    //         $BenefitRequest->amount_spent = 0;
+    //         $BenefitRequest->beneficiary_id = $Beneficiary->id;
+    //     }else{
+    //         $beneficiary = new Beneficiary();
+    //         $beneficiary->name = $request['name'];
+    //         $beneficiary->phone = $request['phone'];
+    //         $beneficiary->national_id = $request['national_id'];
+    //         $beneficiary->family_member = $request['family_member'];
+    //         $beneficiary->income = $request['income'];
+    //         $beneficiary->committee_id  = $request['committee_id'];
+    //         $beneficiary->save();
 
-            $beneficiary = Beneficiary::where('national_id', $request->national_id)->first();
+    //         $beneficiary = Beneficiary::where('national_id', $request->national_id)->first();
 
-            $BenefitRequest->title = $request['title'];
-            // $BenefitRequest->status = 2;
-            $BenefitRequest->description = $request['description'];
-            $BenefitRequest->required_quantity = $request['required_quantity'];
-            $BenefitRequest->remaining_quantity = $BenefitRequest->required_quantity;
-            $BenefitRequest->amount_spent = 0;
-            $BenefitRequest->beneficiary_id = $beneficiary->id;
-        }
-        $result = $BenefitRequest->save();
-        return redirect()->back()->with('add_status', $result);
+    //         $BenefitRequest->title = $request['title'];
+    //         // $BenefitRequest->status = 2;
+    //         $BenefitRequest->description = $request['description'];
+    //         $BenefitRequest->required_quantity = $request['required_quantity'];
+    //         $BenefitRequest->remaining_quantity = $BenefitRequest->required_quantity;
+    //         $BenefitRequest->amount_spent = 0;
+    //         $BenefitRequest->beneficiary_id = $beneficiary->id;
+    //     }
+    //     $result = $BenefitRequest->save();
+    //     return redirect()->back()->with('add_status', $result);
 
-    }
+    // }
 }

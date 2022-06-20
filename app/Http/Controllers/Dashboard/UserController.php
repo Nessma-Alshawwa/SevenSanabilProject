@@ -77,6 +77,12 @@ class UserController extends Controller
     }
 
     public function store(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'role_id' => 'required|numeric'
+        ]);
         $name = $request['name'];
         $email = $request['email'];
         $password = Hash::make($request['password']);
@@ -133,6 +139,10 @@ class UserController extends Controller
 
     public function update(Request $request, $id){
         $user = User::withTrashed()->findOrFail($id);
+        $request->validate([
+            'user_level_id' => 'required',
+            'role_id' => 'required|numeric'
+        ]);
 
         $user_level_id = $request['user_level_id'];
         $committee_id = $request['committee_id'];
@@ -157,11 +167,64 @@ class UserController extends Controller
                 DB::table('model_has_roles')->insert(['role_id' => $role_id , 'model_type' => "App\Models\User" , 'model_id' => $user->id]);
             }
         }
-        return response()->json([
-            'status'=> [$result],
-            'success'=> true,
-            $result
+        return redirect()->back()->with('add_status', $result);
+        // response()->json([
+        //     'status'=> [$result],
+        //     'success'=> true,
+        //     $result
+        // ]);
+    }
+
+    public function profileEdit($id){
+        $user = User::withTrashed()->findOrFail($id);
+        $levels = UserLevel::get();
+        $committees = Committee::get();
+        $donors = Donor::get();
+
+        $roles = Role::all();
+        $user_roles = $user->getRoleNames();
+
+        // dd($roles);
+        if($user->profile_photo_path !== null){
+            $img_link = Storage::url($user->profile_photo_path);
+    	    $user->profile_photo_path = $img_link;
+        }
+        // return ($user_role);
+        return view('dashboard.users.profileEdit', ['title'=> '/المستخدمين/تعديل الملف الشخصي', 'user'=>$user, 'levels'=> $levels, 'committees'=> $committees, 'donors'=> $donors, 'user_roles'=>$user_roles, 'roles'=>$roles ]);
+        
+    }
+
+    public function profileUpdate(Request $request, $id){
+        $user = User::withTrashed()->findOrFail($id);
+        $request->validate([
+            'name' => 'required',
         ]);
+
+        $name = $request['name'];
+        $committee_id = $request['committee_id'];
+
+        if($request->file('image')){
+            $image = $request->file('image');
+            $path = 'uploads/images/';
+            $image_name = time()+rand(1, 10000000000) . '.' . $image->getClientOriginalExtension();
+            Storage::disk('local')->put($path.$image_name , file_get_contents($image));
+            Storage::disk('local')->exists($path.$image_name);
+            $image = $path.$image_name;
+        }else{
+            $image = $user->profile_photo_path;
+        }
+        
+        $user->name = $name;
+        $user->committee_id = $committee_id;
+        $user->profile_photo_path = $image;
+        $result = $user->save();
+        return redirect()->back()->with('add_status', $result);
+
+        // return response()->json([
+        //     'status'=> [$result],
+        //     'success'=> true,
+        //     $result
+        // ]);
     }
 
     public function destroy($id){

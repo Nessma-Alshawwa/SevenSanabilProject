@@ -74,7 +74,7 @@
     </div>
     <!-- banner image bottom shape -->
     <!-- home page block1 -->
-    <section class="homeblock1">
+    {{-- <section class="homeblock1">
       <div class="container">
           <div class="row">
               <div class="col-lg-4 col-md-6 col-sm-12">
@@ -94,7 +94,7 @@
               </div>
           </div>
       </div>
-    </section>
+    </section> --}}
     <!-- middle -->
     <div class="middle py-5" id="facts">
       <div class="container pt-lg-3">
@@ -178,18 +178,18 @@
           </div>
           <div class="row py-4 d-flex justify-content-evenly">
             @foreach ($DonationRequests as $DonationRequest)
-            <div class="card shadow px-2 col-md-4 col-sm-12 mt-3 mb-5"
+            <div class="card shadow col-md-3 col-sm-12 m-4"
             style="width: 18rem; border-radius: 25%;">
               <h5 class="card-title text-center p-2 color1">
                 {{ $DonationRequest->title }}
               </h5>
               <img
-              src="{{ asset( $DonationRequest->image ) }}"
+              src="{{ asset( 'app/'.$DonationRequest->image ) }}"
               class="card-img-top border border-success"
               alt="..."
-              height="250"
+              height="350"
               style="border-radius: 25%;">
-                <div class="progress mt-4">
+                {{-- <div class="progress mt-4">
                   <div class="progress-bar bgColor4"
                         role="progressbar"
                         style="width: 25%;"
@@ -198,11 +198,11 @@
                         aria-valuemax="100">
                         25%
                   </div>
-                </div>
+                </div> --}}
               <div class="card-body ">
-                <p class="card-text color1 text-center">
+                {{-- <p class="card-text color1 text-center">
                   {{ $DonationRequest->description }}
-                </p>
+                </p> --}}
                 <div class="row justify-content-center">
                   <a href="{{URL('benefitNow/'.$DonationRequest->id)}}" class="col-6 btn text-white rounded-pill bgColor3">
                     تقديم طلب
@@ -211,10 +211,16 @@
               </div>
             </div>
             @endforeach
-            <div class="d-flex justify-content-center pt-5 mt-5">
-            {!! $DonationRequests->links() !!}
+            <div class="text-center pt-5 mt-5">
+              <div class="d-flex justify-content-center py-3">
+                {!! $DonationRequests->links() !!}
+              </div>
+              <a href="{{ URL('benefitRequest') }}"
+                    class="btn btn-style btn-primary py-2"
+                      >
+                        عرض المزيد
+                    </a>
             </div>
-
           </div>
         </section>
       </div>

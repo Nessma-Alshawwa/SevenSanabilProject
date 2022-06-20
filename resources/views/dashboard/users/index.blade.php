@@ -20,25 +20,28 @@
             <table id ="dataTable" class="table-bordered table-striped projects basic-dark-color w-100">
                 <thead style="color: #19692b;" class="text-center">
                     <tr>
-                        <th style="width: 4%">
+                        <th style="width: 1%">
                             #
                         </th>
                         <th style="width: 15%">
                             الاسم 
                         </th>
+                        <th style="width: 15%">
+                            الصورة الشخصية 
+                        </th>
                         <th style="width: 20%">
                             البريد الإلكتروني 
                         </th>
-                        <th style="width: 13%">
+                        <th style="width: 10%">
                             دور المستخدم 
                         </th>
-                        <th style="width: 13%">
+                        <th style="width: 10%">
                             اللجنة 
                         </th>
-                        <th style="width: 13%">
+                        <th style="width: 10%">
                             المتبرع 
                         </th>
-                        <th style="width: 20%">
+                        <th style="width: 19%">
                             الإجراءات
                         </th>
                     </tr>
@@ -53,6 +56,11 @@
                             <a>
                                 {{ $user->name }}
                             </a>
+                        </td>
+                        <td>
+                            @isset($user->profile_photo_path)
+                                <img class="card-img-bottom m-auto p-2 d-block radius-image-full w-50 rounded-circle" src="{{ asset('app/'.$user->profile_photo_path) }}" alt="صورة المستخدم">  
+                            @endisset
                         </td>
                         <td>
                             <a>
@@ -100,7 +108,9 @@
                                         @endcan
                                     @endif
                                 @else
-                                    <a>لا يوجد أي اجراءات</a>
+                                <a href="{{ URL('/dashboard/profile/edit/'. Auth::user()->id ) }}" type="button" data-value="{{ Auth::user()->id }}" class="btn btn-primary btn-sm text-white m-2">
+                                    <i class="fas fa-edit"></i>  تعديل البيانات
+                                </a>
                                 @endif
                             </div>
                         </td>

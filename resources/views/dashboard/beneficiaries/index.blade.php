@@ -24,19 +24,20 @@
         <table class="table table-striped projects">
             <thead style="color: #19692b;">
                 <tr>
-                    <th style="width: 1%">
+                    <th style="width: 5%">
                         #
                     </th>
-                    <th style="width: 20%">
+                    <th >
                         اسم المستفيد
                     </th>
-                    <th style="width: 20%">
+                    <th >
                         رقم الهوية
                     </th>
-                    <th>
+                    {{-- <th>
                         نسبة الاستفادة
-                    </th>
-                    <th style="width: 20%">
+                    </th> --}}
+                    <th >
+                        الإجراءات
                     </th>
                 </tr>
             </thead>
@@ -58,7 +59,7 @@
                         <td>
                             <a href="#" style="color: #23903c;">{{ $benficiary->national_id }}</a>
                         </td>
-                        <td class="project_progress">
+                        {{-- <td class="project_progress">
                             <div class="progress progress-sm">
                                 <div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%">
                                     <small>
@@ -67,8 +68,8 @@
                                 </div>
                             </div>
                             
-                        </td>
-                        <td class="project-actions text-right">
+                        </td> --}}
+                        <td class="project-actions">
                             <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#display" data-whatever="@getbootstrap" data-value={{ $benficiary->id }} class="btn btn-primary btn-sm show-benficiary" >
                                 <i class="fas fa-folder">
                                 </i>

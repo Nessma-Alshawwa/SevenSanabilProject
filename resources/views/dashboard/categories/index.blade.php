@@ -37,6 +37,9 @@
                             الاسم 
                         </th>
                         <th style="width: 20%">
+                            الصورة 
+                        </th>
+                        <th style="width: 20%">
                             الإجراءات
                         </th>
                     </tr>
@@ -50,6 +53,12 @@
                         <td>
                             <a>
                                 {{ $category->name }}
+                            </a>
+                        </td>
+                        <td>
+                            <a>
+                                <img src="{{ asset('app/'. $category->image) }}" class="w-50 p-3" alt="category Image">
+                                
                             </a>
                         </td>
                         <td class="project-actions text-right">

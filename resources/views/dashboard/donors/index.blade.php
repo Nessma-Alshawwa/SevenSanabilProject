@@ -19,7 +19,7 @@
                 <div class="alert alert-danger m-3">فشل تعديل بيانات المتبرع</div>
             @endif
         @endif
-        <div id="success_message"></div>
+        
         {{-- {!! $dataTable->table([
             'id' => 'dataTable',
             'class'=> 'dataTable table-bordered table-striped projects basic-dark-color w-100'
@@ -100,7 +100,7 @@
                     
                 </tbody>
             </table>
-    </div>
+    </>
       <!-- /.card-body -->
     </div>
     <!-- /.card -->

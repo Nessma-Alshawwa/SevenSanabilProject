@@ -21,17 +21,27 @@
                             <div class="alert alert-danger m-3">فشلت الموافقة على الطلب</div>
                         @endif
                     @endif
+
+                    @can('Add new Donation')
+                        <a type="button" class="btn btn-success m-2" href="{{ URL('/dashboard/DonateNow') }}" id="createNewUser">إضافة تبرع عيني جديدة</a>
+                    @endcan
                     <div class="table-responsive">
                     <table class="table m-0" >
                         <thead style="color: #19692b;">
                             <tr>
                                 <th style="width: 4%">#</th>
                                 <th style="width: 15%">طلب التبرع</th>
+                                @can('View Donors')
                                 <th style="width: 15%">رقم الهوية</th>
-                                <th style="width: 10%">الفئة</th>
-                                <th style="width: 10%">الكمية المطلوبة</th>
+                                @endcan
+                                <th style="width: 15%">صورة للطلب</th>
+                                {{-- <th style="width: 10%">الفئة</th> --}}
+                                <th style="width: 10%">الكمية</th>
                                 <th style="width: 10%">الحالة</th>
+                                @can('Edit Donation Action')
+                                    
                                 <th style="width: 20%">الإجراءات</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -51,8 +61,8 @@
                                                 <div class="modal-body">
                                                     <div class="modal-body">
                                                         <div class="container-fluid border">
-                                                          <div class="row border">
-                                                            <img src="{{ asset($DonationRequest->image) }}" alt="donation Image">
+                                                          <div class="row border justify-content-center">
+                                                            <img src="{{ asset('app/'.$DonationRequest->image) }}" height="300px" alt="donation Image">
                                                           </div>
                                                           <div class="row border">
                                                             <div class="col-md-4 border"><h6 style="color: #19692b;">العنوان</h6>
@@ -76,7 +86,7 @@
                                                       </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                                                    <button type="reset" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
                                                 </div>  
                                             </div>
                                         </div>
@@ -129,15 +139,45 @@
                                         </div>
                                     </div>
                                     @endcan
-                                    @foreach ($DonationRequest->DonationCategory as $DonationCategory)
-                                        <td>{{ $DonationCategory->Categories->name }}</td>@break  
-                                    @endforeach
+                                    <td>
+                                        <img src="{{ asset('app/'. $DonationRequest->image) }}" class="w-50" alt="donation Image">
+                                    </td>
                                     <td>{{ $DonationRequest->quantity }}</td>
                                     <!-- <td>{{ $DonationRequest->QuantitiesSpent->sum('amount_spent') }}</td>
                                     <td>{{ $DonationRequest->available_quantity }}</td> -->
                                     <td><span class="badge {{ $DonationRequest->status == 0 ? 'badge-danger' : ( $DonationRequest->status == 1 ? 'badge-success' : ( $DonationRequest->status == 2 ? 'badge-warning' : ( $DonationRequest->status == 3 ? 'badge-info' : ( $DonationRequest->status == 4 ? 'badge-secondary' : '' ) ) ) ) }}">{{ config('constance.donationRequest_status.' .$DonationRequest->status) }}</span></td>
+                                    @can('Edit Donation Action')
                                     <td>
                                         <div class="row justify-content-center">
+                                            <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#add_image" data-whatever="@getbootstrap" class="btn btn-outline-success btn-sm m-2 col-md-9">
+                                                <i class="fas fa-edit"></i>إضافة/تعديل صورة 
+                                            </a>
+                                            <div class="modal fade" id="add_image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-success">
+                                                            <h5 class="modal-title" id="exampleModalLabel">إضافة صورة للطلب</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="{{URL('/dashboard/donation_request/add_image/' . $DonationRequest->id) }}" method="POST" id="DonationRequestStatus-form" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label for="image" class="col-form-label" id="lable_image">صورة الطلب</label>
+                                                                    <input type="file" name="image" class="form-control image" id="formFile" />
+                                                                </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-success">تأكيد</button>
+                                                            </form>
+
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @if($DonationRequest->status == 2 )
                                             @can('Approve Donation Request')
                                                 <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#display" data-whatever="@getbootstrap" data-value="{{ $DonationRequest->id }}" class="approvebutton btn btn-info btn-sm text-white m-2">
@@ -225,6 +265,8 @@
                                             @endif
                                         </div>
                                     </td>
+                                    @endcan
+                                    
                                 </tr>
                             @endforeach
                         </tbody>

@@ -13,6 +13,9 @@ class BenefitRequestController extends Controller
     public function index(){
         $BenefitRequests = BenefitRequest::with('Beneficiaries')->with('DonationRequests')->get();
         $Donors = Donor::all();
+        // foreach($BenefitRequests as $BenefitRequest){
+        //     return $BenefitRequest;
+        // }
         return view('dashboard.benefit_request.index', ['title'=> '/طلبات الاستفادة', 'BenefitRequests'=> $BenefitRequests, 'Donors' => $Donors]);
     }
     

@@ -51,10 +51,7 @@
       <a class="navbar-brand" href="{{ URL('/') }}">
         <img src="{{ asset('dist/img/logo2.png') }}" class="rounded-circle" alt="" width="80" height="80" />
       </a>
-      <!-- if logo is image enable this   
-    <a class="navbar-brand" href="#index.html">
-        <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
-    </a> -->
+      <!-- Authentication Links -->
       <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
         data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -83,11 +80,8 @@
             <li class="nav-item {{ (request()->is('about')) ? 'active' : '' }}">
               <a class="nav-link"  href="{{ URL('about') }}">عن سبع سنابل</a>
             </li>
-            <li class="nav-item {{ (request()->is('login')) ? 'active' : '' }}">
-              <a class="nav-link" href="{{ URL('login') }}">تسجيل الدخول</a>
-            </li>
-            <li class="nav-item"></li>
           </ul>
+            <li class="nav-item"></li>
           <li class="ml-lg-auto mr-lg-0 m-auto">
             <!--/search-right-->
             <div class="search-right">
@@ -110,13 +104,42 @@
           <!--//search-right-->
           </li>
           <li class="align-self">
-            <a href="{{ URL('donateNow') }}" class="btn btn-style btn-primary ml-lg-3 mr-lg-2"> تبرع الآن <span class="fa fa-heart mr-1"></span></a>
+            <a href="{{ URL('donateNow') }}" class="btn btn-style btn-primary "> تبرع الآن <span class="fa fa-heart mr-1"></span></a>
           </li>
+          <div>
+            @if (Auth::guest())
+              <li class="nav-item {{ (request()->is('login')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('login') }}">تسجيل الدخول</a></li>
+            @else
+                <li class="nav-item dropdown">
+                    <a href="#" class=" dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      <div class="image">
+                        <img src="{{ Auth::user()->profile_photo_path ? asset(Storage::url(Auth::user()->profile_photo_path)) : Auth::user()->profile_photo_url }}" class="rounded-circle" width="50" height="50" alt="User Image">
+                      </div>
+                    </a>
+    
+                    <ul class="dropdown-menu text-right" role="menu">
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ URL('/dashboard')}}">لوحة التحكم</a>
+                      </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">تسجيل الخروج
+                            </a>
+    
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            @endif
+          </div>
         </ul>
       </div>
       <!-- toggle switch for light and dark theme -->
       <div class="mobile-position">
-        <nav class="navigation">
+        <nav class="navigation text-right">
           <div class="theme-switch-wrapper">
             <label class="theme-switch" for="checkbox">
               <input type="checkbox" id="checkbox">
@@ -128,71 +151,13 @@
           </div>
         </nav>
       </div>
+      
+
       <!-- //toggle switch for light and dark theme -->
     </nav>
   </div>
 </header>
-<!-- //header -->
 
-
-    {{-- <header class="fixed-top">
-      <nav class="navbar navbar-expand-md bg-white navbar-light p-0">
-        <div class="container">
-          <div class="d-flex">
-            <div>
-              <a class="navbar-brand" href="{{ URL('/') }}">
-                <img src="{{ asset('dist/img/logo2.png') }}" alt="" width="80" height="80" />
-              </a>
-            </div>
-            <ul class="nav p-4">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{{ URL('/') }}"
-                  >الرئيسية</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ URL('donateNow') }}">تبرع الأن</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ URL('about') }}">معلومات عنا</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ URL('login') }}">تسجيل الدخول</a>
-              </li>
-              <li class="nav-item"></li>
-            </ul>
-          </div>
-          <div class="d-flex justify-content-evenly">
-            <img
-              class="m-4"
-              src="{{ asset('dist/img/notification.png') }}"
-              alt=""
-              width="25"
-              height="25"
-            />
-            <form>
-              <input
-                class="form-control mt-4"
-                type="search"
-                placeholder="بحث"
-                aria-label="Search"
-              />
-            </form>
-
-            <a href="{{ URL('profile') }}">
-              <img
-                src="{{ asset('dist/img/avatar.png') }}"
-                alt="mdo"
-                width="40"
-                height="40"
-                class="rounded-circle m-4"
-              />
-            </a>
-          </div>
-        </div>
-      </nav>
-
-    </header> --}}
 <div class="mt-5 pt-5">
   @yield('MainContent')
 </div>

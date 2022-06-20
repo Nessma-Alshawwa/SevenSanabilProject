@@ -36,6 +36,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/user/store', [UserController::class, 'store']);
     Route::get('/dashboard/user/edit/{id}', [UserController::class, 'edit']);
     Route::post('/dashboard/user/update/{id}', [UserController::class, 'update']);
+    Route::get('/dashboard/profile/edit/{id}', [UserController::class, 'profileEdit']);
+    Route::post('/dashboard/profile/update/{id}', [UserController::class, 'profileUpdate']);
     Route::delete('/dashboard/user/destroy/{id}', [UserController::class, 'destroy']);
     Route::get('/dashboard/user/restore/{id}', [UserController::class, 'restore']);
 });
@@ -66,8 +68,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/dashboard/donor/update/{id}', [DonorController::class, 'update']);
     Route::get('/dashboard/donor/approve/{id}', [DonorController::class, 'approve']);
     Route::get('/dashboard/donor/reject/{id}', [DonorController::class, 'reject']);
-    // Route::delete('/dashboard/donor/destroy/{id}', [DonorController::class, 'destroy']);
-    // Route::get('/dashboard/donor/restore/{id}', [DonorController::class, 'restore']);
     Route::post('/dashboard/donor/approve/{id}', [DonorController::class, 'approve']);
     Route::delete('/dashboard/donor/reject/{id}', [DonorController::class, 'reject']);
 });
@@ -111,8 +111,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/donation_request', [DonationRequestController::class, 'index']);
     Route::post('/dashboard/donation_request/add_category/{id}', [DonationRequestController::class, 'add_category']);
     Route::post('/dashboard/donation_request/edit_status/{id}', [DonationRequestController::class, 'edit_status']);
+    Route::post('/dashboard/donation_request/add_image/{id}', [DonationRequestController::class, 'add_image']);
     Route::get('/dashboard/donation_request/approve/{id}', [DonationRequestController::class, 'approve']);
     Route::get('/dashboard/donation_request/reject/{id}', [DonationRequestController::class, 'reject']);
+    Route::get('/dashboard/DonateNow', [DonationRequestController::class, 'DonateNow']);
+    Route::post('/dashboard/DonateNowRequest', [DonationRequestController::class, 'DonateNowRequest']);
 });
 
 
@@ -132,8 +135,8 @@ Route::post('/DonateNowRequest', [DonationController::class, 'DonateNowRequest']
 Route::get('/benefitRequest', [BenefitController::class , 'index'])->name('benefitRequest');
 Route::get('/benefitNow/{id}',[BenefitController::class, 'show'])->name('benefitNow.show');
 Route::post('/benefitNow/{id}',[BenefitController::class, 'benefitRequest'])->name('benefitNow.benefitRequest');
-Route::get('/benefitNow', [BenefitController::class, 'BenefitNow'])->name('BenefitNow');
-Route::post('/benefitNow', [BenefitController::class, 'BenefitNowRequest'])->name('BenefitNowRequest');
+// Route::get('/benefitNow', [BenefitController::class, 'BenefitNow'])->name('BenefitNow');
+// Route::post('/benefitNow', [BenefitController::class, 'BenefitNowRequest'])->name('BenefitNowRequest');
 
 // Route::get('/login', function () {
 //     return view('Website.login');

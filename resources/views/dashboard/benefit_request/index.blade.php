@@ -41,104 +41,106 @@
                         <tbody>
                             @foreach ($BenefitRequests as $BenefitRequest)
                                 <tr>
-                                    <td><a href="javascript:void(0)" data-toggle="modal" data-target="#donation_request" data-whatever="@getbootstrap" data-value="{{ $BenefitRequest->donation_request_id }}" style="color: #23903c;">{{ $BenefitRequest->DonationRequests->title	}}</a></td>
-                                    @can('View Donation Requests')
-                                        <div class="modal fade bd-example-modal-lg" id="donation_request" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header bg-success">
-                                                        <h5 class="modal-title" id="exampleModalLabel">معلومات التبرع</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="modal-body">
-                                                            <div class="container-fluid border">
-                                                            <div class="row border">
-                                                                <img src="{{ asset($BenefitRequest->DonationRequests->image) }}" alt="donation Image">
-                                                            </div>
-                                                            <div class="row border">
-                                                                <div class="col-md-4 border"><h6 style="color: #19692b;">العنوان</h6>
-                                                                    </div>
-                                                                <div class="col-md-8"><p>{{ $BenefitRequest->DonationRequests->title }}</p></div>
-                                                            </div>
-                                                            
-                                                            <div class="row border">
-                                                                <div class="col-md-4 border"><h6 style="color: #19692b;">الوصف</h6>
-                                                                    </div>
-                                                                <div class="col-md-8"><p>{{ $BenefitRequest->DonationRequests->description }}</p></div>
-                                                            </div>
-                                                            
-                                                            <div class="row border">
-                                                                <div class="col-md-4 border"><h6 style="color: #19692b;">الكمية</h6>
-                                                                    </div>
-                                                                <div class="col-md-8"><p>{{ $BenefitRequest->DonationRequests->quantity }}</p></div>
-                                                            </div>
-                                                            
-                                                            <div class="row border">
-                                                                <div class="col-md-4 border"><h6 style="color: #19692b;">الكمية المتاحة</h6>
-                                                                    </div>
-                                                                <div class="col-md-8"><p>{{ $BenefitRequest->DonationRequests->available_quantity }}</p></div>
-                                                            </div>
-                                                            @foreach ($Donors as $donor)
-                                                                @if ($donor->id == $BenefitRequest->DonationRequests->donor_id )
-                                                                    <div class="row border">
-                                                                        <div class="col-md-4 border"><h6 style="color: #19692b;">بواسطة المتبرع</h6>
-                                                                            </div>
-                                                                        <div class="col-md-8"><p>{{ $donor->name }}</p></div>
-                                                                    </div>    
-                                                                    <div class="row border">
-                                                                        <div class="col-md-4 border"><h6 style=" color: #19692b;">رقم هوية المتبرع</h6>
-                                                                            </div>
-                                                                        <div class="col-md-8"><p>{{ $donor->national_id }}</p></div>
-                                                                    </div>    
-                                                                @endif
-                                                            @endforeach
-                                                            </div>
+                                    <td>
+                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#donation_request" data-whatever="@getbootstrap" data-value="{{ $BenefitRequest->donation_request_id }}" style="color: #23903c;">{{ $BenefitRequest->DonationRequests->title	}}</a></td>
+                                        @can('View Donation Requests')
+                                            <div class="modal fade bd-example-modal-lg" id="donation_request" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-success">
+                                                            <h5 class="modal-title" id="exampleModalLabel">معلومات التبرع</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
                                                         </div>
-                                                        {{-- <table class="table projects text-center">
-                                                            <tr>
-                                                                <th style="width: 40%; color: #19692b;" class="table-active">العنوان</th>
-                                                                <td>{{ $BenefitRequest->DonationRequests->title }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th style="width: 40%; color: #19692b;" class="table-active">الصورة</th>
-                                                                <td><img src="{{ asset($BenefitRequest->DonationRequests->image) }}" class="img-circle elevation-2" alt="donation Image"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th style="width: 40%; color: #19692b;" class="table-active">الوصف</th>
-                                                                <td>{{ $BenefitRequest->DonationRequests->description }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th style="width: 40%; color: #19692b;" class="table-active">الكمية</th>
-                                                                <td>{{ $BenefitRequest->DonationRequests->quantity }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th style="width: 40%; color: #19692b;" class="table-active">الكمية المتاحة</th>
-                                                                <td>{{ $BenefitRequest->DonationRequests->available_quantity }}</td>
-                                                            </tr>
-                                                            @foreach ($Donors as $donor)
-                                                                @if ($donor->id == $BenefitRequest->DonationRequests->donor_id )
-                                                                    <tr>
-                                                                        <th style="width: 40%; color: #19692b;" class="table-active">بواسطة المتبرع</th>
-                                                                        <td>{{ $donor->name }}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style="width: 40%; color: #19692b;" class="table-active">رقم هوية المتبرع</th>
-                                                                        <td>{{ $donor->national_id  }}</td>
-                                                                    </tr>
-                                                                @endif
-                                                            @endforeach
-                                                        </table> --}}
+                                                        <div class="modal-body">
+                                                            <div class="modal-body">
+                                                                <div class="container-fluid border">
+                                                                <div class="row border">
+                                                                    <img src="{{ asset($BenefitRequest->DonationRequests->image) }}" alt="donation Image">
+                                                                </div>
+                                                                <div class="row border">
+                                                                    <div class="col-md-4 border"><h6 style="color: #19692b;">العنوان</h6>
+                                                                        </div>
+                                                                    <div class="col-md-8"><p>{{ $BenefitRequest->DonationRequests->title }}</p></div>
+                                                                </div>
+                                                                
+                                                                <div class="row border">
+                                                                    <div class="col-md-4 border"><h6 style="color: #19692b;">الوصف</h6>
+                                                                        </div>
+                                                                    <div class="col-md-8"><p>{{ $BenefitRequest->DonationRequests->description }}</p></div>
+                                                                </div>
+                                                                
+                                                                <div class="row border">
+                                                                    <div class="col-md-4 border"><h6 style="color: #19692b;">الكمية</h6>
+                                                                        </div>
+                                                                    <div class="col-md-8"><p>{{ $BenefitRequest->DonationRequests->quantity }}</p></div>
+                                                                </div>
+                                                                
+                                                                <div class="row border">
+                                                                    <div class="col-md-4 border"><h6 style="color: #19692b;">الكمية المتاحة</h6>
+                                                                        </div>
+                                                                    <div class="col-md-8"><p>{{ $BenefitRequest->DonationRequests->available_quantity }}</p></div>
+                                                                </div>
+                                                                @foreach ($Donors as $donor)
+                                                                    @if ($donor->id == $BenefitRequest->DonationRequests->donor_id )
+                                                                        <div class="row border">
+                                                                            <div class="col-md-4 border"><h6 style="color: #19692b;">بواسطة المتبرع</h6>
+                                                                                </div>
+                                                                            <div class="col-md-8"><p>{{ $donor->name }}</p></div>
+                                                                        </div>    
+                                                                        <div class="row border">
+                                                                            <div class="col-md-4 border"><h6 style=" color: #19692b;">رقم هوية المتبرع</h6>
+                                                                                </div>
+                                                                            <div class="col-md-8"><p>{{ $donor->national_id }}</p></div>
+                                                                        </div>    
+                                                                    @endif
+                                                                @endforeach
+                                                                </div>
+                                                            </div>
+                                                            {{-- <table class="table projects text-center">
+                                                                <tr>
+                                                                    <th style="width: 40%; color: #19692b;" class="table-active">العنوان</th>
+                                                                    <td>{{ $BenefitRequest->donation_requests->title }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style="width: 40%; color: #19692b;" class="table-active">الصورة</th>
+                                                                    <td><img src="{{ asset($BenefitRequest->donation_requests->image) }}" class="img-circle elevation-2" alt="donation Image"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style="width: 40%; color: #19692b;" class="table-active">الوصف</th>
+                                                                    <td>{{ $BenefitRequest->donation_requests->description }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style="width: 40%; color: #19692b;" class="table-active">الكمية</th>
+                                                                    <td>{{ $BenefitRequest->donation_requests->quantity }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style="width: 40%; color: #19692b;" class="table-active">الكمية المتاحة</th>
+                                                                    <td>{{ $BenefitRequest->donation_requests->available_quantity }}</td>
+                                                                </tr>
+                                                                @foreach ($Donors as $donor)
+                                                                    @if ($donor->id == $BenefitRequest->donation_requests->donor_id )
+                                                                        <tr>
+                                                                            <th style="width: 40%; color: #19692b;" class="table-active">بواسطة المتبرع</th>
+                                                                            <td>{{ $donor->name }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th style="width: 40%; color: #19692b;" class="table-active">رقم هوية المتبرع</th>
+                                                                            <td>{{ $donor->national_id  }}</td>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
+                                                            </table> --}}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                                                        </div>  
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
-                                                    </div>  
                                                 </div>
-                                            </div>
-                                        </div>  
-                                    @endcan
+                                            </div>  
+                                        @endcan
+                                        
                                     
                                     <td><a href="javascript:void(0)" data-toggle="modal" data-target="#Beneficiary" data-whatever="@getbootstrap" style="color: #23903c;">{{ $BenefitRequest->Beneficiaries->national_id }}</a></td>
                                     @can('View Beneficiaries')
