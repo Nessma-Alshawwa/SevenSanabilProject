@@ -30,19 +30,19 @@
             <table id ="dataTable" class="table-bordered table-striped projects basic-dark-color w-100">
                 <thead style="color: #19692b;" class="text-center">
                     <tr>
-                        <th style="width: 4%">
+                        <th style="width: 1%">
                             #
                         </th>
-                        <th style="width: 15%">
+                        <th style="width: 14%">
                             الاسم 
                         </th>
-                        <th style="width: 20%">
+                        <th style="width: 15%">
                             المنطقة 
                         </th>
-                        <th style="width: 13%">
+                        <th style="width: 15%">
                             مدير اللجنة 
                         </th>
-                        <th style="width: 13%">
+                        <th style="width: 35%">
                             الوصف 
                         </th>
                         <th style="width: 20%">

@@ -48,8 +48,8 @@
                             @foreach ($DonationRequests as $DonationRequest)
                                 <tr>
                                     <td>{{$i++}}</td>
-                                    <td><a href="javascript:void(0)" data-toggle="modal" data-target="#donation_request" style="color: #23903c;">{{ $DonationRequest->title	}}</a></td>
-                                    <div class="modal fade bd-example-modal-lg" id="donation_request" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                    <td><a href="javascript:void(0)" data-toggle="modal" data-target="#donation_request{{ $DonationRequest->id }}" data-value="{{ $DonationRequest->id }}" style="color: #23903c;">{{ $DonationRequest->title	}}</a></td>
+                                    <div class="modal fade bd-example-modal-lg" id="donation_request{{ $DonationRequest->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header bg-success">
@@ -92,8 +92,8 @@
                                         </div>
                                     </div>
                                     @can('View Donors')
-                                    <td><a href="javascript:void(0)" data-toggle="modal" data-target="#Donor" data-whatever="@getbootstrap" style="color: #23903c;">{{ $DonationRequest->Donors->national_id }}</a></td>
-                                    <div class="modal fade bd-example-modal-lg" id="Donor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                    <td><a href="javascript:void(0)" data-toggle="modal" data-target="#Donor{{ $DonationRequest->id }}" data-value="{{ $DonationRequest->id }}" data-whatever="@getbootstrap" style="color: #23903c;">{{ $DonationRequest->Donors->national_id }}</a></td>
+                                    <div class="modal fade bd-example-modal-lg" id="Donor{{ $DonationRequest->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header bg-success">
@@ -142,17 +142,17 @@
                                     <td>
                                         <img src="{{ asset('app/'. $DonationRequest->image) }}" class="w-50" alt="donation Image">
                                     </td>
-                                    <td>{{ $DonationRequest->quantity }}</td>
+                                    <td>{{ $DonationRequest->available_quantity }}</td>
                                     <!-- <td>{{ $DonationRequest->QuantitiesSpent->sum('amount_spent') }}</td>
                                     <td>{{ $DonationRequest->available_quantity }}</td> -->
                                     <td><span class="badge {{ $DonationRequest->status == 0 ? 'badge-danger' : ( $DonationRequest->status == 1 ? 'badge-success' : ( $DonationRequest->status == 2 ? 'badge-warning' : ( $DonationRequest->status == 3 ? 'badge-info' : ( $DonationRequest->status == 4 ? 'badge-secondary' : '' ) ) ) ) }}">{{ config('constance.donationRequest_status.' .$DonationRequest->status) }}</span></td>
                                     @can('Edit Donation Action')
                                     <td>
                                         <div class="row justify-content-center">
-                                            <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#add_image" data-whatever="@getbootstrap" class="btn btn-outline-success btn-sm m-2 col-md-9">
+                                            <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#add_image{{ $DonationRequest->id }}" data-value="{{ $DonationRequest->id }}" data-whatever="@getbootstrap" class="btn btn-outline-success btn-sm m-2 col-md-9">
                                                 <i class="fas fa-edit"></i>إضافة/تعديل صورة 
                                             </a>
-                                            <div class="modal fade" id="add_image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="add_image{{ $DonationRequest->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header bg-success">
@@ -180,12 +180,12 @@
                                             </div>
                                         @if($DonationRequest->status == 2 )
                                             @can('Approve Donation Request')
-                                                <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#display" data-whatever="@getbootstrap" data-value="{{ $DonationRequest->id }}" class="approvebutton btn btn-info btn-sm text-white m-2">
+                                                <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#display{{ $DonationRequest->id }}" data-whatever="@getbootstrap" data-value="{{ $DonationRequest->id }}" class="approvebutton btn btn-info btn-sm text-white m-2">
                                                     <i class="fas fa-check"></i>  موافقة
                                                 </a>
                                             @endcan
                                             @can('Select Category to Donation Request')
-                                                <div class="modal fade" id="display" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="display{{ $DonationRequest->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header bg-success">
@@ -218,10 +218,10 @@
                                                 @endcan
                                                 @else
                                                 @can('Edit Status of Donation Request')
-                                                <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#edit_status" data-whatever="@getbootstrap" data-value="{{ $DonationRequest->id }}" class="btn btn-primary btn-sm text-white m-2">
+                                                <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#edit_status{{ $DonationRequest->id }}" data-whatever="@getbootstrap" data-value="{{ $DonationRequest->id }}" class="btn btn-primary btn-sm text-white m-2">
                                                     <i class="fas fa-edit"></i>  تعديل الحالة
                                                 </a>
-                                                <div class="modal fade" id="edit_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="edit_status{{ $DonationRequest->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header bg-success">

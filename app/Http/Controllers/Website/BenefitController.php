@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class BenefitController extends Controller
 {
     public function index(){
-        $DonationRequests = DonationRequest::where('status', 1)->with('DonationCategory.Categories')->paginate(9);
+        $DonationRequests = DonationRequest::where('status', 1)->where('available_quantity', '>', 0)->with('DonationCategory.Categories')->paginate(9);
         return view('Website.Benefit.benefitRequest', ['DonationRequests'=> $DonationRequests]);
     }
     public function show($id){

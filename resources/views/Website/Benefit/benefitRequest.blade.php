@@ -34,7 +34,9 @@
             </div>
             @endforeach
         </div>
-      {!! $DonationRequests->links() !!}
+        <div class="d-flex justify-content-center py-3">
+            {!! $DonationRequests->links() !!}
+          </div>
 
     </div>
 </div>

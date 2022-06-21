@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">الوصف</label>
-                                <textarea class="form-control" id="description" name="description" rows="3">{{ $committee->description }}</textarea>
+                                <textarea class="form-control" id="description" name="description" rows="7">{{ $committee->description }}</textarea>
                             </div>
                             <button class="btn btn-success" id="save-button">تعديل</button>
                         </form>

@@ -42,9 +42,9 @@
                             @foreach ($BenefitRequests as $BenefitRequest)
                                 <tr>
                                     <td>
-                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#donation_request" data-whatever="@getbootstrap" data-value="{{ $BenefitRequest->donation_request_id }}" style="color: #23903c;">{{ $BenefitRequest->DonationRequests->title	}}</a></td>
+                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#donation_request{{ $BenefitRequest->id }}" data-whatever="@getbootstrap" data-value="{{ $BenefitRequest->donation_request_id }}" style="color: #23903c;">{{ $BenefitRequest->DonationRequests->title	}}</a></td>
                                         @can('View Donation Requests')
-                                            <div class="modal fade bd-example-modal-lg" id="donation_request" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                            <div class="modal fade bd-example-modal-lg" id="donation_request{{ $BenefitRequest->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                                                 <div class="modal-dialog modal-lg" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header bg-success">
@@ -56,9 +56,6 @@
                                                         <div class="modal-body">
                                                             <div class="modal-body">
                                                                 <div class="container-fluid border">
-                                                                <div class="row border">
-                                                                    <img src="{{ asset($BenefitRequest->DonationRequests->image) }}" alt="donation Image">
-                                                                </div>
                                                                 <div class="row border">
                                                                     <div class="col-md-4 border"><h6 style="color: #19692b;">العنوان</h6>
                                                                         </div>
@@ -142,9 +139,9 @@
                                         @endcan
                                         
                                     
-                                    <td><a href="javascript:void(0)" data-toggle="modal" data-target="#Beneficiary" data-whatever="@getbootstrap" style="color: #23903c;">{{ $BenefitRequest->Beneficiaries->national_id }}</a></td>
+                                    <td><a href="javascript:void(0)" data-toggle="modal" data-target="#Beneficiary{{ $BenefitRequest->id }}" data-whatever="@getbootstrap" style="color: #23903c;">{{ $BenefitRequest->Beneficiaries->national_id }}</a></td>
                                     @can('View Beneficiaries')
-                                        <div class="modal fade bd-example-modal-lg" id="Beneficiary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                        <div class="modal fade bd-example-modal-lg" id="Beneficiary{{ $BenefitRequest->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                                             <div class="modal-dialog modal-lg" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-success">
@@ -207,11 +204,11 @@
                                         <div class="row justify-content-center">
                                             @if($BenefitRequest->status == 2 )
                                                 @can('Approve Benefite Request')
-                                                    <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#display" data-whatever="@getbootstrap" data-value="{{ $BenefitRequest->id }}" class="approvebutton btn btn-info btn-sm text-white m-2">
+                                                    <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#display{{ $BenefitRequest->id }}" data-whatever="@getbootstrap" data-value="{{ $BenefitRequest->id }}" class="approvebutton btn btn-info btn-sm text-white m-2">
                                                         <i class="fas fa-check"></i>  موافقة
                                                     </a>
                                                     @can('Add Quantity to Benefite Request')
-                                                        <div class="modal fade" id="display" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade" id="display{{ $BenefitRequest->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header bg-success">
@@ -239,10 +236,10 @@
                                                 @endcan
                                             @elseif($BenefitRequest->status != 0 )
                                                 @can('Edit Status of Benefite Request')
-                                                    <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#edit_status" data-whatever="@getbootstrap" data-value="{{ $BenefitRequest->id }}" class="btn btn-primary btn-sm text-white m-2">
+                                                    <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#edit_status{{ $BenefitRequest->id }}" data-whatever="@getbootstrap" data-value="{{ $BenefitRequest->id }}" class="btn btn-primary btn-sm text-white m-2">
                                                         <i class="fas fa-edit"></i>  تعديل الحالة
                                                     </a>
-                                                    <div class="modal fade" id="edit_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="edit_status{{ $BenefitRequest->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header bg-success">

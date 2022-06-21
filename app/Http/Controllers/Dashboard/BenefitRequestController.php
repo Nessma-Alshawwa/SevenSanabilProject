@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BenefitRequest;
 use App\Models\Beneficiary;
+use App\Models\DonationRequest;
 use App\Models\Donor;
 use Illuminate\Support\Str;
 class BenefitRequestController extends Controller
@@ -26,9 +27,15 @@ class BenefitRequestController extends Controller
         if ($BenefitRequest->DonationRequests->available_quantity >= $quantity){
             $BenefitRequest->amount_spent = $quantity;
             $BenefitRequest->remaining_quantity = $BenefitRequest->required_quantity - $BenefitRequest->amount_spent;
+            $donation_request_id = $BenefitRequest->donation_request_id;
+            $donation_request = DonationRequest::findOrFail($donation_request_id);
+
+            $donation_request->available_quantity = $donation_request->available_quantity - $BenefitRequest->amount_spent;
+            $donation_request->save();
             $BenefitRequest->status = 3; // بانتظار التسليم
         }
         $result = $BenefitRequest->save();
+
         return redirect('/dashboard/benefit_request')->with('add_status', $result);
         
     }

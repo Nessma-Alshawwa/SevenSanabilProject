@@ -70,12 +70,12 @@
                             
                         </td> --}}
                         <td class="project-actions">
-                            <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#display" data-whatever="@getbootstrap" data-value={{ $benficiary->id }} class="btn btn-primary btn-sm show-benficiary" >
+                            <a href="javascript:void(0)" type="button" data-toggle="modal" data-target="#display{{ $benficiary->id }}" data-whatever="@getbootstrap" data-value="{{ $benficiary->id }}" class="btn btn-primary btn-sm show-benficiary" >
                                 <i class="fas fa-folder">
                                 </i>
                                 فحص
                             </a>
-                                <div class="modal fade" id="display" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="display{{ $benficiary->id }}" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
