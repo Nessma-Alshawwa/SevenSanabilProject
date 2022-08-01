@@ -76,17 +76,21 @@ class DonationRequestController extends Controller
         $result = $donationRequest->save();
         return redirect()->back()->with('add_status', $result);
     }
-    public function add_category(Request $request, $id){
+    public function approve_request(Request $request, $id){
         $DonationRequests = DonationRequest::with('DonationCategory')->with('DonationCategory.Categories')->findOrFail($id);
 
-        if ($request['category']){
-            $DonationRequests->status = 1; // تمت الموافقة
-        }
+        // if ($request['category']){
+        //     $DonationRequests->status = 1; // تمت الموافقة
+        // }
         $category = $request['category'];
+        $status = $request['status'];
+        $quantity = $request['quantity'];
         $DonationCategory = new DonationCategory();
         $DonationCategory->donation_request_id = $id;
         $DonationCategory->category_id = $category;
         $result = $DonationCategory->save();
+        $DonationRequests->status = $status;
+        $DonationRequests->available_quantity = $quantity;
         $DonationRequests->save();
         return redirect('/dashboard/donation_request')->with('add_status', $result);
         

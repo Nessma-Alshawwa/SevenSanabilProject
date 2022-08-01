@@ -189,15 +189,15 @@
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header bg-success">
-                                                                <h5 class="modal-title" id="exampleModalLabel">يجب إدخال فئة التبرع !!</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">يجب إدخال بعض البيانات  !!</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="{{URL('/dashboard/donation_request/add_category/' . $DonationRequest->id) }}" method="POST" id="DonationRequestCategory-form">
+                                                                <form action="{{URL('/dashboard/donation_request/approve_request/' . $DonationRequest->id) }}" method="POST" id="DonationRequestCategory-form">
                                                                     @csrf
-                                                                    <label for="message-text" class="col-form-label" id="label_status">فئة التبرع</label>
+                                                                    <label for="message-text" class="col-form-label" id="label_status">يجب إدخال فئة التبرع !!</label>
                                                                     <select class="form-control custom-select" name="category">
                                                                         <option value="" class="text-secondary">تحديد فئة التبرع</option>
                                                                         @foreach ($Categories as $category)
@@ -205,6 +205,25 @@
                                                                             {{ $category->name }}</option>
                                                                         @endforeach
                                                                     </select>
+
+                                                                    <label for="message-text" class="col-form-label" id="label_status">يجب إدخال حالة التبرع !!</label>
+                                                                    <select class="form-control custom-select" name="status" id="status">
+                                                                        <option value="" class="text-secondary">تحديد الحالة</option>
+                                                                        @foreach (config('constance.donationRequest_status') as $key => $value)
+                                                                            @if ($key == 1 || $key > 2)
+                                                                                <option value="{{ $key }}" @if ($DonationRequest->status == $key)
+                                                                                    selected
+                                                                                @endif>
+                                                                                {{ $value }}</option>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </select>
+                                                                    <div id="quantity">
+                                                                        <label for="message-text" class="col-form-label" id="label_status">يجب إدخال قيمة التبرع !!</label>
+                                                                        <input class="w-100" type="number" min="1" name="quantity" placeholder="الكمية التي سيتم التبرع بها">
+                                                                    </div>
+                                                                    
+
                                                             </div>
                                                             <div class="modal-footer">
                                                                     <button type="submit" class="btn btn-success">تأكيد</button>
@@ -238,10 +257,12 @@
                                                                     <select class="form-control custom-select" name="status">
                                                                         <option value="" class="text-secondary">تحديد الحالة</option>
                                                                         @foreach (config('constance.donationRequest_status') as $key => $value)
-                                                                            <option value="{{ $key }}" @if ($DonationRequest->status == $key)
-                                                                                selected
-                                                                            @endif>
-                                                                            {{ $value }}</option>
+                                                                            @if ($key >= 1)
+                                                                                <option value="{{ $key }}" @if ($DonationRequest->status == $key)
+                                                                                    selected
+                                                                                @endif>
+                                                                                {{ $value }}</option>
+                                                                            @endif
                                                                         @endforeach
                                                                     </select>
                                                             </div>
@@ -290,6 +311,15 @@
                     console.log(id);
                     Rejectbutton(url, id);
                 });
+                $("#status").change(function(){
+                $(this).find("option:selected").each(function(){
+                    var optionValue = $(this).attr("value");
+                    $('#quantity').hide();
+                    if(optionValue == 1 || optionValue > 2){
+                        $('#quantity').show();
+                    }
+                });
+            }).change();
             });
 
         </script>

@@ -90,6 +90,7 @@
                                 </select>
                             
                             </div>
+                        @if (Auth::user()->user_level_id == 1)
                             <div class="form-group" id="committee">
                                 <label for="message-text" class="col-form-label" id="label_committee">تابع للجنة زكاة</label>
                                 <select class="form-control custom-select" name="committee_id">
@@ -103,6 +104,7 @@
                                 </select>
                             
                             </div>
+                        @elseif (Auth::user()->user_level_id >= 2)
                             <div class="form-group" id="donor">
                                 <label for="message-text" class="col-form-label" id="label_donor">المتبرع</label>
                                 <select class="form-control custom-select" name="donor_id">
@@ -116,6 +118,7 @@
                                 </select>
                             
                             </div>
+                        @endif
                             <button class="btn btn-success" id="save-button">تعديل</button>
                         </form>
                     </div>

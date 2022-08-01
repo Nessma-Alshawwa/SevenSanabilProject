@@ -99,7 +99,7 @@
     <div class="middle py-5" id="facts">
       <div class="container pt-lg-3">
         <div class="welcome-left text-center py-md-5 py-3">
-                  <h3 class="title-big">أكثر من 99% من طلبات التبرع تذهب مباشرة لتغطية طلبات الاستفادة والمستفيدين.</h3>
+                  <h3 class="title-big">أكثر من 99% من طلبات التبرع تذهب مباشرة لتغطية طلبات المستفيدين.</h3>
                   <p class="my-3">أقل من 1% للإدارة والخدمات والتخزين.</p>
                   <h4>شكراً لدعمكم المتواصل <span class="fa fa-heart mr-1"></span></h4>
           <a href="{{ URL('donateNow') }}" class="btn btn-style btn-primary mt-sm-5 mt-4">تبرع الآن  <span class="fa fa-heart mr-1"></span></a>

@@ -13,7 +13,7 @@ use App\DataTables\UsersDataTable;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
-use DB;
+use Illuminate\Support\Facades\DB ;
 
 class UserController extends Controller
 {
@@ -55,7 +55,7 @@ class UserController extends Controller
     public function create(){
         $levels = UserLevel::get();
         $committees = Committee::get();
-        $donors = Donor::get();
+        $donors = Donor::where('status', 1)->get();
         $roles = Role::all();
         
         $user = auth()->user();
@@ -86,8 +86,19 @@ class UserController extends Controller
         $name = $request['name'];
         $email = $request['email'];
         $password = Hash::make($request['password']);
-        $committee_id = $request['committee_id'];
-        $donor_id = $request['donor_id'];
+
+        if(auth()->user()->user_level_id == 2 ){
+            $committee_id = auth()->user()->committee_id;
+            $donor_id = $request['donor_id'];
+
+        }elseif(auth()->user()->user_level_id == 3){
+            $committee_id = auth()->user()->committee_id;
+            $donor_id = auth()->user()->donor_id; 
+        }else{
+            $committee_id = $request['committee_id'];
+            $donor_id = $request['donor_id'];
+        }
+        
         $role_id = $request['role_id'];
 
         if($request['user_level_id']){
@@ -113,7 +124,7 @@ class UserController extends Controller
         $user->donor_id =$donor_id;
         $result = $user->save();
 
-        DB::table('model_has_roles')->insert(['role_id' => request('role_id') , 'model_type' => "App\Models\User" , 'model_id' => $user->id]);
+        DB::table('model_has_roles')->insert(['role_id' => $role_id , 'model_type' => "App\Models\User" , 'model_id' => $user->id]);
 
         return redirect()->back()->with('add_status', $result);
     }
@@ -122,7 +133,7 @@ class UserController extends Controller
         $user = User::withTrashed()->findOrFail($id);
         $levels = UserLevel::get();
         $committees = Committee::get();
-        $donors = Donor::get();
+        $donors = Donor::where('status', 1)->get();
 
         $roles = Role::all();
         $user_roles = $user->getRoleNames();
@@ -145,8 +156,18 @@ class UserController extends Controller
         ]);
 
         $user_level_id = $request['user_level_id'];
-        $committee_id = $request['committee_id'];
-        $donor_id = $request['donor_id'];
+        
+        if(auth()->user()->user_level_id == 2 ){
+            $committee_id = auth()->user()->committee_id;
+            $donor_id = $request['donor_id'];
+        }elseif(auth()->user()->user_level_id == 3){
+            $committee_id = auth()->user()->committee_id;
+            $donor_id = auth()->user()->donor_id; 
+        }else{
+            $committee_id = $request['committee_id'];
+            $donor_id = $request['donor_id'];
+        }
+
         $role_id = $request['role_id'];
 
 

@@ -1,4 +1,5 @@
-
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
 <script src="{{ asset('dist/js/theme-change.js')}}"></script><!-- theme switch js (light and dark)-->
 <script src="{{ asset('dist/js/owl.carousel.js')}}"></script>
 <script src="{{ asset('dist/js/jquery-3.6.0.min.js')}}"></script>

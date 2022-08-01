@@ -109,7 +109,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // DonationRequest
     Route::get('/dashboard/donation_request', [DonationRequestController::class, 'index']);
-    Route::post('/dashboard/donation_request/add_category/{id}', [DonationRequestController::class, 'add_category']);
+    Route::post('/dashboard/donation_request/approve_request/{id}', [DonationRequestController::class, 'approve_request']);
     Route::post('/dashboard/donation_request/edit_status/{id}', [DonationRequestController::class, 'edit_status']);
     Route::post('/dashboard/donation_request/add_image/{id}', [DonationRequestController::class, 'add_image']);
     Route::get('/dashboard/donation_request/approve/{id}', [DonationRequestController::class, 'approve']);
